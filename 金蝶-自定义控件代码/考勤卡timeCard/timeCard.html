@@ -1,0 +1,296 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>time card</title>
+    <link rel="stylesheet" href="font/iconfont.css">
+    <script src="../../jquery/各个版本jQuery/jquery-1.10.2.js"></script>
+    <link href="./datePicker/css/datePicker.css" rel="stylesheet">
+    <link rel="stylesheet" href="./css/timeCard.css">
+
+</head>
+<body>
+    <div class="wrap">
+        <div class="text" style="padding: 20px; background-color: #ccc;">
+            <button onclick="allOpen()">全展开</button>
+            <button onclick="allFold()">全收起</button>
+            <button onclick="allAbnormal()">展开异常</button>
+            <button onclick="allPage()">全屏</button>
+            <button onclick="refresh_totalData()">刷新汇总数据</button>
+            <button onclick="refresh_allData()">改变头部日期</button>
+            <button onclick="refresh_allData1()">改变头部日期1</button>
+        </div>
+
+        <div class="wtc_timeCard_container">
+            <div class="wtc_timeCard_card-allPage-btn">x</div>
+            <div class="wtc_timeCard_card-record">
+                <div class="wtc_timeCard_card-record-header">
+                    <div>日期</div>
+                    <div>排班</div>
+                    <div>开始</div>
+                    <div>结束</div>
+                    <div>考勤项目</div>
+                    <div>时长</div>
+                    <div>单位</div>
+                    <div style="border-right: none;">班次时段（休息）</div>
+                </div>
+                <div class="wtc_timeCard_card-record-main"></div>
+            </div>
+            <div class="wtc_timeCard_data-total">
+                <div class="wtc_timeCard_data-total-line"></div>
+                <div class="wtc_timeCard_data-total-btns wtc_timeCard_clearfix">
+                    <div class="wtc_timeCard_total-left-btns">
+                        <div class="wtc_timeCard_btn-selected-range wtc_timeCard_left-btn-active">默认已选范围</div>
+                        <div class="wtc_timeCard_btn-custom">自定义</div>
+                        <div class="wtc_timeCard_date-picker"></div>
+                    </div>
+                    <div class="wtc_timeCard_total-right-btns">
+                        <div class="wtc_timeCard_btn-attendance-total wtc_timeCard_right-btn-active">出勤汇总</div>
+                        <div class="wtc_timeCard_btn-operation-log">操作日志</div>
+                    </div>
+                </div>
+                <div class="wtc_timeCard_data-total-main">
+                    <div class="wtc_timeCard_total-main-attendance"></div>
+                    <div class="wtc_timeCard_total-main-operation-log wtc_timeCard_total-main-hide">
+                        <div class="wtc_timeCard_operation-log-header">
+                            <div>序号</div>
+                            <div>日期</div>
+                            <div>时间</div>
+                            <div>类型</div>
+                            <div>子类型</div>
+                            <div>考勤项目</div>
+                            <div>备注</div>
+                            <div>数据产生时间日期</div>
+                            <div>操作人</div>
+                            <div>数据源</div>
+                        </div>
+                        <div class="wtc_timeCard_operation-log-main"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="wtc_timeCard_data-total-fold-btn">汇总<i class="icon iconfont icon-sousuo"></i></div>
+            <div class="wtc_timeCard_dialog-wrap">
+                <div class="wtc_timeCard_dialog">
+                    <div class="wtc_timeCard_dialog-title">异常确定</div>
+                    <div class="wtc_timeCard_dialog-text">是否确定异常</div>
+                    <div class="wtc_timeCard_dialog-btns wtc_timeCard_clearfix">
+                        <div class="wtc_timeCard_dialog-confirm-btn">确定</div>
+                        <div class="wtc_timeCard_dialog-cancel-btn">取消</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+<script type="text/javascript" src="./datePicker/js/manifest.js"></script>
+<script type="text/javascript" src="./datePicker/js/vendor1.js"></script>
+<script type="text/javascript" src="./datePicker/js/datePicker.js"></script>
+<script src="js/timeCard.js"></script>
+<script>
+    var rootDom = document.querySelector('.wrap');
+
+    var data = {
+        cardRecord: [
+            [{value:'2021-05-01', abnormal:false, color: 'yellow'}, {value: '08:30-17:30'}, {value:'08:10', actual:false, abnormal:false}, {value:'18:10', actual:false, abnormal:false}, {value:''}, {value:'10:00'}, {value:'hh:mm'}, {value:'09:00'}],
+            [{value:'2021-05-01', abnormal:false, color: 'blue'}, {value: ''}, {value:'08:10', actual:true, abnormal:true}, {value:'08:30', actual:false, abnormal:false}, {value:'加班时长'}, {value:'00:20'}, {value:'hh:mm'}, {value:''}],
+            [{value:'2021-05-01', abnormal:false, color: 'green'}, {value: '08:30-12:00'}, {value:'08:30', actual:false, abnormal:false}, {value:'12:00', actual:false, abnormal:false}, {value:'出勤时长'}, {value:'03:30'}, {value:'hh:mm'}, {value:'03:30'}],
+            [{value:'2021-05-01', abnormal:false, color: 'yellow'}, {value: '12:00-13:00'}, {value:'12:00', actual:false, abnormal:false}, {value:'13:00', actual:false, abnormal:false}, {value:'休息时长'}, {value:'01:00'}, {value:'hh:mm'}, {value:'01:00'}],
+            [{value:'2021-05-01', abnormal:false, color: 'yellow'}, {value: '13:00-17:30'}, {value:'13:00', actual:false, abnormal:false}, {value:'17:30', actual:false, abnormal:false}, {value:'出勤时长'}, {value:'04:30'}, {value:'hh:mm'}, {value:'04:30'}],
+            [{value:'2021-05-01', abnormal:false, color: 'green'}, {value: ''}, {value:'17:30', actual:false, abnormal:false}, {value:'18:10', actual:true, abnormal:true}, {value:'加班时长'}, {value:'00:40'}, {value:'hh:mm'}, {value:''}],
+
+            [{value:'2021-05-03', abnormal:true, color: 'green'}, {value: '08:30-17:30'}, {value:'', actual:false, abnormal:false}, {value:'', actual:false, abnormal:false}, {value:'矿工时长'}, {value:'08:00'}, {value:'hh:mm'}, {value:'09：00'}],
+
+            [{value:'2021-05-04', abnormal:false, color: 'green'}, {value: '08:30-17:30'}, {value:'', actual:false, abnormal:false}, {value:'17:00', actual:false, abnormal:false}, {value:''}, {value:'08:00'}, {value:'hh:mm'}, {value:'09：00'}],
+            [{value:'2021-05-04', abnormal:false, color: 'green'}, {value: ''}, {value:'', actual:false, abnormal:true}, {value:'17:00', actual:true, abnormal:false}, {value:'缺卡时长'}, {value:'08:00'}, {value:'hh:mm'}, {value:'09：00'}],
+
+            [{value:'2021-05-01', abnormal:false, color: 'green'}, {value: '08:30-17:30'}, {value:'08:10', actual:false, abnormal:false}, {value:'18:10', actual:false, abnormal:false}, {value:''}, {value:'10:00'}, {value:'hh:mm'}, {value:'09:00'}],
+            [{value:'2021-05-01', abnormal:false, color: 'green'}, {value: ''}, {value:'08:10', actual:true, abnormal:true}, {value:'08:30', actual:false, abnormal:false}, {value:'加班时长'}, {value:'00:20'}, {value:'hh:mm'}, {value:''}],
+            [{value:'2021-05-01', abnormal:false, color: 'green'}, {value: '08:30-12:00'}, {value:'08:30', actual:false, abnormal:false}, {value:'12:00', actual:false, abnormal:false}, {value:'出勤时长'}, {value:'03:30'}, {value:'hh:mm'}, {value:'03:30'}],
+            [{value:'2021-05-01', abnormal:false, color: 'green'}, {value: '12:00-13:00'}, {value:'12:00', actual:false, abnormal:false}, {value:'13:00', actual:false, abnormal:false}, {value:'休息时长'}, {value:'01:00'}, {value:'hh:mm'}, {value:'01:00'}],
+            [{value:'2021-05-01', abnormal:false, color: 'green'}, {value: '13:00-17:30'}, {value:'13:00', actual:false, abnormal:false}, {value:'17:30', actual:false, abnormal:false}, {value:'出勤时长'}, {value:'04:30'}, {value:'hh:mm'}, {value:'04:30'}],
+            [{value:'2021-05-01', abnormal:false, color: 'green'}, {value: ''}, {value:'17:30', actual:false, abnormal:false}, {value:'18:10', actual:true, abnormal:true}, {value:'加班时长'}, {value:'00:40'}, {value:'hh:mm'}, {value:''}],
+
+            [{value:'2021-05-01', abnormal:false, color: 'green'}, {value: '08:30-17:30'}, {value:'08:10', actual:false, abnormal:false}, {value:'18:10', actual:false, abnormal:false}, {value:''}, {value:'10:00'}, {value:'hh:mm'}, {value:'09:00'}],
+            [{value:'2021-05-01', abnormal:false, color: 'green'}, {value: ''}, {value:'08:10', actual:true, abnormal:true}, {value:'08:30', actual:false, abnormal:false}, {value:'加班时长'}, {value:'00:20'}, {value:'hh:mm'}, {value:''}],
+            [{value:'2021-05-01', abnormal:false, color: 'green'}, {value: '08:30-12:00'}, {value:'08:30', actual:false, abnormal:false}, {value:'12:00', actual:false, abnormal:false}, {value:'出勤时长'}, {value:'03:30'}, {value:'hh:mm'}, {value:'03:30'}],
+            [{value:'2021-05-01', abnormal:false, color: 'green'}, {value: '12:00-13:00'}, {value:'12:00', actual:false, abnormal:false}, {value:'13:00', actual:false, abnormal:false}, {value:'休息时长'}, {value:'01:00'}, {value:'hh:mm'}, {value:'01:00'}],
+            [{value:'2021-05-01', abnormal:false, color: 'green'}, {value: '13:00-17:30'}, {value:'13:00', actual:false, abnormal:false}, {value:'17:30', actual:false, abnormal:false}, {value:'出勤时长'}, {value:'04:30'}, {value:'hh:mm'}, {value:'04:30'}],
+            [{value:'2021-05-01', abnormal:false, color: 'green'}, {value: ''}, {value:'17:30', actual:false, abnormal:false}, {value:'18:10', actual:true, abnormal:true}, {value:'加班时长'}, {value:'00:40'}, {value:'hh:mm'}, {value:''}],
+            [{value:'2021-05-01', abnormal:false, color: 'green'}, {value: '08:30-17:30'}, {value:'08:10', actual:false, abnormal:false}, {value:'18:10', actual:false, abnormal:false}, {value:''}, {value:'10:00'}, {value:'hh:mm'}, {value:'09:00'}],
+            [{value:'2021-05-01', abnormal:false, color: 'green'}, {value: ''}, {value:'08:10', actual:true, abnormal:true}, {value:'08:30', actual:false, abnormal:false}, {value:'加班时长'}, {value:'00:20'}, {value:'hh:mm'}, {value:''}],
+            [{value:'2021-05-01', abnormal:false, color: 'green'}, {value: '08:30-12:00'}, {value:'08:30', actual:false, abnormal:false}, {value:'12:00', actual:false, abnormal:false}, {value:'出勤时长'}, {value:'03:30'}, {value:'hh:mm'}, {value:'03:30'}],
+            [{value:'2021-05-01', abnormal:false, color: 'green'}, {value: '12:00-13:00'}, {value:'12:00', actual:false, abnormal:false}, {value:'13:00', actual:false, abnormal:false}, {value:'休息时长'}, {value:'01:00'}, {value:'hh:mm'}, {value:'01:00'}],
+            [{value:'2021-05-01', abnormal:false, color: 'green'}, {value: '13:00-17:30'}, {value:'13:00', actual:false, abnormal:false}, {value:'17:30', actual:false, abnormal:false}, {value:'出勤时长'}, {value:'04:30'}, {value:'hh:mm'}, {value:'04:30'}],
+            [{value:'2021-05-01', abnormal:false, color: 'green'}, {value: ''}, {value:'17:30', actual:false, abnormal:false}, {value:'18:10', actual:true, abnormal:true}, {value:'加班时长'}, {value:'00:40'}, {value:'hh:mm'}, {value:''}],
+            [{value:'2021-05-01', abnormal:false, color: 'green'}, {value: '08:30-17:30'}, {value:'08:10', actual:false, abnormal:false}, {value:'18:10', actual:false, abnormal:false}, {value:''}, {value:'10:00'}, {value:'hh:mm'}, {value:'09:00'}],
+            [{value:'2021-05-01', abnormal:false, color: 'green'}, {value: ''}, {value:'08:10', actual:true, abnormal:true}, {value:'08:30', actual:false, abnormal:false}, {value:'加班时长'}, {value:'00:20'}, {value:'hh:mm'}, {value:''}],
+            [{value:'2021-05-01', abnormal:false, color: 'green'}, {value: '08:30-17:30'}, {value:'08:10', actual:false, abnormal:false}, {value:'18:10', actual:false, abnormal:false}, {value:''}, {value:'10:00'}, {value:'hh:mm'}, {value:'09:00'}],
+            [{value:'2021-05-01', abnormal:false, color: 'green'}, {value: ''}, {value:'08:10', actual:true, abnormal:true}, {value:'08:30', actual:false, abnormal:false}, {value:'加班时长'}, {value:'00:20'}, {value:'hh:mm'}, {value:''}],
+        ],
+        attendanceTotal: [
+            ['正常出勤', 40, '小时'],
+            ['迟到时长', 0.33, '小时'],
+            ['迟到次数', 1, '次'],
+            ['无效工时', 0.5, '小时'],
+            ['无效工时', 0.5, '小时'],
+            ['无效工时', 0.5, '小时'],
+            ['无效工时', 0.5, '小时'],
+            ['无效工时', 0.5, '小时'],
+            ['无效工时', 0.5, '小时'],
+            ['无效工时', 0.5, '小时'],
+            ['无效工时', 0.5, '小时'],
+            ['无效工时', 0.5, '小时'],
+            ['无效工时', 0.5, '小时'],
+            ['无效工时', 0.5, '小时'],
+            ['无效工时', 0.5, '小时'],
+            ['无效工时', 0.5, '小时'],
+            ['无效工时', 0.5, '小时'],
+            ['无效工时', 0.5, '小时'],
+            ['无效工时', 0.5, '小时'],
+            ['无效工时', 0.5, '小时'],
+            ['无效工时', 0.5, '小时'],
+            ['无效工时', 0.5, '小时'],
+            ['无效工时', 0.5, '小时'],
+            ['无效工时', 0.5, '小时'],
+            ['无效工时', 0.5, '小时'],
+            ['无效工时', 0.5, '小时'],
+            ['无效工时', 0.5, '小时'],
+            ['无效工时', 0.5, '小时'],
+        ],
+        operationLog: [
+            ['日志', '日志','日志', '日志','日志日志日志日志日志日志日志日志日志日志日志日志日志日志日志日志日志日志日志日志', '日志','日志', '日志','日志','日志'],
+            ['日志', '日志','日志', '日志','日志', '日志','日志', '日志','日志','日志'],
+            ['日志', '日志','日志', '日志','日志', '日志','日志', '日志','日志','日志'],
+            ['日志', '日志','日志', '日志','日志', '日志','日志', '日志','日志','日志'],
+        ],
+        dateValue: [new Date(2021, 5, 10, 0, 0), new Date(2021, 6, 11, 0, 0)],
+    };
+
+    var para = {
+        cardRecord: data.cardRecord,
+        attendanceTotal: data.attendanceTotal,
+        operationLog: data.operationLog,
+        dateValue: data.dateValue,
+        model: {
+            dom: rootDom
+        }
+    };
+
+    var obj = {
+        dateValue: para.dateValue,
+        model: {
+            dom: rootDom
+        },
+        pickerOptions: {
+            disabledDate: function  (time) {
+                return time.getTime() > para.dateValue[1].getTime() || time.getTime() < para.dateValue[0].getTime();
+            }
+        },
+        callback: function (value) {
+            timeCard.userDateRange = value;  // 修改默认日期范围
+        }
+    };
+    var curVue = new KdWtcDatePicker(obj);
+    var timeCard = new KdWtcTimeCard(para);
+
+
+    function allOpen(){
+        timeCard.dateSelectAll(1);
+    }
+    function allFold(){
+        timeCard.dateSelectAll(2);
+    }
+    function allAbnormal(){
+        timeCard.dateSelectAll(3);
+    }
+    function allPage(){
+        timeCard.fullScreen();
+    }
+    function refresh_totalData(){
+        var datas = {
+            attendanceTotal: [
+                ['正常出勤1', 40, '小时'],
+                ['迟到时长1', 0.33, '小时'],
+                ['迟到次数1', 1, '次'],
+                ['无效工时1', 0.5, '小时'],
+            ],
+            operationLog: [
+                ['日志1', '日志1','日志', '日志','日志1', '日志','日志', '日志','日志','日志'],
+                ['日志', '日志','日志', '日志','日志', '日志','日志', '日志','日志','日志'],
+                ['日志', '日志','日志', '日志','日志', '日志','日志', '日志','日志','日志'],
+            ]
+        };
+        timeCard.refresh_attendanceTotal(datas.attendanceTotal);
+        timeCard.refresh_operationLog(datas.operationLog);
+    }
+
+    function refresh_allData(){
+        var datas = {
+            cardRecord: [
+                // [{value:'2021-05-01', abnormal:true}, {value: '08:30-17:30'}, {value:'08:10', actual:false, abnormal:false}, {value:'18:10', actual:false, abnormal:false}, {value:''}, {value:'10:00'}, {value:'hh:mm'}, {value:'09:00'}],
+                // [{value:'2021-05-01', abnormal:false}, {value: ''}, {value:'08:10', actual:true, abnormal:true}, {value:'08:30', actual:false, abnormal:false}, {value:'加班时长'}, {value:'00:20'}, {value:'hh:mm'}, {value:''}],
+            ],
+            attendanceTotal: [
+                // ['正常出勤1', 40, '小时'],
+                // ['迟到时长1', 0.33, '小时'],
+                // ['迟到次数1', 1, '次'],
+                // ['无效工时1', 0.5, '小时'],
+            ],
+            operationLog: [
+                // ['日志1', '日志1','日志', '日志','日志1', '日志','日志', '日志','日志','日志'],
+                // ['日志', '日志','日志', '日志','日志', '日志','日志', '日志','日志','日志'],
+                // ['日志', '日志','日志', '日志','日志', '日志','日志', '日志','日志','日志'],
+            ],
+            dateValue: [new Date(2021, 4, 10, 0, 0), new Date(2021, 5, 11, 0, 0)],
+        };
+
+        curVue.$vue.$children[0].dateSelect([datas.dateValue[0], datas.dateValue[1]]);
+        // 通过vue的数据绑定，修改日期选择范围：
+        obj.pickerOptions.disabledDate = function (time) {
+            return time.getTime() > datas.dateValue[1].getTime() || time.getTime() < datas.dateValue[0].getTime();
+        };
+
+        timeCard.defaultDateRange = datas.dateValue;  // 修改默认日期范围
+        timeCard.refresh_cardRecord(datas.cardRecord);
+        timeCard.refresh_attendanceTotal(datas.attendanceTotal);
+        timeCard.refresh_operationLog(datas.operationLog);
+    }
+
+    function refresh_allData1(){
+        var datas = {
+            cardRecord: [
+                [{value:'2021-05-01', abnormal:true, color: 'green'}, {value: '08:30-17:30'}, {value:'08:10', actual:false, abnormal:false}, {value:'18:10', actual:false, abnormal:false}, {value:''}, {value:'10:00'}, {value:'hh:mm'}, {value:'09:00'}],
+                [{value:'2021-05-02', abnormal:false, color: 'red'}, {value: ''}, {value:'08:10', actual:true, abnormal:true}, {value:'08:30', actual:false, abnormal:false}, {value:'加班时长'}, {value:'00:20'}, {value:'hh:mm'}, {value:''}],
+                [{value:'2021-05-03', abnormal:false, color: 'blue'}, {value: ''}, {value:'08:10', actual:true, abnormal:true}, {value:'08:30', actual:false, abnormal:false}, {value:'加班时长'}, {value:'00:20'}, {value:'hh:mm'}, {value:''}],
+            ],
+            attendanceTotal: [
+                ['正常出勤2', 40, '小时'],
+                ['迟到时长2', 0.33, '小时'],
+                ['迟到次数2', 1, '次'],
+                ['无效工时2', 0.5, '小时'],
+            ],
+            operationLog: [
+                ['日志2', '日志2','日志', '日志','日志1', '日志','日志', '日志','日志','日志'],
+                ['日志', '日志','日志', '日志','日志', '日志','日志', '日志','日志','日志'],
+                ['日志', '日志','日志', '日志','日志', '日志','日志', '日志','日志','日志'],
+            ],
+            dateValue: [new Date(2021, 0, 1, 0, 0), new Date(2021, 1, 1, 0, 0)],
+        };
+
+        curVue.$vue.$children[0].dateSelect([datas.dateValue[0], datas.dateValue[1]]);
+        // 通过vue的数据绑定，修改日期选择范围：
+        obj.pickerOptions.disabledDate = function (time) {
+            return time.getTime() > datas.dateValue[1].getTime() || time.getTime() < datas.dateValue[0].getTime();
+        };
+
+        timeCard.refresh_cardRecord(datas.cardRecord);
+        timeCard.refresh_attendanceTotal(datas.attendanceTotal);
+        timeCard.refresh_operationLog(datas.operationLog);
+    }
+
+</script>
+</html>

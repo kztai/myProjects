@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>纯JavaScript实现简洁的颜色选取器DEMO演示</title>
+    <link rel="stylesheet" href="./css/index.css">
+    <script src="js/colorpicker.js"></script>
+
+</head>
+<body>
+<div class="color-picker-select">
+    <div class="color-picker-btn" id="color-picker-btn"></div>
+    <div class="color-picker-icon"><span class="color-picker-icon-item"></span></div>
+</div>
+
+<div class="color-picker-main">
+    <!--遮罩-->
+    <div class="color-picker-wrap"></div>
+    <!--主体-->
+    <div class="color-picker-content">
+        <div class="color-picker-triangle"></div>
+        <div class="colorpicker-pancel">
+            <!--颜色面板区-->
+            <div class="color-picker-board">
+                <div class="color-pancel">
+                    <div class="saturation-white">
+                        <div class="saturation-black"></div>
+                        <div class="pickerBtn">
+                            <div></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--控制按钮区-->
+            <div class="color-picker-control">
+                <!--滑动选择器-->
+                <div class="flexbox-fix slide-bar">
+                    <div class="slide-bar-circle">
+                        <div class="colorpicker-showColor"></div>
+                        <!--todo 这里的url必须写成行内样式才能生效，是什么原因呢-->
+                        <div class="colorpicker-transparent"
+                             style="background: url(&quot;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAMUlEQVQ4T2NkYGAQYcAP3uCTZhw1gGGYhAGBZIA/nYDCgBDAm9BGDWAAJyRCgLaBCAAgXwixzAS0pgAAAABJRU5ErkJggg==&quot;) left center;"></div>
+                    </div>
+                    <div class="slide-bar-slider">
+                        <div class="slide-bar-slider-top">
+                            <div style="position: absolute; top: 0;right: 0; bottom: 0; left: 0;">
+                                <div class="hue-horizontal">
+                                    <div class="colorBar-color-picker">
+                                        <div class="colorBar-color-picker-item"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="slide-bar-slider-bottom">
+                            <div style="position: absolute; top: 0;right: 0; bottom: 0; left: 0;">
+                                <div class="slider-bottom-color-gradient"></div>
+                                <div style="padding: 0 2px; position: relative; height: 100%;background: url(&quot;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAMUlEQVQ4T2NkYGAQYcAP3uCTZhw1gGGYhAGBZIA/nYDCgBDAm9BGDWAAJyRCgLaBCAAgXwixzAS0pgAAAABJRU5ErkJggg==&quot;) repeat left center;">
+                                    <div class="colorBar-opacity-picker">
+                                        <div class="colorBar-color-picker-item"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="color-palette"></div>
+                <!--颜色输入框-->
+                <div class="flexbox-fix color-input">
+                    <div class="flexbox-fix colorpicker-inputWrap">
+                        <div style="padding-left: 6px; width: 100%;">
+                            <div style="position: relative;">
+                                <input class="colorpicker-hexInput" spellcheck="false">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--提交按钮-->
+                <button class="color-picker-commit">提交</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+    window.onload = function () {
+        var a = new Colorpicker({
+            el: "color-picker-btn",
+            // color: "#00ff11",
+            change: function (elem, hex) {
+                elem.style.backgroundColor = hex;
+            }
+        })
+    }
+
+</script>
+
+</body>
+</html>

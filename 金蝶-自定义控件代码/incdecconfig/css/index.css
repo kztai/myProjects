@@ -1,0 +1,72 @@
+.wtc_incDecConfig-wrap {
+    width: 100%;
+    color: #212121;
+    font-size: 12px;
+    font-family: MicrosoftYaHei;
+}
+
+.wtc_incDecConfig-title {
+    background-color: #FAFAFA;
+    border: 1px solid #E5E5E5;
+    padding: 8px;
+    margin-bottom: 10px;
+    border-radius: 2px;
+}
+
+.wtc_incDecConfig-radio-wrap {
+    padding-left: 20px;
+}
+
+.wtc_incDecConfig-radio-wrap>label {
+    padding: 6px 0;
+    display: block;
+    cursor: pointer;
+}
+
+.wtc_incDecConfig-input {
+    display: none;
+    margin: 6px 0 10px 10px;
+    border-radius: 2px;
+    border: 1px solid #E5E5E5;
+    padding: 6px;
+    cursor: text;
+    outline: none;
+}
+
+.wtc_incDecConfig-input:hover {
+    border-color: var(--themeColor, #276FF5);
+}
+
+.wtc_incDecConfig-input .content-green {
+    color: green;
+    font-weight: normal;
+}
+
+.wtc_incDecConfig-input .content-blue {
+    color: blue;
+    font-weight: 700;
+}
+
+.wtc_incDecConfig-input .content-base {
+    color: black;
+    font-weight: normal;
+}
+
+.wtc_incDecConfig-btns {
+    display: none;
+    padding-left: 10px;
+    margin: 10px 0;
+}
+
+.wtc_incDecConfig-btns>button {
+    margin-right: 14px;
+    outline: none;
+    background-color: #fff;
+    border: 1px solid var(--themeColor, #276FF5);
+    color: var(--themeColor, #276FF5);
+    width: 64px;
+    text-align: center;
+    padding: 4px 0;
+    border-radius: 2px;
+    cursor: pointer;
+}

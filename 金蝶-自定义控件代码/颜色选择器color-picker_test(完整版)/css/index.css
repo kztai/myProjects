@@ -1,0 +1,277 @@
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    padding: 100px;
+}
+
+.color-picker-select {
+    display: flex;
+    /*width: 100%;*/
+    /*height: 100%;*/
+    width: 160px;
+    height: 16px;
+    cursor: pointer;
+    position: relative;
+    padding: 10px 0;
+
+}
+
+.color-picker-select .color-picker-btn {
+    flex: 1;
+}
+.color-picker-select .color-picker-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 0 0 20px;
+    margin: 0 20px;
+}
+.color-picker-select .color-picker-icon .color-picker-icon-item {
+    width: 10px;
+    height: 10px;
+    border-top: 1px solid;
+    border-left: 1px solid;
+    border-color: #000;
+    transform: rotate(45deg);
+    margin-top: 5px;
+}
+
+.color-picker-icon:hover{
+    transform: rotate(180deg);
+}
+
+.color-picker-wrap {
+    position: fixed;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+}
+
+.color-picker-main .color-picker-triangle {
+    width: 0;
+    height: 0;
+    position: absolute;
+    top: -10px;
+    left: 20px;
+    border-width: 0 10px 10px;
+    border-style: solid;
+    border-color: transparent transparent #ddd;
+}
+
+.color-picker-main .color-picker-content {
+    position: relative;
+    z-index: 100;
+    box-shadow: rgba(0, 0, 0, 0.3) 0px 0px 2px, rgba(0, 0, 0, 0.3) 0px 4px 8px;
+}
+
+.color-picker-content .colorpicker-pancel {
+    background: rgb(255, 255, 255);
+    box-sizing: initial;
+    width: 225px;
+    font-family: Menlo;
+}
+
+/*选择器颜色面板*/
+.color-picker-content .colorpicker-pancel .color-picker-board {
+    width: 100%;
+    padding-bottom: 55%;
+    position: relative;
+    border-radius: 2px 2px 0px 0px;
+    overflow: hidden;
+}
+
+.color-picker-content .color-picker-board .color-pancel {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+}
+
+.color-picker-content .color-picker-board .saturation-white {
+    background: -webkit-linear-gradient(to right, #fff, rgba(255, 255, 255, 0));
+    background: linear-gradient(to right, #fff, rgba(255, 255, 255, 0));
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+}
+
+.color-picker-content .color-picker-board .saturation-black {
+    background: -webkit-linear-gradient(to top, #000, rgba(0, 0, 0, 0));
+    background: linear-gradient(to top, #000, rgba(0, 0, 0, 0));
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+}
+
+.color-picker-content .color-picker-board .pickerBtn {
+    position: absolute;
+    top: 0%;
+    left: 100%;
+    cursor: default;
+}
+
+.color-picker-content .color-picker-board .pickerBtn > div {
+    width: 12px;
+    height: 12px;
+    border-radius: 6px;
+    box-shadow: rgb(255, 255, 255) 0px 0px 0px 1px inset;
+    transform: translate(-6px, -6px);
+}
+
+/*颜色选择器控制栏*/
+.color-picker-content .colorpicker-pancel .color-picker-control {
+    padding: 0 16px 16px;
+}
+
+.color-picker-content .color-picker-control .slide-bar {
+    display: flex;
+    align-items: center;
+    padding: 10px 0;
+}
+
+.color-picker-content .color-picker-control .slide-bar-circle {
+    /*width: 32px;*/
+    flex: 0 0 30px;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    position: relative;
+    overflow: hidden;
+}
+
+.color-picker-content .color-picker-control .colorpicker-showColor {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    border-radius: 50%;
+    box-shadow: rgba(0, 0, 0, 0.1) 0 0 0 1px inset;
+    z-index: 2;
+}
+
+.color-picker-content .color-picker-control .colorpicker-transparent {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+
+}
+
+.color-picker-content .color-picker-control .slide-bar-slider {
+    -webkit-box-flex: 1;
+    flex: 1;
+    padding-left: 10px;
+}
+
+.color-picker-content .color-picker-control .slide-bar-slider-top {
+    height: 10px;
+    position: relative;
+    margin-bottom: 10px;
+}
+
+.color-picker-content .color-picker-control .hue-horizontal {
+    padding: 0px 2px;
+    position: relative;
+    height: 100%;
+    background: linear-gradient(to right, #f00 0%, #ff0 17%, #0f0 33%, #0ff 50%, #00f 67%, #f0f 83%, #f00 100%);
+    background: -webkit-linear-gradient(to right, #f00 0%, #ff0 17%, #0f0 33%, #0ff 50%, #00f 67%, #f0f 83%, #f00 100%);
+}
+
+.color-picker-content .color-picker-control .hue-vertical {
+    background: linear-gradient(to top, #f00 0%, #ff0 17%, #0f0 33%, #0ff 50%, #00f 67%, #f0f 83%, #f00 100%);
+    background: -webkit-linear-gradient(to top, #f00 0%, #ff0 17%, #0f0 33%, #0ff 50%, #00f 67%, #f0f 83%, #f00 100%);
+}
+
+.color-picker-content .color-picker-control .slider-bottom-color-gradient {
+    width: 100%;
+    height: 100%;
+    float: left;
+    /*background: -webkit-linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 1));*/
+    /*background: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 1));*/
+}
+
+.color-picker-content .color-picker-control .colorBar-color-picker {
+    position: absolute;
+    left: 0;
+}
+
+.color-picker-content .color-picker-control .colorBar-opacity-picker {
+    position: absolute;
+    left: 0;
+}
+
+.color-picker-content .color-picker-control .colorBar-color-picker-item {
+    width: 12px;
+    height: 12px;
+    border-radius: 6px;
+    transform: translate(-6px, -1px);
+    background-color: rgb(248, 248, 248);
+    box-shadow: rgba(0, 0, 0, 0.37) 0px 1px 4px 0px;
+}
+
+.color-picker-content .color-picker-control .slide-bar-slider-bottom {
+    height: 10px;
+    position: relative;
+}
+
+.color-picker-content .color-picker-control .color-input {
+    display: flex;
+}
+
+.color-picker-content .color-picker-control .colorpicker-inputWrap {
+    -webkit-box-flex: 1;
+    flex: 1 1 0%;
+    display: flex;
+    margin-left: -6px;
+}
+
+.color-picker-content .color-picker-control .colorpicker-hexInput {
+    font-size: 11px;
+    color: rgb(51, 51, 51);
+    width: 100%;
+    border-radius: 2px;
+    border: none;
+    box-shadow: rgb(218, 218, 218) 0px 0px 0px 1px inset;
+    height: 21px;
+    text-align: center;
+}
+
+.color-picker-content .color-picker-control .color-picker-commit {
+    width: 100%;
+    padding: 4px;
+    border-radius: 4px;
+    text-align: center;
+    outline: none;
+    background-color: #4d4d4d;
+    border: none;
+    color: #fff;
+    margin-top: 10px;
+}
+
+.color-picker-content .color-picker-control .color-palette {
+    /*width: 180px;*/
+    padding: 10px 0;
+    display: flex;
+    flex-flow: row wrap;
+    align-content: space-around;
+    justify-content: space-around;
+}
+
+.color-picker-content .color-picker-control .color-palette p {
+    width: 20px;
+    height: 20px;
+    border-radius: 4px;
+    margin: 4px;
+}

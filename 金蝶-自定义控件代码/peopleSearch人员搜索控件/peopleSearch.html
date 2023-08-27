@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>peopleSearch</title>
+    <link rel="stylesheet" href="font/iconfont.css">
+    <link rel="stylesheet" href="./css/peopleSearch.css">
+    <script src="./js/peopleSearch.js"></script>
+    <script src="../../jquery/各个版本jQuery/jquery-1.10.2.js"></script>
+
+</head>
+<body>
+<div class="wrap">
+    <div class="wtc_peopleSearch-wrap">
+        <div class="wtc_peopleSearch-search"></div>
+
+        <div class="wtc_peopleSearch-btns">
+            <i class="wtc_peopleSearch-left-icon wtc_peopleSearch-icon-disable icon iconfont icon-jian"></i>
+            <span class="wtc_peopleSearch-cur-number">1</span>
+            <span class="wtc_peopleSearch-separator">/</span>
+            <span class="wtc_peopleSearch-total-number"></span>
+            <i class="wtc_peopleSearch-right-icon icon iconfont icon-jia"></i>
+        </div>
+    </div>
+</div>
+
+<script>
+    var dom_root = document.querySelector('.wtc_peopleSearch-wrap');
+    // 后端传入的数据：
+    var props = {
+        data: {
+            total: 10,
+            value: '康政太 112233',
+            options: ['康政太 112233', 'juaidu']
+        }
+    };
+
+    var nextOptions = [
+        '康政太 112233',
+        '康政太 112234',
+        '康 115566',
+        '太 77',
+        '政',
+        '政太 0998',
+        '康政太 112233',
+        '康政太 112234',
+        '康 115566',
+        '太 77',
+        '政',
+        '政太 0998',
+        '康政太 112233',
+        '康政太 112234',
+        '康 115566',
+        '太 77',
+        '政',
+        '政太 0998',
+        '康政太 112233',
+        '康政太 112234',
+        '康 115566',
+        '太 77',
+        '政',
+        '政太 0998',
+        '康政太 112233',
+        '康政太 112234',
+        '康 115566',
+        '太 77',
+        '政',
+        '政太 0998',
+    ];
+
+    var para = {
+        model: {
+            dom: dom_root,
+            callback: function(value){
+                if(typeof value === 'number'){
+                    peopleSearch.changePeople({
+                        value: '政',
+                        options: nextOptions
+                    });
+                } else {
+                    peopleSearch.changeOption(nextOptions);
+                }
+            }
+        },
+        total: props.data.total,
+        value: props.data.value,
+        options: props.data.options,
+    };
+
+    var peopleSearch = new KDWtcPeopleSearch(para);
+</script>
+</body>
+</html>

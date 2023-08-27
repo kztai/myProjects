@@ -1,0 +1,39 @@
+
+.wrap {
+    width: 600px;
+}
+.wtc_peopleSearch-wrap {
+    width: 100%;
+    font-size: 14px;
+}
+.wtc_peopleSearch-wrap .wtc_peopleSearch-search {
+    display: inline-block;
+    margin-right: 30px;
+}
+.wtc_peopleSearch-wrap .wtc_peopleSearch-btns {
+    display: inline-block;
+}
+.wtc_peopleSearch-wrap .wtc_peopleSearch-left-icon {
+    margin-right: 10px;
+    cursor: pointer;
+    user-select: none;
+}
+.wtc_peopleSearch-wrap .wtc_peopleSearch-right-icon {
+    margin-left: 10px;
+    cursor: pointer;
+    user-select: none;
+}
+.wtc_peopleSearch-wrap input {
+    border-left: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    padding: 4px;
+    color: #333;
+    outline: none;
+    border-radius: 2px;
+}
+.wtc_peopleSearch-wrap .wtc_peopleSearch-icon-disable{
+    color: #ddd;
+    cursor: not-allowed;
+}

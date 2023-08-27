@@ -1,0 +1,343 @@
+* {
+    margin:0;
+    padding:0;
+}
+
+body {
+    width: 100vw;
+    height: 100vh;
+    padding: 10px;
+    box-sizing: border-box;
+}
+.wrap {
+    height: 600px;
+}
+
+
+.wtc_timeCard_container ul li {
+    list-style: none;
+}
+/*消除浮动最常用的方法*/
+.wtc_timeCard_clearfix:before, .wtc_timeCard_clearfix:after {
+    display: table;
+    content: " ";
+    height: 0;
+    font-size: 0;
+    line-height: 0;
+}
+
+.wtc_timeCard_clearfix:after {
+    clear: both;
+}
+.wtc_timeCard_container {
+    position: relative;
+    top:0;
+    left:0;
+    width: 100%;
+    height: 100%;
+    background-color: #fff;
+    font-size: 12px;
+    font-family: MicrosoftYaHei;
+    color: #333333;
+    border: 1px solid #D9D9D9;
+    user-select: none;
+}
+.wtc_timeCard_container .wtc_timeCard_card-allPage-btn {
+    display: none;
+    position: absolute;
+    top: 6px;
+    right: 10px;
+    opacity: 0.6;
+    color: blue;
+    z-index: 10;
+    cursor: pointer;
+    font-size: 18px;
+}
+.wtc_timeCard_container i {
+    font-size: 12px;
+}
+.wtc_timeCard_container .wtc_timeCard_card-record {
+    width: 100%;
+    height: calc(100% - 68px);   /*减去底部展开按钮高度 + 表格头部高度*/
+    padding-top: 40px;
+    overflow: auto;
+}
+.wtc_timeCard_container .wtc_timeCard_card-record .wtc_timeCard_card-record-header {
+    position: absolute;
+    top:0;
+    display: flex;
+    width: 100%;
+    height: 40px;
+    background-color: #F5F6F7;
+    z-index: 3;
+    border-bottom: 1px solid #D9D9D9;
+    box-sizing: border-box;
+}
+.wtc_timeCard_container .wtc_timeCard_card-record .wtc_timeCard_card-record-header div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex:1;
+    font-size: 14px;
+    border-right: 1px solid #D9D9D9;
+    overflow: auto;
+}
+.wtc_timeCard_container .wtc_timeCard_card-record .wtc_timeCard_card-record-main {
+    display: flex;
+}
+.wtc_timeCard_container .wtc_timeCard_card-record .wtc_timeCard_card-record-main .col-1 {
+    cursor: pointer;
+}
+
+
+.wtc_timeCard_container .wtc_timeCard_card-record .wtc_timeCard_card-record-item-col {
+    flex: 1;
+    color: #666;
+}
+.wtc_timeCard_container .wtc_timeCard_card-record .wtc_timeCard_card-record-item-col .wtc_timeCard_card-abnormal-record{
+    display: none;
+    position: absolute;
+    right:4px;
+    cursor: pointer;
+    color: #666;
+}
+.wtc_timeCard_container .wtc_timeCard_card-record .wtc_timeCard_card-abnormal-record-pop{
+    display: none;
+    position: absolute;
+    right: -89px;
+    z-index: 3;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+    background-color: #fff;
+    border-radius: 4px;
+}
+.wtc_timeCard_container .wtc_timeCard_card-record .wtc_timeCard_card-abnormal-record-pop-item {
+    padding: 6px 20px;
+    cursor: pointer;
+    color: #666;
+}
+.wtc_timeCard_container .wtc_timeCard_card-record .wtc_timeCard_card-abnormal-record-pop-item:hover {
+    background-color: #f1f1f1;
+}
+
+.wtc_timeCard_container .wtc_timeCard_card-record .wtc_timeCard_card-record-item-row {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-bottom: 1px solid #D9D9D9;
+    border-right: 1px solid #D9D9D9;
+    text-align: center;
+    height: 30px;
+    word-break: break-all;
+    box-sizing: border-box;
+    /*overflow: auto;*/
+}
+.wtc_timeCard_container .wtc_timeCard_card-record .wtc_timeCard_card-record-item-col:last-child .wtc_timeCard_card-record-item-row {
+    border-right: none;
+}
+.wtc_timeCard_container .wtc_timeCard_card-record .item-abnormal {
+    background-color: #FFDBE0;
+    /*padding-right: 20px;*/
+}
+.wtc_timeCard_container .wtc_timeCard_card-record .item-abnormal:hover .wtc_timeCard_card-abnormal-record {
+    display: inline-block;
+}
+
+.wtc_timeCard_container .wtc_timeCard_card-record .item-actual {
+    color: #5582F3;
+}
+
+.wtc_timeCard_container .wtc_timeCard_data-total {
+    display: none;
+    position: absolute;
+    bottom: 28px;
+    width: 100%;
+    box-sizing: border-box;
+    background-color: #fff;
+    z-index: 3;
+    height: 160px;
+    border-top: 1px solid #D9D9D9;
+    overflow: hidden;
+    box-shadow: 0 -3px 6px 0 rgba(0, 0, 0, 0.2);
+}
+.wtc_timeCard_data-total .wtc_timeCard_data-total-line{
+    width: 100%;
+    padding: 5px 0;
+    cursor: n-resize;
+}
+.wtc_timeCard_container .wtc_timeCard_data-total .wtc_timeCard_data-total-btns {
+    padding: 0 16px 16px 16px;
+}
+.wtc_timeCard_container .wtc_timeCard_data-total .wtc_timeCard_data-total-btns .wtc_timeCard_total-left-btns {
+    float: left;
+}
+.wtc_timeCard_container .wtc_timeCard_data-total .wtc_timeCard_total-left-btns .wtc_timeCard_btn-selected-range {
+    float: left;
+    border: 1px solid #D9D9D9;
+    padding: 6px 16px;
+    border-radius: 4px;
+    margin-right: 10px;
+    cursor: pointer;
+}
+.wtc_timeCard_container .wtc_timeCard_data-total .wtc_timeCard_total-left-btns .wtc_timeCard_btn-custom {
+    float: left;
+    border: 1px solid #D9D9D9;
+    padding: 6px 16px;
+    border-radius: 4px;
+    margin-right: 10px;
+    cursor: pointer;
+}
+.wtc_timeCard_container .wtc_timeCard_data-total .wtc_timeCard_total-left-btns .wtc_timeCard_date-picker {
+    display: none;
+    float: left;
+    width: 300px;
+}
+.wtc_timeCard_container .wtc_timeCard_data-total .wtc_timeCard_total-left-btns .wtc_timeCard_left-btn-active {
+    border: 1px solid #5582F3;
+}
+
+.wtc_timeCard_container .wtc_timeCard_data-total .wtc_timeCard_data-total-btns .wtc_timeCard_total-right-btns {
+    float: right;
+}
+.wtc_timeCard_container .wtc_timeCard_data-total .wtc_timeCard_total-right-btns .wtc_timeCard_btn-attendance-total {
+    border: 1px solid #D9D9D9;
+    border-right: none;
+    padding: 6px 16px;
+    float: left;
+    cursor: pointer;
+}
+.wtc_timeCard_container .wtc_timeCard_data-total .wtc_timeCard_total-right-btns .wtc_timeCard_btn-operation-log {
+    border: 1px solid #D9D9D9;
+    border-left: none;
+    padding: 6px 16px;
+    float: right;
+    cursor: pointer;
+}
+.wtc_timeCard_container .wtc_timeCard_data-total .wtc_timeCard_total-right-btns .wtc_timeCard_right-btn-active {
+    background-color: #5582F3;
+    color: #fff;
+}
+.wtc_timeCard_container .wtc_timeCard_data-total .wtc_timeCard_data-total-main {
+    padding: 0 10px;
+    height: calc(100% - 56px);
+    /*overflow: auto;*/
+}
+.wtc_timeCard_container .wtc_timeCard_data-total .wtc_timeCard_total-main-attendance {
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    height: 100%;
+    overflow: auto;
+}
+.wtc_timeCard_container .wtc_timeCard_data-total .wtc_timeCard_data-total-main .wtc_timeCard_total-main-attendance-item {
+    margin: 0 30px 16px 0;
+
+}
+.wtc_timeCard_container .wtc_timeCard_data-total .wtc_timeCard_total-main-operation-log {
+    height: 100%;
+    position: relative;
+}
+.wtc_timeCard_container .wtc_timeCard_data-total .wtc_timeCard_total-main-operation-log .wtc_timeCard_operation-log-header {
+    display: flex;
+    height: 34px;
+    background-color: #F3F3F5;
+    padding-right: 17px;
+}
+
+.wtc_timeCard_container .wtc_timeCard_data-total .wtc_timeCard_total-main-operation-log .wtc_timeCard_operation-log-header div {
+    display: flex;
+    align-items: center;
+    flex:1;
+    overflow: auto;
+    padding: 0 4px;
+}
+
+.wtc_timeCard_container .wtc_timeCard_data-total .wtc_timeCard_operation-log-main {
+    height: calc(100% - 34px);
+    overflow: auto;
+}
+.wtc_timeCard_container .wtc_timeCard_data-total .wtc_timeCard_operation-log-main .wtc_timeCard_total-main-log-row {
+    display: flex;
+    border-bottom: 1px solid #E5E5E5;
+}
+.wtc_timeCard_container .wtc_timeCard_data-total .wtc_timeCard_operation-log-main .wtc_timeCard_total-main-log-row .wtc_timeCard_total-main-log-col {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    padding: 6px 4px;
+    color: #666;
+}
+
+
+.wtc_timeCard_container .wtc_timeCard_data-total .wtc_timeCard_total-main-hide {
+    display: none;
+}
+
+.wtc_timeCard_container .wtc_timeCard_data-total-fold-btn {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #AAB5D0;
+    color: #fff;
+    padding: 4px 10px;
+    cursor: pointer;
+    border-radius: 4px 4px 1px 1px;
+    z-index: 4;
+}
+
+/*对话框部分*/
+.wtc_timeCard_dialog-wrap {
+    display: none;
+    position: fixed;
+    left:0;
+    right:0;
+    bottom:0;
+    top:0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,.4);
+    z-index: 100;
+    overflow: hidden;
+}
+.wtc_timeCard_dialog-wrap .wtc_timeCard_dialog {
+    position: absolute;
+    left:50%;
+    top:50%;
+    min-width: 260px;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    border-radius: 8px;
+    padding:20px;
+    box-sizing: border-box;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+    overflow: hidden;
+}
+.wtc_timeCard_dialog .wtc_timeCard_dialog-title {
+    text-align: center;
+    margin-bottom: 16px;
+    font-weight: 700;
+}
+.wtc_timeCard_dialog .wtc_timeCard_dialog-text{
+    margin-bottom: 16px;
+    text-align: center;
+}
+
+.wtc_timeCard_dialog .wtc_timeCard_dialog-confirm-btn {
+    float: left;
+    padding: 6px 26px;
+    background-color: #00a0dc;
+    color: #fff;
+    font-size: 14px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+.wtc_timeCard_dialog .wtc_timeCard_dialog-cancel-btn {
+    float: right;
+    padding: 6px 26px;
+    background-color: #D9D9D9;
+    color: #fff;
+    font-size: 14px;
+    border-radius: 4px;
+    cursor: pointer;
+}

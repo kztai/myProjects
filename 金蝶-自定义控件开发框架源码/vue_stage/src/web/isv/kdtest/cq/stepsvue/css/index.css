@@ -1,0 +1,81 @@
+.steps-ctrl[data-v-f548958c] {
+  width: 100%;
+  font-size: 12px;
+  margin-left: 25px;
+}
+.steps-ctrl .title[data-v-f548958c] {
+  color: #333;
+}
+.steps-ctrl .steps-wrap[data-v-f548958c] {
+  height: 57px;
+  display: flex;
+  align-items: center;
+}
+.steps-ctrl .steps-wrap .steps-item[data-v-f548958c] {
+  display: flex;
+  flex-direction: column;
+  color: #c0c4cc;
+  margin-left: 381px;
+}
+.steps-ctrl .steps-wrap .steps-item[data-v-f548958c]:first-child {
+  margin-left: 0;
+}
+.steps-ctrl .steps-wrap .steps-item:first-child .round[data-v-f548958c]:before {
+  display: none;
+}
+.steps-ctrl .steps-wrap .steps-item.active .stepsTxt[data-v-f548958c],
+.steps-ctrl .steps-wrap .steps-item.active .round[data-v-f548958c] {
+  color: #1989fa;
+  font-weight: 500;
+}
+.steps-ctrl .steps-wrap .steps-item.active .round[data-v-f548958c] {
+  border-color: #1989fa;
+}
+.steps-ctrl .steps-wrap .steps-item.active .round[data-v-f548958c]:before {
+  background-color: #1989fa;
+}
+.steps-ctrl .steps-wrap .steps-item.wait .stepsTxt[data-v-f548958c],
+.steps-ctrl .steps-wrap .steps-item.wait .round[data-v-f548958c] {
+  color: #303133;
+  font-weight: 500;
+}
+.steps-ctrl .steps-wrap .steps-item.wait .round[data-v-f548958c] {
+  border-color: #303133;
+}
+.steps-ctrl .steps-wrap .steps-item .round[data-v-f548958c] {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 2px solid;
+  border-color: #c0c4cc;
+  position: relative;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.steps-ctrl .steps-wrap .steps-item .round[data-v-f548958c]:before {
+  display: block;
+  content: "";
+  width: 388px;
+  height: 2px;
+  background-color: #c0c4cc;
+  position: absolute;
+  right: 22px;
+  top: 9px;
+}
+.steps-ctrl .steps-wrap .steps-item .stepsTxt[data-v-f548958c] {
+  color: #c0c4cc;
+}
+.steps-ctrl .toNextBtn[data-v-f548958c] {
+  margin-top: 12px;
+  padding: 12px 20px;
+  font-size: 14px;
+  border-radius: 4px;
+  text-align: center;
+  box-sizing: border-box;
+  cursor: pointer;
+  background: #fff;
+  border: 1px solid #dcdfe6;
+  border-color: #dcdfe6;
+}

@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>报表</title>
+    <link rel="stylesheet" href="font/iconfont.css">
+    <link rel="stylesheet" href="./css/reportForm.css">
+    <script src="../../jquery/各个版本jQuery/jquery-1.10.2.js"></script>
+</head>
+<body>
+<div class="other">
+    111111
+</div>
+<div class="wrap">
+    <div class="wtc_reportForm_wrap">
+        <div class="wtc_reportForm_left-menu">
+            <div class="wtc_reportForm_menu wtc_reportForm_field-wrap">
+                <div class="wtc_reportForm_clearfix wtc_reportForm_menu-header wtc_reportForm_field-header">
+                    <p>字段</p>
+                    <div class=" wtc_reportForm_field-header-icon icon iconfont icon-yundong"></div>
+                </div>
+                <ul class="wtc_reportForm_menu-field-list">
+
+                </ul>
+            </div>
+
+            <div class="wtc_reportForm_menu wtc_reportForm_unit-wrap">
+                <div class="wtc_reportForm_menu-header"><p>合并</p></div>
+                <div class="wtc_reportForm_menu-select-list wtc_reportForm_menu-select-unit-list"></div>
+            </div>
+
+            <div class="wtc_reportForm_menu wtc_reportForm_sum-wrap">
+                <div class="wtc_reportForm_menu-header"><p>计算</p></div>
+                <div class="wtc_reportForm_menu-select-list wtc_reportForm_menu-select-total-list"></div>
+            </div>
+
+            <div class="wtc_reportForm_menu wtc_reportForm_single-wrap">
+                <div class="wtc_reportForm_menu-header"><p>单列</p></div>
+                <div class="wtc_reportForm_menu-select-list wtc_reportForm_menu-select-single-list"></div>
+            </div>
+        </div>
+        <div class="wtc_reportForm_open-btn"> <span class="icon iconfont icon-yundong"></span> </div>
+        <div class="form-container">
+            <div class="form-header form-header-fixed"></div>
+            <div class="form-header form-header-relative"></div>
+            <div class="form-data form-data-fixed"></div>
+            <div class="form-data form-data-relative"></div>
+        </div>
+    </div>
+    <div class="wtc_reportForm_dialog-wrap">
+        <div class="wtc_reportForm_dialog">
+            <div class="wtc_reportForm_dialog-title">重命名</div>
+            <input type="text" value="" class="wtc_reportForm_dialog-input" />
+            <div class="wtc_reportForm_dialog-btns wtc_reportForm_clearfix">
+                <div class="wtc_reportForm_dialog-confirm-btn">确定</div>
+                <div class="wtc_reportForm_dialog-cancel-btn">取消</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--<button id="toggle-sum">新数据</button>-->
+<!--<button id="toggle-sum1">新数据1</button>-->
+
+
+
+<script src="js/index.js"></script>
+<script>
+    // datatype:数据类型 根据图片映射关系
+    // frozen:是否冻结
+    // total:是否总计
+    // displaymode:展示方式 (单列：1 合并：2 计算：3)
+    // alignmode:对齐方式 (自动：1 左对齐：2 居中：3 右对齐：4）-- 自动根据数据类型参考文档
+    var flag = true;
+    var obj = {
+        header:[
+            {id:'0', value: '分组', datatype:'java.lang.String', frozen:false, total:false, displaymode:'2', alignmode:'3'},
+            {id:'1', value: '用工关系类型', datatype:'java.lang.String', frozen:true, total:false, displaymode:'2', alignmode:'3'},
+            {id:'2', value: '性别', datatype:'java.lang.String', frozen:false, total:false, displaymode:'1', alignmode:'3'},
+            {id:'3', value: '姓名', datatype:'java.lang.String', frozen:true, total:false, displaymode:'1', alignmode:'1'},
+            {id:'4', value: '应出勤时长', datatype:'java.util.Date', frozen:false, total:false, displaymode:'1', alignmode:'1'},
+            {id:'5', value: '实出勤时长', datatype:'java.lang.Integer', frozen:false, total:true, displaymode:'3', alignmode:'1'},
+            {id:'6', value: '迟到时长', datatype:'java.lang.Integer', frozen:true, total:true, displaymode:'3', alignmode:'1'},
+        ],
+        data: [
+            [{id:'0',value:'分组1'},{id:'1',value:'雇佣-在职人员'}, {id:'2', value:'男'}, {id:'3', value:'张三'}, {id:'4', value:8}, {id:'5', value:[7.5,8]}, {id:'6', value:[0,0.5]}],
+            [{id:'0',value:'分组1'},{id:'1',value:'雇佣-在职人员'}, {id:'2', value:'男'}, {id:'3', value:'李四'}, {id:'4', value:8}, {id:'5', value:[8,8]}, {id:'6', value:[2,0]}],
+            [{id:'0',value:'分组1'},{id:'1',value:'雇佣-在职人员'}, {id:'2', value:'女'}, {id:'3', value:'晓莹'}, {id:'4', value:8}, {id:'5', value:[8,8]}, {id:'6', value:[0,2]}],
+            [{id:'0',value:'分组1'},{id:'1',value:'实习-在职人员'}, {id:'2', value:'女'}, {id:'3', value:'小红'}, {id:'4', value:8}, {id:'5', value:[7,8]}, {id:'6', value:[0,1]}],
+            [{id:'0',value:'分组1'},{id:'1',value:'返聘-在职人员'}, {id:'2', value:'女'}, {id:'3', value:'晓红'}, {id:'4', value:8}, {id:'5', value:[8,8]}, {id:'6', value:[0,1]}],
+            [{id:'0',value:'分组2'},{id:'1',value:'返聘-在职人员'}, {id:'2', value:'女'}, {id:'3', value:'肖红'}, {id:'4', value:8}, {id:'5', value:[8,6]}, {id:'6', value:[1,0]}],
+            [{id:'0',value:'分组2'},{id:'1',value:'返聘-在职人员'}, {id:'2', value:'女'}, {id:'3', value:'肖绿'}, {id:'4', value:9}, {id:'5', value:[6.5,7]}, {id:'6', value:[2,0]}],
+        ]
+    };
+    var newData = {
+        header:[
+            {id:'0', value: '分组', datatype:'java.lang.String', frozen:true, total:false, displaymode:'2', alignmode:'3'},
+            {id:'1', value: '用工关系类型', datatype:'java.lang.String', frozen:true, total:false, displaymode:'2', alignmode:'3'},
+            {id:'2', value: '性别', datatype:'java.lang.String', frozen:true, total:false, displaymode:'2', alignmode:'3'},
+            {id:'3', value: '姓名', datatype:'java.lang.String', frozen:false, total:false, displaymode:'1', alignmode:'1'},
+            {id:'5', value: '实出勤时长', datatype:'java.lang.Integer', frozen:false, total:true, displaymode:'3', alignmode:'1'},
+            {id:'6', value: '迟到时长', datatype:'java.lang.Integer', frozen:false, total:true, displaymode:'3', alignmode:'1'},
+            {id:'7', value: '爱好', datatype:'java.lang.String', frozen:false, total:false, displaymode:'1', alignmode:'1'},
+        ],
+        data: [
+            [{id:'0',value:'分组1'},{id:'1',value:'雇佣-在职人员'}, {id:'2', value:'女'}, {id:'3', value:'晓莹'}, {id:'5', value:[7,7]},  {id:'6', value:[7,7]},   {id:'7', value:0}],
+            [{id:'0',value:'分组1'},{id:'1',value:'实习-在职人员'}, {id:'2', value:'女'}, {id:'3', value:'小红'}, {id:'5', value:[8,9]},  {id:'6', value:[7,7]},   {id:'7', value:1}],
+            [{id:'0',value:'分组1'},{id:'1',value:'返聘-在职人员'}, {id:'2', value:'女'}, {id:'3', value:'晓红'}, {id:'5', value:[9,7]},  {id:'6', value:[8,7]},   {id:'7', value:1}],
+            [{id:'0',value:'分组2'},{id:'1',value:'返聘-在职人员'}, {id:'2', value:'女'}, {id:'3', value:'肖绿'}, {id:'5', value:[8,8]}, {id:'6', value:[9,7]},  {id:'7', value:10.2}],
+            [{id:'0',value:'分组2'},{id:'1',value:'返聘-在职人员'}, {id:'2', value:'男'}, {id:'3', value:'肖黑'}, {id:'5', value:[7,7]},  {id:'6', value:[8,6]},   {id:'7', value:3}],
+        ]
+    };
+    var newData1 = {
+        header:[
+            {id:'0', value: '分组', datatype:'java.lang.String', frozen:true, total:false, displaymode:'2', alignmode:'3'},
+            {id:'1', value: '用工关系类型', datatype:'java.lang.String', frozen:true, total:false, displaymode:'2', alignmode:'3'},
+            {id:'2', value: '性别', datatype:'java.lang.String', frozen:true, total:false, displaymode:'2', alignmode:'3'},
+            {id:'3', value: '姓名', datatype:'java.lang.String', frozen:false, total:false, displaymode:'1', alignmode:'1'},
+            {id:'5', value: '实出勤时长', datatype:'java.lang.Integer', frozen:false, total:true, displaymode:'3', alignmode:'1'},
+            {id:'6', value: '迟到时长', datatype:'java.lang.Integer', frozen:false, total:true, displaymode:'3', alignmode:'1'},
+            {id:'7', value: '爱好', datatype:'java.lang.String', frozen:false, total:false, displaymode:'1', alignmode:'1'},
+        ],
+        data: [
+            // [{id:'0',value:'分组1'},{id:'1',value:'雇佣-在职人员'}, {id:'2', value:'男'}, {id:'3', value:'张三'}, {id:'4', value:8}, {id:'5', value:[7.5,8]}, {id:'6', value:[0,0.5]}],
+            // [{id:'0',value:'分组1'},{id:'1',value:'雇佣-在职人员'}, {id:'2', value:'男'}, {id:'3', value:'李四'}, {id:'4', value:8}, {id:'5', value:[8,8]}, {id:'6', value:[2,0]}],
+            // [{id:'0',value:'分组1'},{id:'1',value:'雇佣-在职人员'}, {id:'2', value:'女'}, {id:'3', value:'晓莹'}, {id:'4', value:8}, {id:'5', value:[8,8]}, {id:'6', value:[0,2]}],
+            // [{id:'0',value:'分组1'},{id:'1',value:'实习-在职人员'}, {id:'2', value:'女'}, {id:'3', value:'小红'}, {id:'4', value:8}, {id:'5', value:[7,8]}, {id:'6', value:[0,1]}],
+            // [{id:'0',value:'分组1'},{id:'1',value:'返聘-在职人员'}, {id:'2', value:'女'}, {id:'3', value:'晓红'}, {id:'4', value:8}, {id:'5', value:[8,8]}, {id:'6', value:[0,1]}],
+            // [{id:'0',value:'分组2'},{id:'1',value:'返聘-在职人员'}, {id:'2', value:'女'}, {id:'3', value:'肖红'}, {id:'4', value:8}, {id:'5', value:[8,6]}, {id:'6', value:[1,0]}],
+            // [{id:'0',value:'分组2'},{id:'1',value:'返聘-在职人员'}, {id:'2', value:'女'}, {id:'3', value:'肖绿'}, {id:'4', value:9}, {id:'5', value:[6.5,7]}, {id:'6', value:[2,0]}],
+        ]
+    };
+
+
+        // [0,1,2,3,5,6,7,8],
+        // [1,2,0,3,4,5,6],
+
+    $(function () {
+        var reportForm = new ReportForm(obj);
+
+        var dom_toggle_sum = document.getElementById('toggle-sum');
+        var dom_toggle_sum1 = document.getElementById('toggle-sum1');
+        var dom_toggle_avg = document.getElementById('toggle-avg');
+        var dom_toggle_total = document.getElementById('toggle-total');
+
+        // dom_toggle_avg.onclick = function () {
+        //     reportForm.toggleSum(1);
+        // };
+        // dom_toggle_sum.onclick = function () {
+        //     reportForm.refreshData_query(newData.data);
+        // };
+        // dom_toggle_sum1.onclick = function () {
+        //     reportForm.refreshData_query(newData1.data);
+        // };
+        // dom_toggle_total.onclick = function () {
+        //     flag = !flag;
+        //     reportForm.showSum('用工关系类型', flag);
+        // }
+    })
+</script>
+</body>
+</html>

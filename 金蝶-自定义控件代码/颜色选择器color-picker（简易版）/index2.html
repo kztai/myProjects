@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>纯JavaScript实现简洁的颜色选取器DEMO演示</title>
+    <link rel="stylesheet" href="./css/index.css">
+    <script src="js/colorpicker.js"></script>
+
+</head>
+<body>
+<div class="color-picker-select">
+    <div class="color-picker-btn" id="color-picker-btn"></div>
+    <div class="color-picker-icon"><span class="color-picker-icon-item"></span></div>
+</div>
+
+<div class="color-picker-main">
+    <!--遮罩-->
+    <div class="color-picker-wrap"></div>
+    <!--主体-->
+    <div class="color-palette"></div>
+</div>
+
+
+<script type="text/javascript">
+    window.onload = function () {
+        var a = new Colorpicker({
+            rootDom: document,
+            el: "color-picker-btn",
+            color: "#002E17",
+            change: function (elem, hex) {
+                elem.style.backgroundColor = hex;
+            }
+        })
+    }
+
+</script>
+
+</body>
+</html>
