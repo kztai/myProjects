@@ -13,6 +13,7 @@ const portfinder = require('portfinder')
 const HOST = process.env.HOST
 const PORT = process.env.PORT && Number(process.env.PORT)
 
+// mock配置1：
 const appData = require('../data.json')
 const seller = appData.seller
 const goods = appData.goods
@@ -28,6 +29,7 @@ const devWebpackConfig = merge(baseWebpackConfig, {
 
   // these devServer options should be customized in /config/index.js
   devServer: {
+    // mock配置2：
     before(app) {
       app.get('/seller', function(req, res) {
         res.json({errno:0, data:seller});
@@ -61,6 +63,7 @@ const devWebpackConfig = merge(baseWebpackConfig, {
       poll: config.dev.poll,
     }
   },
+
   plugins: [
     new webpack.DefinePlugin({
       'process.env': require('../config/dev.env')
