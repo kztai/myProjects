@@ -1,0 +1,6 @@
+dist
+public
+src/assets
+!.commitlintrc.cjs
+!.stylelintrc.cjs
+!.lintstagedrc.cjs

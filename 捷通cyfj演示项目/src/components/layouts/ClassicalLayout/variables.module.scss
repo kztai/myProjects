@@ -1,0 +1,9 @@
+/* stylelint-disable */
+@import "./variables.scss";
+
+:export {
+  commonPadding: $page-edge-padding;
+  asideExpandWidth: $aside-expand-width;
+  asideCollapseWidth: $aside-collapse-width;
+  headerHeight: $header-height;
+}

@@ -1,0 +1,11 @@
+@import "./preflight.css";
+
+.el-scrollbar {
+  .el-scrollbar__wrap {
+    scrollbar-width: none;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+}

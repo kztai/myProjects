@@ -1,0 +1,24 @@
+{
+  "files": [],
+  "extends": "@vue/tsconfig/tsconfig.dom.json",
+  "compilerOptions": {
+    "ignoreDeprecations": "5.0",
+    "verbatimModuleSyntax": true,
+    "composite": true,
+    "types": ["unplugin-icons/types/vue"],
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"]
+    }
+  },
+  "vueCompilerOptions": {
+    "target": 2.7
+  },
+  "include": ["env.d.ts", "components.d.ts", "./src/**/*", "./src/**/*.vue"],
+  "exclude": ["src/**/__tests__/*"],
+  "references": [
+    {
+      "path": "./tsconfig.node.json"
+    }
+  ]
+}
