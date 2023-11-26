@@ -15,12 +15,12 @@
 </template>
 
 <script type="text/javascript">
-  import {urlParse} from 'common/js/util.js';
+  // import {urlParse} from 'common/js/util.js';
   import header from 'components/header/header.vue';
   import data from '../data.json';
 
   // 定义状态码
-  const ERR_OK = 0;
+  // const ERR_OK = 0;
 
   export default {
     provide: function () {

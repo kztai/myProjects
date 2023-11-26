@@ -1,14 +1,16 @@
 'use strict'
-const utils = require('./utils')
+// 引入插件
 const webpack = require('webpack')
-const config = require('../config')
 const merge = require('webpack-merge')
 const path = require('path')
-const baseWebpackConfig = require('./webpack.base.conf')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin')
 const portfinder = require('portfinder')
+// 引入配置：
+const config = require('../config')
+const utils = require('./utils')
+const baseWebpackConfig = require('./webpack.base.conf')
 
 const HOST = process.env.HOST
 const PORT = process.env.PORT && Number(process.env.PORT)
@@ -73,9 +75,9 @@ const devWebpackConfig = merge(baseWebpackConfig, {
     new webpack.NoEmitOnErrorsPlugin(),
     // https://github.com/ampedandwired/html-webpack-plugin
     new HtmlWebpackPlugin({
-      filename: 'index.html',
-      template: 'index.html',
-      inject: true
+      filename: 'index.html',  // 编译后html文件名
+      template: 'index.html',  // 模板html文件
+      inject: true  // 编译后的js,css等文件会自动注入到html文件内
     }),
     // copy custom static assets
     new CopyWebpackPlugin([

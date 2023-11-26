@@ -9,6 +9,7 @@ var app = express();
 
 var router = express.Router();
 
+// 返回根文件：
 router.get('/', function(req, res, next) {
 	req.url = '/index.html';
 	next();
