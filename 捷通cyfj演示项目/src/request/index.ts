@@ -3,7 +3,7 @@ import responseInterceptors from './interceptor/response'
 import { authInterceptor } from '@/request/interceptor/request'
 import { IS_DEV } from '@/const'
 
-const TimeoutLimit = 5 // 5s
+const TimeoutLimit = 15 // 5s
 
 /**
  * 业务代码中处理接口异常的情况示例:

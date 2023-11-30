@@ -14,6 +14,7 @@
     "prepare": "husky install"
   },
   "dependencies": {
+    "@microsoft/fetch-event-source": "^2.0.1",
     "axios": "^1.6.1",
     "element-ui": "^2.15.14",
     "js-cookie": "^3.0.5",

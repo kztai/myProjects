@@ -29,7 +29,7 @@ export interface llmRequestParam {
 
 export interface llsResponseResult {
   traceToken: string // 服务内部的 token 字符串，可用于日志追溯。
-  // 值为 START 时，表示开始生成结果;值为 RESULT 时，表示正常生成结果，且生成未结束;值为 END 时，表示正常生成结果，且生成结束;
+  // 值为START时，表示开始生成结果; 值为RESULT时，表示正常生成结果，且生成未结束; 值为END时，表示正常生成结果，且生成结束;
   respType: string
   result: {
     response: string // 生成文本内容

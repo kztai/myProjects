@@ -1,17 +1,20 @@
-type recordData = {
-  date: string
-  content: string
-}
+// interface recordData {
+//   // date: string
+//   content: string
+// }
 
-export type caseInfo = {
+export interface caseInfo {
   key: string
   content: string
+  like?: string[]
 }
 
 export interface nomalizeRecord {
   type: string
-  originalData: recordData
-  normalizeData: recordData
+  show: boolean
+  isComplete: boolean
+  originalData: string
+  normalizeData: string
 }
 
 export interface options {
@@ -24,3 +27,11 @@ export enum optionIndex {
   correct,
   originalAndCorrect,
 }
+
+// export interface successcallback {
+//   (res: any): void
+// }
+
+// export interface errcallback {
+//   (err: any): void
+// }

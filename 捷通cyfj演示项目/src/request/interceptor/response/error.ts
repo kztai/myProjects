@@ -87,10 +87,10 @@ const interceptor: ResInterceptor = {
       }
 
       if (errorCode === IRequestErrorCode.UN_AUTH) {
-        normalizedError.message = '你已被登出，请重新登录'
-        const hintText = error.config?.errorMessageFormatter?.(normalizedError) ?? normalizedError.message
-        normalizedError.hasShownErrorMsg = true
-        openLogoutMsgBox(hintText)
+        // normalizedError.message = '你已被登出，请重新登录'
+        // const hintText = error.config?.errorMessageFormatter?.(normalizedError) ?? normalizedError.message
+        // normalizedError.hasShownErrorMsg = true
+        // openLogoutMsgBox(hintText)
       }
     } else {
       // Axios 内部或者其他拦截器 fulfilled()/rejected() 执行过程中抛出的异常, 应该继续抛出去

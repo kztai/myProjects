@@ -1,5 +1,5 @@
 import VueRouter, { type RouteConfig } from 'vue-router'
-import BlankLayout from '@/components/layouts/BlankLayout/index.vue'
+// import BlankLayout from '@/components/layouts/BlankLayout/index.vue'
 import { dashboardRoutes } from './dashboard'
 import { knowledgeRoutes } from './knowledge'
 
@@ -11,14 +11,7 @@ export const classicalLayoutRoutes: RouteConfig[] = [
 const routes: RouteConfig[] = [
   {
     path: '',
-    redirect: '/login',
-    component: BlankLayout,
-    children: [
-      {
-        path: 'login',
-        component: () => import('@/views/auth/login.vue'),
-      },
-    ],
+    component: () => import('@/views/cyfj/Homepage.vue'),
   },
   ...classicalLayoutRoutes,
 ]
