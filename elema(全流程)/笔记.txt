@@ -1,0 +1,19 @@
+从开发到部署上线全流程步骤：
+
+1，开发时使用 devServer.before + 本地data.json 的方式mock数据；
+
+2，使用 devServer.proxy 的方式，实现反向代理，访问后端接口；
+
+3，使用 axios.create 封装一个http对象，可以设置请求拦截（添加token等）、响应拦截（处理错误信息）
+
+4，npm run build 打包
+
+5，本地起一个 node.js 服务，配置路由返回数据，配置静态文件地址，最后跑起来（主要是本地测试用）
+
+6，将打包后dist文件夹，上传到云服务器。
+
+7，第一次购买云服务，需要配置实例的访问规则：配置授权对象(0.0.0.0)和端口(80)。详见：https://zhuanlan.zhihu.com/p/658996444
+
+8，起一个 node.js 服务，端口也必须是80。这时在公网就可以访问啦！！
+
+9，购买并解析域名，主要是绑定IP。详见：https://console.huaweicloud.com/dns/?agencyId=63032ba8979343d0ab667a26b425d372&region=cn-north-4&locale=zh-cn#/dns/publiczones
