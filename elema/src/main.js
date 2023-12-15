@@ -21,7 +21,8 @@ const routes = [
 
 const router = new VueRouter({
 	routes,
-	linkActiveClass: 'active'
+	linkActiveClass: 'active',
+	mode: 'hash'
 });
 
 Vue.config.productionTip = false;

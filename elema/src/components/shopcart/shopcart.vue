@@ -58,6 +58,9 @@
 	import cartControl from 'components/cartControl/cartControl.vue';
 
 	export default {
+		components: {
+			cartControl
+		},
 		data() {
 			return {
 				balls: [
@@ -213,9 +216,6 @@
 				}
 				return show;
 			}
-		},
-		components: {
-			cartControl
 		}
 	};
 </script>

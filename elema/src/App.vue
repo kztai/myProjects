@@ -15,7 +15,7 @@
 </template>
 
 <script type="text/javascript">
-  import {urlParse} from 'common/js/util.js';
+  // import {urlParse} from 'common/js/util.js';
   import header from 'components/header/header.vue';
 
   // 定义状态码
@@ -24,21 +24,15 @@
   export default {
     data() {
       return {
-        seller: {
-          id: (() => {
-            // 获得URL值
-            let queryParam = urlParse();
-            return queryParam.id;
-          })()
-        }
+        seller: {}
       };
     },
     components: {
       'v-header': header
     },
-    created() {
+    beforeCreate() {
       // 拿到data.json中的seller数据
-      this.$http.get('/seller?=' + this.seller.id).then((data) => {
+      this.$http.get('/api/seller').then((data) => {
         if (ERR_OK === data.body.errno) {
           this.seller = Object.assign({}, this.seller, data.body.data);
         }

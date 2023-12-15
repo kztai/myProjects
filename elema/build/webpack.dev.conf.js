@@ -1,5 +1,5 @@
 'use strict'
-// 引入插件
+// 引入插件：
 const webpack = require('webpack')
 const merge = require('webpack-merge')
 const path = require('path')
@@ -8,14 +8,13 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin')
 const portfinder = require('portfinder')
 // 引入配置：
-const config = require('../config')
 const utils = require('./utils')
+const config = require('../config')
 const baseWebpackConfig = require('./webpack.base.conf')
 
 const HOST = process.env.HOST
 const PORT = process.env.PORT && Number(process.env.PORT)
 
-// mock配置1：
 const appData = require('../data.json')
 const seller = appData.seller
 const goods = appData.goods
@@ -31,15 +30,14 @@ const devWebpackConfig = merge(baseWebpackConfig, {
 
   // these devServer options should be customized in /config/index.js
   devServer: {
-    // mock配置2：
     before(app) {
-      app.get('/seller', function(req, res) {
+      app.get('/api/seller', function(req, res) {
         res.json({errno:0, data:seller});
-      });
-      app.get('/goods', function(req, res) {
+      });      
+      app.get('/api/goods', function(req, res) {
         res.json({errno:0, data:goods});
-      });
-      app.get('/ratings', function(req, res) {
+      });      
+      app.get('/api/ratings', function(req, res) {
         res.json({errno:0, data:ratings});
       });
     },
@@ -65,7 +63,6 @@ const devWebpackConfig = merge(baseWebpackConfig, {
       poll: config.dev.poll,
     }
   },
-
   plugins: [
     new webpack.DefinePlugin({
       'process.env': require('../config/dev.env')
@@ -75,9 +72,9 @@ const devWebpackConfig = merge(baseWebpackConfig, {
     new webpack.NoEmitOnErrorsPlugin(),
     // https://github.com/ampedandwired/html-webpack-plugin
     new HtmlWebpackPlugin({
-      filename: 'index.html',  // 编译后html文件名
-      template: 'index.html',  // 模板html文件
-      inject: true  // 编译后的js,css等文件会自动注入到html文件内
+      filename: 'index.html',
+      template: 'index.html',
+      inject: true
     }),
     // copy custom static assets
     new CopyWebpackPlugin([

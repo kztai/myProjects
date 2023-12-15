@@ -1,4 +1,6 @@
 
+// 该文件：检查你的node、npm版本是否与 package.json 文件中的 engines 配置一致，防止程序出错。
+
 'use strict'
 const chalk = require('chalk')
 const semver = require('semver')
