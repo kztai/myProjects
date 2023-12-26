@@ -6,7 +6,7 @@ const port = 9000;
 const app = express();
 const router = express.Router();
 
-//路由清单（从上往下匹配，当有重复时，先匹配前面的）
+// 路由清单（从上往下匹配，当有重复时，先匹配前面的）
 app.get('/', function(req, res) {
 	// res常用的有res.send(), res.sendFile()； sendFile表示发送一个页面给客户，要用绝对路径
 	// __dirname表示当前js文件的绝对路径
@@ -42,13 +42,13 @@ app.use('/elema/api', apiRoutes);
 app.use(express.static('./dist'));
 
 app.get('*', (req, res) => {
-	res.sendFile(__dirname, '/dist/index.html')
-})
+	res.sendFile(__dirname, '/dist/index.html');
+});
 
 module.exports = app.listen(port, function (err) {
 	if (err) {
 		console.log(err);
 		return;
 	}
-	console.log('Listening at http://localhost:' + port + '\n')
+	console.log('Listening at http://localhost:' + port + '\n');
 });
