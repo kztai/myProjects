@@ -21,14 +21,14 @@ apiRoutes.get('/goods', function (req, res) {
 
 apiRoutes.get('/ratings', function (req, res) {
 	res.json({errno: 0, data: ratings});
-}); 
+});
 
-app.use('/api', apiRoutes);
+app.use('/elema/api', apiRoutes);
 
 module.exports = app.listen(port, function (err) {
 	if (err) {
 		console.log(err);
-		return
+		return;
 	}
-	console.log('api Listening at http://localhost:' + port + '\n')
+	console.log('elema api Listening at http://localhost:' + port + '\n')
 });

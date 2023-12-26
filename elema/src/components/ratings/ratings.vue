@@ -110,7 +110,7 @@ export default {
 		}
 	},
 	created() {
-		this.$http.get('/api/ratings').then((data) => {
+		this.$http.get('/elema/api/ratings').then((data) => {
 			if (data.body.errno === ERR_OK) {
 				this.ratings = data.body.data;
 				this.$nextTick(() => {

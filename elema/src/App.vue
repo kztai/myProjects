@@ -32,7 +32,7 @@
     },
     beforeCreate() {
       // 拿到data.json中的seller数据
-      this.$http.get('/api/seller').then((data) => {
+      this.$http.get('/elema/api/seller').then((data) => {
         if (ERR_OK === data.body.errno) {
           this.seller = Object.assign({}, this.seller, data.body.data);
         }

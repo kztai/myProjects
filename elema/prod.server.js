@@ -35,9 +35,9 @@ apiRoutes.get('/goods', function (req, res) {
 
 apiRoutes.get('/ratings', function (req, res) {
 	res.json({errno: 0, data: ratings});
-}); 
+});
 
-app.use('/api', apiRoutes);
+app.use('/elema/api', apiRoutes);
 
 app.use(express.static('./dist'));
 
@@ -48,7 +48,7 @@ app.get('*', (req, res) => {
 module.exports = app.listen(port, function (err) {
 	if (err) {
 		console.log(err);
-		return
+		return;
 	}
 	console.log('Listening at http://localhost:' + port + '\n')
 });

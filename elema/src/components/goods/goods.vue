@@ -75,7 +75,7 @@
         created() {
 			this.classMap = ['decrease', 'discount', 'special', 'invoice', 'guarantee'];
 
-			this.$http.get('/api/goods').then((data) => {
+			this.$http.get('/elema/api/goods').then((data) => {
 				if (data.body.errno === ERR_OK) {
 					this.goods = data.body.data;
 
