@@ -39,10 +39,10 @@ registerRouter(app);
 //（2）一般放在所有的路由地址后面定义，以防覆盖了前面的路由
 app.use(express.static("./public"));
 
-app.set("port", 3030);
+app.set("port", 8800);
 
 // 5、初始化并连接数据库：
-const connect = dbConnect("first_test");
+const connect = dbConnect("badminton");
 export { connect };
 
 // 初始化数据库表：

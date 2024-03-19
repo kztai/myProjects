@@ -1,5 +1,6 @@
 // 这是使用一个类继承多个类的方式实现的，不过有个缺点：eslint检测时，会找不到原型上的方法（但是实际可以运行）
 
+/*
 import DBTable from "./db.table";
 import DBCrud from "./db.crud";
 
@@ -51,4 +52,4 @@ class Test {
 }
 
 export default Test;
-
+*/

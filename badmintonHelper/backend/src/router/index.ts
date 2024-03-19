@@ -2,6 +2,6 @@ import User from "./user";
 import Goods from "./goods";
 
 export default (app: any) => {
-    app.use("/user", User);
-    app.use("/goods", Goods);
+    app.use("/badminton/api/user", User);
+    app.use("/badminton/api/goods", Goods);
 };
