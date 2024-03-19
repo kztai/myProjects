@@ -1,0 +1,4 @@
+<view class="com">
+  <view>behaviors学习：</view>
+  <text>behaviors 是用于组件间代码共享的特性，类似于vue中的 “mixins” </text>
+</view>

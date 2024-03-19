@@ -1,0 +1,7 @@
+{
+  "desc": "用来配置小程序及其页面是否允许被微信索引。当用户在微信搜索关键字和页面的索引信息匹配时，小程序的页面讲可能展示在搜索结果中。（action: 'disallow' 可以关闭匹配。）（关于本文件的更多信息，请参考文档 https://developers.weixin.qq.com/miniprogram/dev/framework/sitemap.html）",
+  "rules": [{
+  "action": "allow",
+  "page": "*"
+  }]
+}

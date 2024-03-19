@@ -1,0 +1,25 @@
+<text>wxs学习</text>
+<!-- 1、可以通过moduleName访问到wxs内部的方法： -->
+<view>{{m1.getData()}}</view>
+
+<view>变大写：{{m2.toUpper('aaaaaaa')}}</view>
+<view>变小写：{{m2.toLower('KZT')}}</view>
+
+<!-- 1、通过内联的wxs标签，可以在.wxml内部定义函数，类似script标签（module属性必备） -->
+<wxs module="m1">
+  module.exports.getData = function() {
+    return 'my name is kzt'
+  }
+</wxs>
+
+<!-- 2、外联的wxs脚本（src、module属性必备） -->
+<wxs src="./myTool.wxs" module="m2"/>
+
+<!-- 
+  注意：
+  1、wxs本质上与JS是两种完全不同的语言。
+  2、wxs不能使用js中es6的语法。
+  3、wxs内的方法不能用于事件绑定，一般用于{{}}。
+  4、wxs与js是相互隔离的，wxs不能调用js内的方法。
+  5、wxs不能调用小程序提供的api。
+ -->

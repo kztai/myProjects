@@ -1,0 +1,5 @@
+<view class="bottom-tab-bar">
+  <view class="item">tab1</view>
+  <view class="item">tab2</view>
+  <view class="item">tab3</view>
+</view>

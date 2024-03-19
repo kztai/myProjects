@@ -1,0 +1,37 @@
+<!--pages/navigaterRouter/navigaterRouter.wxml-->
+<text class="h2">navigater导航学习，类似vue-Router</text>
+<button type="primary">
+  <!-- 声明式导航：（1）URL必现以/开头。 -->
+  <!-- 1、导航到tabBar：必须把open-type属性设置为switchTab -->
+  <navigator url="/pages/baseLearn/baseLearn" open-type="switchTab">声明式导航：导航到基础学习tabBar</navigator>
+</button>
+
+<button>
+  <!-- 2、导航到非tabBar页面：open-type属性可省略 -->
+  <navigator url="/pages/behaviorsLearn/behaviorsLearn" open-type="navigate">声明式导航：导航到非tabBar页面</navigator>
+</button>
+
+<button>
+  <!-- 2、导航到分包 -->
+  <navigator url="/subPackageA/pages/cat/cat" open-type="navigate">声明式导航：导航到分包</navigator>
+</button>
+
+<button>
+  <!-- 3、返回到上一页或者上几页：delta值为数字，表示要后退的层级，可省略（省略则表示后退一页） -->
+  <navigator delta="1" open-type="navigateBack">声明式导航：返回上一页</navigator>
+</button>
+
+<!-- 4、编程式导航 -->
+<button bind:tap="switchTab">编程式导航：跳转到基础学习tabBar</button>
+<button bind:tap="navigateTo">编程式导航：跳转到非tabBar页面</button>
+<button bind:tap="navigateBack">编程式导航：回退上一页</button>
+
+<button>
+  <!-- 4、声明式导航传参（只能导航到非tabBar页面时使用） -->
+  <!-- 接收时到目标页面的onLoad钩子中获取 -->
+  <navigator url="/pages/behaviorsLearn/behaviorsLearn?name=kzt&age=2" open-type="navigate">声明式导航传参</navigator>
+</button>
+
+<!-- 4、编程式导航传参 -->
+<!-- 接收时到目标页面的onLoad钩子中获取 -->
+<button bind:tap="navigateToPara">编程式导航传参</button>

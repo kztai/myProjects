@@ -1,0 +1,22 @@
+/** 
+1、app.wxss 中的样式会作用于全局页面。
+2、不会影响到组件内的样式。
+**/
+.container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 200rpx 0;
+  box-sizing: border-box;
+} 
+
+.h2 {
+  font-size: 36rpx;
+  font-weight: 700;
+}
+button {
+  margin: 6px;
+}
+

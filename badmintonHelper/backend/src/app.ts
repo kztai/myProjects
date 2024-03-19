@@ -52,5 +52,4 @@ initTable().then((res) => {
     console.log(err);
 });
 
-
 export default app;
