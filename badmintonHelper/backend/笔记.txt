@@ -1,0 +1,11 @@
+1、首先，这已经是个成熟、可正常运行的 express + mysql + typescript 项目模板。整体采用mvc的框架结构，已封装好了mysql、router等，开箱即用。
+
+2、因为采用ts来编写程序，所以在启动项目前需要多一步，把ts转换为js才行。项目真正运行也是运行在编译后的js代码中。
+    2-1、输入：npm run build 将项目编译为js代码；
+    2-2、到js代码根目录（dist）中，输入：node server.js 启动服务；
+
+3、每次修改ts代码后都要手动build，重新编译，太麻烦。所以可以采用：npm run watch ，启动服务、实时编译，方便开发（推荐）
+
+4、项目代码结构，可以参考：目录注释图.png
+
+5、vscode 的断点调试配置，参考：https://www.jianshu.com/p/63f8af749d77
