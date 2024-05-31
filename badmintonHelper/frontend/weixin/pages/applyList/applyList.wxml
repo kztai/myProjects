@@ -1,0 +1,43 @@
+<view class="apply-list-wrap">
+  <!-- 头部页签 -->
+  <view class="apply-list-top-tab-bar">
+    <view wx:for="{{applyTypeList}}" wx:key="index" class="top-tab-bar-item top-tab-bar-item-active" data-index="{{index}}" bindtap="changeApplyType">
+      <text style="color: {{selected === index ? themeColor : 'initial'}}">{{ item }}({{ applyNum }})</text>
+    </view>
+  </view>
+  <scroll-view wx:if="{{ applyList.length > 0 }}" class="apply-list" scroll-y type="list" refresher-enabled bindrefresherrefresh="refreshActivityList" bindrefresherrestore="stopRefreshActivityList" refresher-triggered="{{ isRefresh }}">
+    <view class="apply-item" wx:for="{{ applyList }}" wx:key="userId" wx:for-item="applyInfo" bind:tap="showUserInfo" data-userId="{{ applyInfo.userId }}">
+      <view class="item-left">
+        <image class="item-avatar" src="{{ applyInfo.avatar }}" />
+        <view class="item-user-info">
+          <view class="item-user-info-top">
+            <text class="user-name">{{ applyInfo.name }}</text>
+            <text class="user-sex iconfont {{ applyInfo.sex === '男' ? 'user-sex-male icon-nan' : 'user-sex-female icon-nv' }}" />
+            <text class="user-edit iconfont icon-bianjishuru-xianxing" />
+          </view>
+          <view class="item-user-info-time">{{ applyInfo.applyTime }}</view>
+        </view>
+      </view>
+      <view class="item-right">{{ m1.formatLevel(applyInfo.level) }}</view>
+    </view>
+  </scroll-view>
+  <view wx:else class="apply-empty">
+    <view class="empty-text">暂无报名</view>
+  </view>
+</view>
+
+<!-- 1、通过内联的wxs标签，可以在.wxml内部定义函数，类似script标签（module属性必备） -->
+<wxs module="m1">
+  module.exports.formatLevel = function (level) {
+    switch (level) {
+      case -1:
+        return '未自评';
+      case 0:
+        return '萌新';
+      case 10:
+        return '专业级';
+      default:
+        return level + '级';
+    }
+  }
+</wxs>

@@ -1,0 +1,16 @@
+<view class="message-box-wrap {{ hideMessageBox ? 'fade-out' : 'fade-in' }}">
+  <view class="message-box">
+    <view class="box-close iconfont icon-cuowu" bind:tap="onCloseHandle"></view>
+    <view wx:if="{{ !messageData.custom }}" class="box-type-option">
+      <view class="message-box-title">{{ messageData.title }}</view>
+      <view class="message-box-content">{{ messageData.content }}</view>
+      <view class="message-box-btns">`
+        <view wx:if="{{ messageData.showCancelBtn }}" class="message-box-btn message-box-btns-cancel" bind:tap="onCancelHandle">{{ messageData.cancelText }}</view>
+        <view wx:if="{{ messageData.showConfirmBtn }}" class="message-box-btn message-box-btns-confirm" style="background-color: {{successColor}};" bind:tap="onComfirmHandle">
+          {{ messageData.confirmText }}
+        </view>
+      </view>
+    </view>
+    <slot wx:else></slot>
+  </view>
+</view>

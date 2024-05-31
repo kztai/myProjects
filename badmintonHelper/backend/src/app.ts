@@ -2,9 +2,9 @@ import express from "express";
 import bodyParser from "body-parser";
 import "module-alias/register";  // 路径别名
 
+import JWT from "./util/jwt";
 import registerRouter from "./router/index";
-import { dbConnect } from "./db/db.index";
-import { initTable } from "./models/index";
+import { init } from "./models/index";
 
 const app = express();
 
@@ -13,6 +13,35 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));   // 对URL参数做解码
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));  // 对body参数做解码
+
+
+
+
+// 应用中间件来拦截所有路由，并进行token验证
+app.use((req, res, next) => {
+    // 登录接口，不验证token：
+    if(req.url === "/badminton/api/login/wxLogin") {
+        next();
+        return;
+    }
+    const authHeader = req.headers["authorization"];
+    const token = authHeader && authHeader.split(" ")[1];
+
+    if (token) {
+        // 使用你的逻辑来验证token
+        const result = JWT.verifyToken(token);
+        if ( result ) {
+            next(); // 如果token有效，继续下一个中间件或路由处理
+        } else {
+            // 402: 客户端无法验证其身份或未提供有效的凭据。
+            res.send({ code: 402, message: "登录信息已失效，请重新登录" });
+        }
+    } else {
+        // 401错误代表用户没有访问权限，需要进行身份认证。
+        res.send({ code: 401, message: "请先登录！" });
+    }
+});
+
 
 
 // 2、拦截所有路由，并设置header：
@@ -39,17 +68,10 @@ registerRouter(app);
 //（2）一般放在所有的路由地址后面定义，以防覆盖了前面的路由
 app.use(express.static("./public"));
 
+
 app.set("port", 8800);
 
 // 5、初始化并连接数据库：
-const connect = dbConnect("badminton");
-export { connect };
-
-// 初始化数据库表：
-initTable().then((res) => {
-    console.log(res);
-}).catch((err) => {
-    console.log(err);
-});
+init("badminton");
 
 export default app;

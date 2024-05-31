@@ -1,0 +1,69 @@
+.user-info-wrap {
+  padding: 12rpx;
+}
+.user-info {
+  display: flex;
+  justify-content: center;
+  position: relative;
+  padding: 20rpx 0;
+}
+.user-info-wrap .item-avatar {
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-right: 20rpx;
+}
+.user-info-wrap .item-user-info {
+  line-height: 80rpx;
+}
+.user-info-wrap .item-user-info-top {
+  display: flex;
+}
+.user-info-wrap .item-user-info-top .user-name {
+  margin-right: 20rpx;
+}
+.user-info-wrap .item-user-info-top .user-sex {
+  margin-right: 20rpx;
+  font-weight: 700;
+}
+.user-info-wrap .user-sex-male {
+  color: blue;
+}
+.user-info-wrap .user-sex-female {
+  color: pink;
+}
+
+.user-info-wrap .user-info-level {
+  background-color: skyblue;
+  height: 40rpx;
+  line-height: 40rpx;
+  padding: 0 4rpx;
+  border-radius: 20rpx;
+  font-size: 28rpx;
+  color: #fff;
+  margin-top: 20rpx;
+}
+
+.user-edit {
+  position: absolute;
+  top: 46rpx;
+  right: 46rpx;
+}
+
+.activity-total-wrap {
+  padding: 0 32rpx;
+}
+
+.activity-total-wrap .activity-total-top {
+  display: flex;
+  justify-content: space-between;
+  border-top: 1px solid #d9d9d9;
+  border-bottom: 1px solid #d9d9d9;
+  padding: 20rpx 0;
+}
+.activity-total-wrap .activity-total-bottom {
+  display: flex;
+  justify-content: space-between;
+  padding: 20rpx 0;
+}

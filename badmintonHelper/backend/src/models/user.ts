@@ -1,26 +1,41 @@
-import { queryDataByCond } from "@/db/db.crud";
+import { insertData, queryDataByCond, queryDataById, delDataByCond } from "@/db/db.crud";
 import { ResultType } from "@/types/index";
-import { TableNameMap, UserFieldMap } from "./def";
+import { TableNameMap, userFieldMap } from "./def";
+import { ActivityFieldType } from "@/types/models/type";
+import { ConditionType } from "@/types/db/db.type";
+
+import { UserInfoType } from "@/types/user";
 
 
-export function queryUserInfo(params: Record<string, any>): Promise<ResultType> {
+
+// 新增用户信息：
+export function insertUserInfo(userInfo: UserInfoType): Promise<ResultType> {
     try {
-        // 查询商品信息：
-        const arrCondition: string[] = [];
-        Object.keys(params).forEach((key) => {
-            // 判断该字段是否在商品表中：
-            const arrField = Object.values(UserFieldMap);
-            if (arrField.includes(key)) {
-                // 判断值是否有多个：
-                params[key].includes(",") ? arrCondition.push(`${key}@IN:${params[key]}`) : arrCondition.push(`${key}@=:${params[key]}`);
-            }
+        const arrData: any[] = [];
+        const arrUserTableField = Object.values(userFieldMap);
+        arrUserTableField.forEach((field:string) => {
+            userInfo[field] === undefined ? arrData.push(null) : arrData.push(userInfo[field]);
         });
-        return queryDataByCond(TableNameMap.user, [], { condition: arrCondition });
+        return insertData(TableNameMap.user, arrUserTableField, [arrData]);
     } catch (err) {
-        console.log("查询用户信息失败：", err);
         return Promise.reject({
-            code: 10005,
-            message: "查询用户信息失败：" + err
+            code: 12000,
+            message: "新增用户信息失败：" + err
+        });
+    }
+}
+
+// 删除用户信息：
+export function deleteUserInfo(userId: string): Promise<ResultType> {
+    try {
+        const conditions: ConditionType = {
+            condition: [`${userFieldMap.userId}@=:${userId}`],
+        };
+        return delDataByCond(TableNameMap.user, conditions);
+    } catch (err) {
+        return Promise.reject({
+            code: 12001,
+            message: "删除用户信息失败：" + err
         });
     }
 }

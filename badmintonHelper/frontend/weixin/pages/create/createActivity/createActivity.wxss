@@ -1,0 +1,77 @@
+.create-activity-wrap {
+  width: 100vw;
+  min-height: 100vh;
+  background-color: #efefef;
+  padding: 20rpx 20rpx 74rpx 20rpx;
+  box-sizing: border-box;
+}
+
+.create-activity-wrap .form-area {
+  background-color: #fff;
+  border-radius: 12rpx;
+  padding: 0 20rpx;
+  margin-bottom: 20rpx;
+}
+
+.create-activity-wrap .form-area .form-item {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 2rpx solid #d9d9d9;
+  padding: 20rpx 0;
+}
+.create-activity-wrap .form-area .form-item:last-child {
+  border-bottom:none;
+}
+
+.create-activity-wrap .form-area .form-item-label {
+  flex: 0 0 128rpx;
+  color: #999;
+  text-align: right;
+}
+.create-activity-wrap .form-area .form-item-content {
+  flex: 1;
+  text-align: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.create-activity-wrap .form-area .form-item-icon {
+  display: flex;
+  align-items: center;
+  flex: 0;
+  color: #999;
+}
+
+.create-activity-wrap .form-area .form-item-content-text {
+  vertical-align: super;
+  margin-left: 20rpx;
+}
+.create-activity-wrap .form-area .input-pay {
+  width: 100rpx;
+  display: inline-block;
+  border: 1px solid #d9d9d9;
+  border-radius: 8rpx;
+}
+
+.create-activity-wrap .form-area .item-content-supplement {
+  border: 1px solid #d9d9d9;
+  width: auto;
+  border-radius: 8rpx;
+  margin-left: 20rpx;
+  text-align: left;
+  height: 160rpx;
+  padding: 12rpx;
+  box-sizing: border-box;
+  font-size: 28rpx;
+}
+
+.create-activity-wrap .form-btn-wrap {
+  display: flex;
+  justify-content: space-around;
+  position: fixed;
+  bottom:0;
+  left: 0;
+  width: 100%;
+  background-color: #fff;
+  padding: 16rpx 0;
+}

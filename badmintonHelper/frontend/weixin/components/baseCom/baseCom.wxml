@@ -1,8 +1,0 @@
-<!--components/baseCom/baseCom.wxml-->
-<view class="base-com">
-  <text class="h2">这是一个自定义组件（基础学习）:</text>
-  <button bind:tap="showInfo">测试data与properties是否全等</button>
-  <view>{{num1}} + {{num2}} = {{sum}}</view>
-  <button bind:tap="num1Add">num1 + 1</button>
-  <button bind:tap="num2Add">num2 + 1</button>
-</view>

@@ -4,38 +4,28 @@
 App({
   // 启动时钩子：
   onLaunch() {
-    // 展示本地存储能力
-    const logs = wx.getStorageSync('logs') || []
-    logs.unshift(Date.now())
-    wx.setStorageSync('logs', logs)
-    // 登录
-    wx.login({
-      success: res => {
-        // 发送 res.code 到后台换取 openId, sessionKey, unionId
+    // 判断用户是否登录，或者登录是否过期（微信端）：
+    wx.checkSession({
+      success: () => { 
+        this.globalData.loginInfo = wx.getStorageSync('loginInfo') || {};
+      },
+      fail: (err) => { 
+        // session_key 已经失效，需要重新执行登录流程
+        this.globalData.isLogin = false
+        wx.setStorageSync('token', '');
+        wx.setStorageSync('loginInfo', '');
       }
     })
   },
 
-  // 显示时钩子（启动或者从后台进入前台）：
-  onShow (options) {
-    // Do something when show.
-  },
-
-   // 隐藏时钩子（从前台进入后台）：
-  onHide () {
-    // Do something when hide.
-  },
-
-  // 页面加载错误时钩子：
-  onError (msg) {
-    console.log(msg)
-  },
-
   // 全局注册的数据与方法：
+  // 页面或模块通过 getApp 方法获取到全局唯一的 App 实例，从而获取到globalData1:
   globalData: {
-    userInfo: {name: 'kzt', id: 1},
-    func(data) {
-      console.log(data);
+    loginInfo: {},
+    isLogin: false,
+    tabBarIndex: 0,
+    changeTabBarIndex(index) {
+      this.tabBarIndex = index;
     }
   }
 })

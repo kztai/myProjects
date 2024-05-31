@@ -1,4 +1,0 @@
-/* pages/pullRefreshLoadLearn/pullRefreshLoadLearn.wxss */
-.list {
-  padding: 50px 0;
-}

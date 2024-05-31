@@ -1,4 +1,0 @@
-<!--components/comLifeCycleLearn/comLifeCycleLearn.wxml-->
-<view class="base-com">
-<text>组件的生命周期学习：</text>
-</view>

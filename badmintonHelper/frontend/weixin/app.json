@@ -1,46 +1,24 @@
 {
-  "usingComponents": {
-    "base-com": "/components/baseCom/baseCom"
-  },
+  "usingComponents": {},
   "pages": [
-    "pages/baseLearn/baseLearn",
-    "pages/wxsLearn/wxsLearn",
-    "pages/pullRefreshLoadLearn/pullRefreshLoadLearn",
-    "pages/navigaterLearn/navigaterLearn",
-    "pages/behaviorsLearn/behaviorsLearn",
-    "pages/index/index",
-    "pages/logs/logs",
-    "custom-tab-bar/index"
+    "pages/homepage/homepage",
+    "pages/create/create",
+    "pages/me/me",
+    "pages/activityDetail/activityDetail",
+    "pages/level/level",
+    "pages/map/map",
+    "pages/vipPrivilege/vipPrivilege",
+    "pages/vipProtocol/vipProtocol",
+    "pages/applyList/applyList",
+    "pages/userInfo/userInfo",
+    "pages/create/createActivity/createActivity",
+    "pages/login/login"
   ],
-  "subPackages": [
-    {
-      "root": "subPackageA",
-      "name": "分包别名1",
-      "pages": [
-        "pages/cat/cat",
-        "pages/dog/dog"
-      ]
-    },
-    {
-      "root": "subPackageB",
-      "name": "分包别名2",
-      "independent": true,
-      "pages": [
-        "pages/apple/apple",
-        "pages/banana/banana"
-      ]
-    }
+  "requiredPrivateInfos": [
+    "chooseLocation"
   ],
-  "preloadRule": {
-    "pages/navigaterLearn/navigaterLearn": {
-      "packages": [
-        "分包别名1"
-      ],
-      "network": "all"
-    }
-  },
   "window": {
-    "navigationBarTitleText": "kzt",
+    "navigationBarTitleText": "羽毛球助手",
     "navigationBarBackgroundColor": "#333",
     "navigationBarTextStyle": "white",
     "navigationStyle": "default",
@@ -48,32 +26,22 @@
     "backgroundTextStyle": "dark"
   },
   "tabBar": {
-    "color": "#333",
-    "selectedColor": "#00ff00",
-    "backgroundColor": "#efefef",
-    "position": "bottom",
+    "custom": true,
     "list": [
       {
-        "pagePath": "pages/baseLearn/baseLearn",
-        "text": "基础学习",
-        "iconPath": "image/home.png",
-        "selectedIconPath": "image/home-active.png"
+        "pagePath": "pages/homepage/homepage",
+        "text": "首页",
+        "iconPath": "image/homepage/homepage.png",
+        "selectedIconPath": "image/homepage/homepage_active.png"
       },
       {
-        "pagePath": "pages/navigaterLearn/navigaterLearn",
-        "text": "导航练习",
-        "iconPath": "image/msg.png",
-        "selectedIconPath": "image/msg-active.png"
-      },
-      {
-        "pagePath": "pages/pullRefreshLoadLearn/pullRefreshLoadLearn",
-        "text": "下拉刷新与上拉加载",
-        "iconPath": "image/phone.png",
-        "selectedIconPath": "image/phone-active.png"
+        "pagePath": "pages/me/me",
+        "text": "我的",
+        "iconPath": "image/me/me.png",
+        "selectedIconPath": "image/me/me_active.png"
       }
     ]
   },
-  "style": "v2",
   "rendererOptions": {
     "skyline": {
       "defaultDisplayBlock": true,

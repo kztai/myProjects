@@ -1,0 +1,3 @@
+<view class="my-mask {{isHidden ? 'mask-hide' : 'mask-show'}} {{ directionClassName[direction] }}" animation="{{maskAnimation}}">
+  <slot></slot>
+</view>

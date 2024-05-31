@@ -1,0 +1,7 @@
+{
+  "usingComponents": {
+    "activity": "/components/activity/activity",
+    "race": "/components/race/race",
+    "club": "/components/club/club"
+  }
+}

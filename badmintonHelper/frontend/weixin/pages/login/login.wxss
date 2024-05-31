@@ -1,0 +1,21 @@
+.login-wrap {
+  width:100vw;
+  height: 100vh;
+  background-color: #fff;
+  padding: 200rpx 100rpx 0 100rpx;
+  box-sizing: border-box;
+}
+
+.login-wrap .login-title {
+  text-align: center;
+  font-weight: 700;
+  font-size: 36rpx;
+  margin-bottom: 40rpx;
+}
+
+.login-wrap .login-close-btn {
+  position: absolute;
+  right: 40rpx;
+  top: 20rpx;
+  color: #666;
+}

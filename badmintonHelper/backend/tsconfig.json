@@ -4,7 +4,7 @@
         "esModuleInterop": true,
         "allowSyntheticDefaultImports": true,
         "ignoreDeprecations": "5.0",
-        "suppressImplicitAnyIndexErrors": true,
+        "suppressImplicitAnyIndexErrors": true,  //支持any类型
         "target": "es6",
         "noImplicitAny": true,
         "moduleResolution": "node",

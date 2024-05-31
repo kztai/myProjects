@@ -1,0 +1,79 @@
+.apply-list-wrap {
+  width: 100vw;
+  height: 100vh;
+  font-size: 28rpx;
+  color: #333;
+  overflow: hidden;
+  background-color: #efefef;
+}
+
+.apply-list-wrap .apply-list-top-tab-bar {
+  display: flex;
+  justify-content: space-around;
+  border-bottom: 2rpx solid #d9d9d9;
+  background-color: #fff;
+}
+
+.apply-list-wrap .apply-list-top-tab-bar .top-tab-bar-item {
+  padding: 20rpx 0;
+  color: #333;
+}
+
+.apply-list-wrap .apply-list {
+  height: calc(100vh - 80rpx);
+  box-sizing: border-box;
+  margin-top: 20rpx;
+}
+
+.apply-list-wrap .apply-item {
+  display: flex;
+  justify-content: space-between;
+  border-top: 1px solid #efefef;
+  padding: 20rpx 32rpx;
+  background-color: #fff;
+}
+.apply-list-wrap .apply-item .item-left {
+  display: flex;
+}
+.apply-list-wrap .apply-item .item-avatar {
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-right: 20rpx;
+}
+.apply-list-wrap .apply-item .item-user-info-top {
+  display: flex;
+}
+.apply-list-wrap .apply-item .item-user-info-top .user-name {
+  margin-right: 20rpx;
+}
+.apply-list-wrap .apply-item .item-user-info-top .user-sex {
+  margin-right: 20rpx;
+  font-weight: 700;
+}
+.apply-list-wrap .apply-item .user-sex-male {
+  color: blue;
+}
+.apply-list-wrap .apply-item .user-sex-female {
+  color: pink;
+}
+.apply-list-wrap .apply-item .item-user-info-time {
+  margin-top: 10rpx;
+  color: #999;
+  font-size: 24rpx;
+}
+.apply-list-wrap .apply-item .item-right {
+  line-height: 80rpx;
+}
+
+.apply-list-wrap .apply-empty {
+  height: calc(100vh - 176rpx);
+  box-sizing: border-box;
+  text-align: center;
+}
+
+.apply-list-wrap .apply-empty .empty-text {
+  padding-top: 100rpx;
+  color: #666;
+}

@@ -1,8 +1,7 @@
 import { FieldAttrMap, FieldTypeMap } from "./def";
 import { FieldInfo, FieldAttr, OtherTableAttr } from "@/types/db/db.type";
 import { ResultType } from "@/types/index";
-// import DBDatabase from "./db.database";
-import { connect } from "../app";
+import { connect } from "../models/index";
 
 // 创建表：
 export function createTable(tableName: string, fieldInfo: FieldInfo, otherSet: OtherTableAttr = {}): Promise<ResultType> {

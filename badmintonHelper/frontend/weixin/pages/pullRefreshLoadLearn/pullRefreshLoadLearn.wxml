@@ -1,8 +1,0 @@
-<!--pages/pullRefreshLoadLearn/pullRefreshLoadLearn.wxml-->
-<text class="h2">学习下拉刷新与上拉加载更多</text>
-<view>
-  <text>1、学习下拉刷新：</text>
-  <view>当前的count：{{count}}</view>
-  <button type="primary" bind:tap="countAdd">+1</button>
-</view>
-<view class="list" wx:for="{{list}}" wx:key="index">{{item}}</view>

@@ -1,0 +1,59 @@
+<view class="user-info-wrap">
+  <view class="user-info">
+    <image class="item-avatar" src="{{ userInfo.avatar }}" />
+    <view class="item-user-info">
+      <view class="item-user-info-top">
+        <text class="user-name">{{ userInfo.name }}</text>
+        <text class="user-sex iconfont {{ userInfo.sex === '男' ? 'user-sex-male icon-nan' : 'user-sex-female icon-nv' }}" />
+        <view class="user-info-level">{{ m1.formatLevel(userInfo.level) }}</view>
+      </view>
+    </view>
+    <view class="user-edit iconfont icon-bianjishuru-xianxing"></view>
+  </view>
+  <view class="activity-total-wrap">
+    <view class="activity-total-top">
+      <view class="activity-total-item">
+        <view class="activity-total-item-text">单打</view>
+        <view class="activity-total-item-num" style="color: {{themeColor}};">{{ userInfo.activityTotal.singleSession }}场</view>
+      </view>
+      <view class="activity-total-item">
+        <view class="activity-total-item-text">胜率</view>
+        <view class="activity-total-item-num" style="color: {{themeColor}};">{{ userInfo.activityTotal.singleWinRate }}</view>
+      </view>
+      <view class="activity-total-item">
+        <view class="activity-total-item-text">双打</view>
+        <view class="activity-total-item-num" style="color: {{themeColor}};">{{ userInfo.activityTotal.doubleSession }}场</view>
+      </view>
+      <view class="activity-total-item">
+        <view class="activity-total-item-text">胜率</view>
+        <view class="activity-total-item-num" style="color: {{themeColor}};">{{ userInfo.activityTotal.doubleWinRate }}</view>
+      </view>
+    </view>
+    <view class="activity-total-bottom">
+      <view class="activity-total-item-num">
+        <text class="activity-total-item-text">单打裁判：</text>
+        <text class="activity-total-item-num" style="color: {{themeColor}};">{{ userInfo.activityTotal.singleRefereeSession }}场</text>
+      </view>
+      <view class="activity-total-item-num">
+        <text class="activity-total-item-text">双打裁判：</text>
+        <text class="activity-total-item-num" style="color: {{themeColor}};">{{ userInfo.activityTotal.doubleRefereeSession }}场</text>
+      </view>
+    </view>
+  </view>
+</view>
+
+<!-- 1、通过内联的wxs标签，可以在.wxml内部定义函数，类似script标签（module属性必备） -->
+<wxs module="m1">
+  module.exports.formatLevel = function (level) {
+    switch (level) {
+      case -1:
+        return '未自评';
+      case 0:
+        return '萌新';
+      case 10:
+        return '专业级';
+      default:
+        return level + '级';
+    }
+  }
+</wxs>

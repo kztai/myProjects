@@ -1,6 +1,0 @@
-{
-  "component": true,
-  "usingComponents": {
-    "child-com": "/components/childCom/childCom"
-  }
-}

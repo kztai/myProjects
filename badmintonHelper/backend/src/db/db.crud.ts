@@ -1,6 +1,6 @@
 import { ConditionType, NestCondType } from "@/types/db/db.type";
 import { ResultType } from "@/types/index";
-import { connect } from "../app";
+import { connect } from "../models/index";
 
 /**
  * 功能：插入数据

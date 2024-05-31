@@ -1,0 +1,4 @@
+<view class="login-wrap">
+    <view class="login-title">使用微信账号登录</view>
+    <button type="primary" bind:tap="loginHandle">微信一键登录</button>
+  </view>

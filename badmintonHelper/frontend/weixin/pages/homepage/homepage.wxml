@@ -1,0 +1,12 @@
+<view class="homepage">
+  <!-- 头部页签 -->
+  <view class="homepage-top-tab-bar">
+    <view wx:for="{{badmintonList}}" wx:key="index" class="top-tab-bar-item top-tab-bar-item-active" data-index="{{item.index}}" bindtap="changeBadmintonType">
+      <text style="color: {{selected === item.index ? selectedColor : 'initial'}}">{{ item.text }}</text>
+    </view>
+  </view>
+  <!-- 切换组件 -->
+  <activity wx:if="{{ selected === 0 }}"></activity>
+  <race wx:if="{{ selected === 1 }}"></race>
+  <club wx:if="{{ selected === 2 }}"></club>
+</view>

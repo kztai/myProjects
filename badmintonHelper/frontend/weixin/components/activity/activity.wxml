@@ -1,0 +1,31 @@
+<view class="activity-wrap">
+  <scroll-view class="activity-list" scroll-y type="list" refresher-enabled bindrefresherrefresh="refreshActivityList" bindrefresherrestore="stopRefreshActivityList" bindscrolltolower="loadMoreActivity" refresher-triggered="{{ isRefresh }}">
+    <view class="activity-item" wx:for="{{ arrActivityDetail }}" wx:key="index" wx:for-item="activityDetail" bind:tap="showActivityDetail" data-activityid="{{ activityDetail.id }}">
+      <text class="name">{{ activityDetail.title }}</text>
+      <view class="time-wrap">
+        <icon class="iconfont icon-shijian"></icon>
+        <text class="time">{{ activityDetail.date + ' ' + activityDetail.time }}</text>
+      </view>
+      <view class="address-wrap">
+        <icon class="iconfont icon-shouhuodizhi"></icon>
+        <text class="address">{{ activityDetail.addressData.address }}</text>
+      </view>
+      <view class="apply-info-wrap">
+        <image src="{{ activityDetail.organizerAvatarUrl }}" class="organizer-avatar" />
+        <text class="organizer">{{ activityDetail.organizerName }}组织，</text>
+        <text class="total-apply">报名{{ activityDetail.curApply }}/{{ activityDetail.maxApply }}，</text>
+        <text class="alternate">候补{{ activityDetail.alternate }}，</text>
+        <text class="browse">浏览{{ activityDetail.browse }}</text>
+      </view>
+      <view class="apply-avatar-list">
+        <image wx:for="{{ activityDetail.avatarList }}" wx:key="index" src="{{ item.avatarUrl }}" class="avatar-img" />
+        <icon hidden="{{ activityDetail.avatarList.length <= 10 }}" class="more-avatar iconfont icon-gengduo-hengxiang"></icon>
+      </view>
+      <view class="activity-status" style="background-color: {{ activityDetail.status === ActivityStatusEnum.InProgress ? '#67c23a' : '#ccc' }};">{{ activityStatus[activityDetail.status] }}</view>
+    </view>
+    <view wx:if="{{ arrActivityDetail.length === 0 }}" class="activity-empty">
+      <view class="empty-text">您还没有活动</view>
+      <!-- <view class="create-btn" style="background-color: {{successColor}};">发起活动</view> -->
+    </view>
+  </scroll-view>
+</view>

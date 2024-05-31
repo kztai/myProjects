@@ -1,75 +1,37 @@
 import { createTable } from "@/db/db.table";
-import { FieldInfo, OtherTableAttr } from "@/types/db/db.type";
+// import { FieldInfo, OtherTableAttr } from "@/types/db/db.type";
 import { ResultType } from "@/types/index";
+import { dbConnect } from "@/db/db.index";
+import { createDB, useDB } from "@/db/db.database";
+import { activityTable, applyTable, userTable } from "./fieldConfig";
+import { TableNameMap } from "./def";
 
-export function initTable(): Promise<ResultType> {
-    const fieldInfo: any = [
-        {
-            id: {
-                type: "INT",
-                autoIncrement: true,
-                unique: true,
-                require: true,
-                primaryKey: true,
-                comment: "id"
-            },
-            goodname: {
-                type: "VARCHAR",
-                length: 32,
-                require: true,
-                comment: "商品名称",
-                indexName: "goodname"
-            },
-            price: {
-                type: "DOUBLE",
-                length: 20,
-                scale: 2,
-                require: true,
-                comment: "商品单价",
-            },
-            desc1: {
-                type: "VARCHAR",
-                length: 255,
-                comment: "商品描述",
-            }
-        },
-        {
-            id: {
-                type: "INT",
-                autoIncrement: true,
-                unique: true,
-                require: true,
-                primaryKey: true,
-                comment: "id"
-            },
-            username: {
-                type: "VARCHAR",
-                length: 32,
-                require: true,
-                comment: "用户名",
-                indexName: "username"
-            },
-            password: {
-                type: "VARCHAR",
-                length: 20,
-                require: true,
-                comment: "密码",
-            },
-            desc1: {
-                type: "VARCHAR",
-                length: 255,
-                comment: "用户描述",
-            }
-        }
-    ];
-    return createBaseTable(["good", "user"], fieldInfo, []);
+const connect = dbConnect("mysql");
+export { connect };
+
+export async function init(dbName: string): Promise<ResultType> {
+    try {
+        await createDB(dbName);
+        await useDB(dbName);
+        // 初始化数据库表：
+        await initTable();
+    } catch (err) {
+        console.log("数据库初始化失败：", err);
+        return Promise.reject({
+            code: 11000,
+            message: "数据库初始化失败：" + err
+        });
+    }
 }
 
-export async function createBaseTable(arrTableName: string[], arrFieldInfo: FieldInfo[], arrOtherSet: OtherTableAttr[]): Promise<ResultType> {
+function initTable(): Promise<ResultType> {
+    const arrFieldInfo: any = [activityTable, applyTable, userTable];
+    const arrTableName = Object.values(TableNameMap);
+
     try {
         const arrPromise: Promise<ResultType>[] = [];
         arrTableName.forEach(async (tableName, index) => {
-            arrPromise.push(createTable(tableName, arrFieldInfo[index], arrOtherSet[index]));
+            arrPromise.push(createTable(tableName, arrFieldInfo[index]));
         });
 
         return Promise.all(arrPromise).then(() => {
@@ -79,15 +41,42 @@ export async function createBaseTable(arrTableName: string[], arrFieldInfo: Fiel
             });
         }).catch((err) => {
             return Promise.reject({
-                code: 10001,
+                code: 11001,
                 message: "创建表失败：" + err
             });
         });
     } catch (err) {
         console.log("创建表失败：", err);
         return Promise.reject({
-            code: 10001,
+            code: 11001,
             message: "创建表失败：" + err
         });
     }
 }
+
+// async function createBaseTable(arrTableName: string[], arrFieldInfo: FieldInfo[], arrOtherSet: OtherTableAttr[]): Promise<ResultType> {
+//     try {
+//         const arrPromise: Promise<ResultType>[] = [];
+//         arrTableName.forEach(async (tableName, index) => {
+//             arrPromise.push(createTable(tableName, arrFieldInfo[index], arrOtherSet[index]));
+//         });
+
+//         return Promise.all(arrPromise).then(() => {
+//             return Promise.resolve({
+//                 code: 200,
+//                 message: "创建表成功！"
+//             });
+//         }).catch((err) => {
+//             return Promise.reject({
+//                 code: 10001,
+//                 message: "创建表失败：" + err
+//             });
+//         });
+//     } catch (err) {
+//         console.log("创建表失败：", err);
+//         return Promise.reject({
+//             code: 10001,
+//             message: "创建表失败：" + err
+//         });
+//     }
+// }

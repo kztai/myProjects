@@ -1,6 +1,0 @@
-/* components/comLifeCycleLearn/comLifeCycleLearn.wxss */
-.base-com {
-  border: 1px solid #666;
-  margin: 20rpx;
-  padding: 20rpx;
-}

@@ -1,5 +1,16 @@
-<view class="bottom-tab-bar">
-  <view class="item">tab1</view>
-  <view class="item">tab2</view>
-  <view class="item">tab3</view>
+<view class="tab-bar">
+<!-- 底部tab页签 -->
+  <view wx:for="{{list}}" wx:key="index" class="tab-bar-item" data-path="{{item.pagePath}}" data-type="{{item.type}}" data-index="{{index}}" bindtap="switchTab">
+    <image src="{{selected === index ? item.selectedIconPath : item.iconPath}}"></image>
+    <view style="color: {{selected === index ? selectedColor : color}}">{{item.text}}</view>
+  </view>
+  <!-- 弹窗 -->
+  <mask-layer isHidden="{{ isHiddenMask }}" direction="toTop" bind:tap="hiddenMask">
+    <view class="create-list">
+      <view class="create-item" wx:for="{{createList}}" wx:key="index" data-index="{{index}}" bindtap="createHandle">
+        <image class="create-item-img" src="{{ item.iconPath }}"></image>
+        <text>{{ item.text }}</text>
+      </view>
+    </view>
+  </mask-layer>
 </view>

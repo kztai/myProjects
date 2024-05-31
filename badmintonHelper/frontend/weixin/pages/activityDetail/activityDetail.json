@@ -1,0 +1,6 @@
+{
+  "usingComponents": {
+    "messageBox": "/components/messageBox/messageBox",
+    "mask-layer": "/components/mask/mask"
+  }
+}

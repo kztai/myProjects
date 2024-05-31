@@ -1,0 +1,5 @@
+<view class="user-info-page-wrap">
+  <view class="user-info-page-item">
+    <userInfoCom userInfo="{{userInfo}}"></userInfoCom>
+  </view>
+</view>

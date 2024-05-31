@@ -1,4 +1,0 @@
-<view>
-  <text>这是子组件。接收到父传递的值count：{{count}}</text>
-  <button bind:tap="addCount">子组件count+1</button>
-</view>

@@ -1,9 +1,0 @@
-<!--components/parentCom/parentCom.wxml-->
-<view class="com">
-<view>组件通信学习：</view>
-<view>这是父组件，count：{{count}}</view>
---------------------------
-<!-- 1、父向子传值： -->
-<!-- 2、父向子传递一个函数，用于子向父传值 -->
-<child-com class="my-child" count="{{count}}" bind:syncCount="syncCount"></child-com>
-</view>

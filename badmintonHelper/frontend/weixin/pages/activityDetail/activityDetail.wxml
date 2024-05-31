@@ -1,0 +1,139 @@
+<view class="activity-detail-wrap">
+  <view class="activity-detail">
+    <view class="name">{{ activityDetail.title }}</view>
+    <view class="info-wrap">
+      <view class="info-wrap-left">
+        <icon class="iconfont icon-shijian"></icon>
+        <text>{{ activityDetail.date + ' ' + activityDetail.time }}</text>
+      </view>
+      <!-- <icon class="right iconfont icon-erweima"></icon> -->
+    </view>
+    <view class="info-wrap">
+      <view class="info-wrap-left" bind:tap="openActivityAddress">
+        <icon class="iconfont icon-shouhuodizhi"></icon>
+        <text>{{ activityDetail.addressData.address }}</text>
+      </view>
+      <icon class="right iconfont icon-xiangyoujiantou"></icon>
+    </view>
+    <view class="info-wrap">
+      <view class="info-wrap-left">
+        <icon class="iconfont icon-zonghe"></icon>
+        <text>场地号：{{ activityDetail.fieldNum }}</text>
+      </view>
+    </view>
+    <view class="info-wrap">
+      <view class="info-wrap-left">
+        <icon class="iconfont icon-qian"></icon>
+        <text>报名费：{{ chargingMethodMap[activityDetail.chargingMethod] }}</text>
+      </view>
+    </view>
+    <view class="info-wrap">
+      <view class="info-wrap-left">
+        <icon class="iconfont icon-tixing"></icon>
+        <text>退坑：{{ refundTicketMap[activityDetail.refundTicket] }}</text>
+      </view>
+    </view>
+    <view class="info-wrap">
+      <view class="info-wrap-left">
+        <icon class="iconfont icon-tingchechang"></icon>
+        <text>人数：预计{{ activityDetail.maxApply }}人</text>
+      </view>
+    </view>
+    <view class="info-wrap">
+      <view class="info-wrap-left">
+        <icon class="iconfont icon-wodejuhuasuan"></icon>
+        <text>浏览人数：{{ activityDetail.browsePerson }}，浏览量：{{ activityDetail.browse }}</text>
+      </view>
+      <!-- 个人小程序不支持微信支付，该功能先隐藏 -->
+      <!-- <icon class="right iconfont icon-xiangyoujiantou"></icon> -->
+    </view>
+    <view class="activity-status" style="background-color: {{ activityDetail.status === ActivityStatusEnum.InProgress ? '#67c23a' : '#ccc' }};">{{ activityStatus[activityDetail.status] }}</view>
+  </view>
+
+  <view class="apply-info-wrap" bind:tap="toApplyList">
+    <view class="info-wrap">
+      <view class="info-wrap-left">
+        <text class="total-apply">已报名：</text>
+        <text class="total-apply" style="color: {{ themeColor }}; font-weight: 700; font-size: 32rpx;">{{ activityDetail.curApply }}/{{ activityDetail.maxApply }}</text>
+        <text class="alternate">，候补：</text>
+        <text class="alternate" style="color: {{ themeColor }}; font-weight: 700; font-size: 32rpx;">{{ activityDetail.alternate }}</text>
+      </view>
+      <icon class="right iconfont icon-xiangyoujiantou"></icon>
+    </view>
+    <view class="apply-avatar-list">
+      <image wx:for="{{ activityDetail.avatarList }}" wx:key="index" src="{{ item.path }}" class="avatar-img" />
+      <icon hidden="{{ activityDetail.avatarList.length <= 10 }}" class="more-avatar iconfont icon-gengduo-hengxiang"></icon>
+    </view>
+  </view>
+
+  <view class="info-wrap organizer-wrap" bind:tap="showUserInfo">
+    <view class="info-wrap-left">
+      <image src="{{ activityDetail.organizerAvatarUrl }}" class="organizer-avatar" />
+      <text class="organizer">{{ activityDetail.organizerName }}（组织者）</text>
+    </view>
+    <icon class="right iconfont icon-xiangyoujiantou"></icon>
+  </view>
+
+  <view class="warn-wrap">
+    <view class="warn-wrap-title">温馨提示</view>
+    <text>{{ activityDetail.supplement }}</text>
+  </view>
+
+  <view wx:if="{{ activityDetail.status !== ActivityStatusEnum.Cancel }}" class="bottom-btns">
+    <view class="bottom-btns-top">
+      <view class="bottom-btns-left">
+        <view wx:if="{{ activityDetail.status === ActivityStatusEnum.InProgress }}" class="bottom-left-btn" bind:tap="navigateChange" data-index="0">
+          <icon class="iconfont icon-shouye" />
+          <view>首页</view>
+        </view>
+        <view wx:if="{{ activityDetail.status === ActivityStatusEnum.Ended }}" class="bottom-left-btn" bind:tap="navigateChange" data-index="1">
+          <icon class="iconfont icon-iconfontzhaomingdianzi" />
+          <view>等级</view>
+        </view>
+        <view class="bottom-left-btn" bind:tap="navigateChange" data-index="2">
+          <icon class="iconfont icon-tixing" />
+          <view>帮助</view>
+        </view>
+        <view class="bottom-left-btn" bind:tap="navigateChange" data-index="3">
+          <icon class="iconfont icon-lingcunwei" />
+          <view>分享</view>
+        </view>
+      </view>
+      <view wx:if="{{ activityDetail.status === ActivityStatusEnum.Ended }}" class="bottom-btns-right" style="background-color: {{infoColor}};">活动已结束</view>
+      <view wx:elif="{{ activityDetail.applyStatus === ApplyStatusEnum.NotApplied }}" class="bottom-btns-right" style="background-color: {{successColor}};" bind:tap="activityApply">{{ activityDetail.curApply === activityDetail.maxApply ? "候补报名" : "立即报名" }}</view>
+      <view wx:else class="bottom-btns-right" bind:tap="activityRefundTicket" style="background-color: {{successColor}};">退坑</view>
+    </view>
+    <view wx:if="{{ activityDetail.organizerId === myId && activityDetail.status === ActivityStatusEnum.InProgress }}" class="bottom-btns-bottom">
+      <view style="color: #409EFF;" bind:tap="cancelActivityConfirm">取消</view>
+      <view style="color: #409EFF;" bind:tap="modifyActivity">修改</view>
+    </view>
+  </view>
+
+  <messageBox hideMessageBox="{{ hidePayDialog }}" messageData="{{ vipPay }}">
+    <view class="pay-wrap">
+      <view class="pay-title">付费功能</view>
+      <view class="pay-desc">浏览详情，汇总了每人浏览次数，最近浏览时间等，是付费功能哦。</view>
+      <view class="pay-privilege">
+        特权：<text class="pay-privilege-more" bind:tap="onMorePrivilege">更多专享特权 >></text>
+      </view>
+      <view class="pay-price">
+        <text>价格：</text>
+        <radio-group bindchange="payPriceChange">
+          <radio value="0" checked="true" />10元/月
+          <radio value="1" style="margin-left: 20rpx;" />98元/年
+        </radio-group>
+      </view>
+      <button type="primary" plain="true" bind:tap="payHandler">立即支付</button>
+      <view class="pay-protocol">
+        <checkbox-group bindchange="protocolSelectChange">
+          <checkbox value="agree" class="pay-protocol-checkbox" />
+        </checkbox-group>
+        <text>我同意<text style="color: {{ themeColor }};" bind:tap="onProtocolPage">付费特权协议</text></text>
+      </view>
+    </view>
+  </messageBox>
+
+  <messageBox hideMessageBox="{{ hideConfirmDialog }}" messageData="{{ delActivityBox }}" bind:onConfirm="cancelActivity"></messageBox>
+
+  <!-- <login isHidden="{{loginIsHidden}}" bind:loginSuccess="loginSuccess" bind:loginError="loginError"></login> -->
+</view>

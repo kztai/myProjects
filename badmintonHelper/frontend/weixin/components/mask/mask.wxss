@@ -1,0 +1,60 @@
+.my-mask {
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.7);
+  pointer-events: none;
+}
+
+.mask-show {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.to-top {
+  transition: opacity 0.3s, top 0.3s;
+}
+.to-left {
+  transition: opacity 0.3s, left 0.3s;
+}
+.to-right {
+  transition: opacity 0.3s, left 0.3s;
+}
+.to-bottom {
+  transition: opacity 0.3s, top 0.3s;
+}
+
+.mask-show.to-top {
+  top: 0%;
+}
+.mask-show.to-left {
+  left: 0%;
+}
+.mask-show.to-right {
+  left: 0%;
+}
+.mask-show.to-bottom {
+  top: 0%;
+}
+ 
+.mask-hide {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.mask-hide.to-top {
+  top: 100%;
+}
+.mask-hide.to-left {
+  left: 100%;
+}
+.mask-hide.to-right {
+  left: -100%;
+}
+.mask-hide.to-bottom {
+  top: -100%;
+}

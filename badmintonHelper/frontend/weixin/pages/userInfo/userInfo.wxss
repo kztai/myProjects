@@ -1,0 +1,13 @@
+.user-info-page-wrap {
+  width: 100vw;
+  height: 100vh;
+  background-color: #efefef;
+  padding: 32rpx;
+  box-sizing: border-box;
+}
+.user-info-page-wrap .user-info-page-item {
+  background-color: #fff;
+  overflow: hidden;
+  border-radius: 32rpx;
+  margin-bottom: 20rpx;
+}

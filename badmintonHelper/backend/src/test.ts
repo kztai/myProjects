@@ -56,9 +56,11 @@ export function init() {
         COLLATE: "utf8mb4_unicode_ci",
         ROW_FORMAT: "Dynamic",
     };
+
     // createTable("kzt_test17", obj, OtherTableAttr);
 
 
+    
     showAllTables().then((res: any) => {
         console.log(res.data);
     });

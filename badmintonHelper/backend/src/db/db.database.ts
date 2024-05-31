@@ -1,4 +1,4 @@
-import { connect } from "../app";
+import { connect } from "../models/index";
 
 // 创建数据库：
 export function createDB(dbName: string) {

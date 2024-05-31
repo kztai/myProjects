@@ -1,0 +1,108 @@
+<view class="create-activity-wrap">
+  <form catchsubmit="formSubmit" catchreset="formReset">
+    <view class="form-area">
+      <view class="form-item">
+        <view class="form-item-label">名称:</view>
+        <view class="form-item-content">
+          <input class="form-item-input" value="{{formData.title}}" placeholder="请输入活动名称" bindinput="formChange" data-itemName="{{ activityFieldMap.title }}" />
+        </view>
+      </view>
+    </view>
+
+    <view class="form-area">
+      <label class="form-item">
+        <view class="form-item-label">日期:</view>
+        <view class="form-item-content">
+          <picker mode="date" value="{{formData.date}}" start="2010-01-01" end="2110-01-01" bindchange="formChange" data-itemName="{{ activityFieldMap.date }}">
+            <view class="picker">
+              {{formData.date}}
+            </view>
+          </picker>
+        </view>
+        <icon class="form-item-icon iconfont icon-xiangyoujiantou" />
+      </label>
+      <label class="form-item">
+        <view class="form-item-label">时间:</view>
+        <view class="form-item-content">
+          <picker mode="time" value="{{formData.time}}" start="00:00" end="23:59" bindchange="formChange" data-itemName="{{ activityFieldMap.time }}">
+            <view class="picker">
+              {{formData.time}}
+            </view>
+          </picker>
+        </view>
+        <icon class="form-item-icon iconfont icon-xiangyoujiantou" />
+      </label>
+      <label class="form-item" bind:tap="showMap">
+        <view class="form-item-label">地点:</view>
+        <view class="form-item-content">
+          <input class="form-item-input" value="{{ formData.addressData && formData.addressData.name }}" placeholder="请选择地点" disabled="true" />
+        </view>
+        <icon class="form-item-icon iconfont icon-xiangyoujiantou" />
+      </label>
+      <view class="form-item">
+        <view class="form-item-label">场地号:</view>
+        <view class="form-item-content">
+          <input class="form-item-input" value="{{formData.fieldNum}}" placeholder="请输入场地号" bindinput="formChange" data-itemName="{{ activityFieldMap.fieldNum }}" />
+        </view>
+      </view>
+    </view>
+
+    <view class="form-area">
+      <label class="form-item">
+        <view class="form-item-label">报名费:</view>
+        <view class="form-item-content">
+          <picker bindchange="formChange" value="{{formData.chargingMethod}}" range="{{applyPayList}}" data-itemName="{{ activityFieldMap.chargingMethod }}">
+            <view class="picker">
+              {{applyPayList[formData.chargingMethod]}}
+            </view>
+          </picker>
+        </view>
+        <icon class="form-item-icon iconfont icon-xiangyoujiantou" />
+      </label>
+      <label class="form-item">
+        <view class="form-item-label">总人数:</view>
+        <view class="form-item-content">
+          <input class="form-item-input input-pay" value="{{ formData.maxApply }}" type="number" placeholder="" bindinput="formChange" data-itemName="{{ activityFieldMap.maxApply }}" />
+          <text class="form-item-content-text">人</text>
+        </view>
+      </label>
+      <view class="form-item">
+        <view class="form-item-label">金额(元):</view>
+        <view class="form-item-content">
+          <text class="form-item-content-text">男：</text>
+          <input class="form-item-input input-pay" value="{{ formData.malePay }}" type="number" placeholder="" bindinput="formChange" data-itemName="{{ activityFieldMap.malePay }}" />
+          <text class="form-item-content-text">女：</text>
+          <input class="form-item-input input-pay" value="{{ formData.femalePay }}" type="number" placeholder="" bindinput="formChange" data-itemName="{{ activityFieldMap.femalePay }}" />
+        </view>
+      </view>
+    </view>
+
+    <view class="form-area">
+      <label class="form-item">
+        <view class="form-item-label">退坑:</view>
+        <view class="form-item-content">
+          <picker bindchange="formChange" value="{{formData.refundTicket}}" range="{{refundTicketList}}" data-itemName="{{ activityFieldMap.refundTicket }}">
+            <view class="picker">
+              {{refundTicketList[formData.refundTicket]}}
+            </view>
+          </picker>
+        </view>
+        <icon class="form-item-icon iconfont icon-xiangyoujiantou" />
+      </label>
+    </view>
+
+    <view class="form-area">
+      <view class="form-item">
+        <view class="form-item-label">补充:</view>
+        <view class="form-item-content">
+          <textarea class="item-content-supplement" value="{{ formData.supplement }}" placeholder="请输入其他补充" bindinput="formChange" data-itemName="{{ activityFieldMap.supplement }}" />
+        </view>
+      </view>
+    </view>
+
+    <view class="form-btn-wrap">
+      <button formType="reset" size="mini">清空</button>
+      <button type="primary" formType="submit" size="mini">发布</button>
+    </view>
+  </form>
+</view>

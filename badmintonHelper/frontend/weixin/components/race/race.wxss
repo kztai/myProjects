@@ -1,0 +1,7 @@
+.race-wrap {
+  width: 100vw;
+  height: 100vh;
+  background-color: #efefef;
+  padding-top: 40rpx;
+  text-align: center;
+}
