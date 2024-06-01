@@ -76,7 +76,8 @@ export function updateDataById(tableName: string, fieldData: any, arrId: number[
     if (arrKey.length === 0 || arrId.length === 0) {
         Promise.resolve({
             code: 200,
-            message: ""
+            message: "",
+            data: arrId
         });
         return;
     }
@@ -102,7 +103,8 @@ export function updateDataById(tableName: string, fieldData: any, arrId: number[
             }
             resolve({
                 code: 200,
-                message: result.message
+                message: result.message,
+                data: arrId
             });
         });
     });

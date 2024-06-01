@@ -124,13 +124,13 @@ export const applyTable = {
         indexName: "parentId"
     },
     [applyFieldMap.userId]: {
-        type: "INT",
-        length: 20,
+        type: "VARCHAR",
+        length: 100,
         require: true,
         comment: "报名者id",
         indexName: "userId"
     },
-    [applyFieldMap.name]: {
+    [applyFieldMap.nickName]: {
         type: "VARCHAR",
         length: 32,
         require: true,
@@ -142,15 +142,26 @@ export const applyTable = {
         require: true,
         comment: "报名者头像",
     },
-    [applyFieldMap.sex]: {
-        type: "VARCHAR",
-        length: 10,
-        comment: "报名者性别"
+    [applyFieldMap.gender]: {
+        type: "TINYINT",
+        length: 2,
+        comment: "报名者性别",
+        default: 0
     },
     [applyFieldMap.status]: {
         type: "TINYINT",
         length: 2,
         comment: "报名状态",
+    },
+    [applyFieldMap.applyTime]: {
+        type: "VARCHAR",
+        length: 32,
+        comment: "报名时间",
+    },
+    [applyFieldMap.level]: {
+        type: "TINYINT",
+        length: 2,
+        comment: "等级",
     },
 };
 
@@ -186,7 +197,8 @@ export const userTable = {
     [userFieldMap.gender]: {
         type: "TINYINT",
         length: 2,
-        comment: "用户性别"
+        comment: "用户性别",
+        default: 0
     },
     [userFieldMap.password]: {
         type: "VARCHAR",
@@ -208,20 +220,58 @@ export const userTable = {
         length: 32,
         comment: "城市"
     },
-    [userFieldMap.openid]: {
+    [userFieldMap.realName]: {
         type: "VARCHAR",
-        length: 100,
-        comment: "wx-openid"
+        length: 20,
+        comment: "实际姓名"
     },
-    [userFieldMap.session_key]: {
+    [userFieldMap.phone]: {
+        type: "INT",
+        length: 20,
+        comment: "电话号码"
+    },
+    [userFieldMap.level]: {
+        type: "TINYINT",
+        length: 2,
+        comment: "等级",
+        default: 0
+    },
+    [userFieldMap.singleSession]: {
+        type: "INT",
+        length: 10,
+        comment: "单打场次",
+        default: 0
+    },
+    [userFieldMap.singleWinRate]: {
         type: "VARCHAR",
-        length: 100,
-        comment: "wx-session_key"
+        length: 10,
+        comment: "单打胜率",
+        default: "0%"
     },
-    [userFieldMap.unionid]: {
+    [userFieldMap.doubleSession]: {
+        type: "INT",
+        length: 10,
+        comment: "双打场次",
+        default: 0
+    },
+    [userFieldMap.doubleWinRate]: {
         type: "VARCHAR",
-        length: 100,
-        comment: "wx-unionid"
+        length: 10,
+        comment: "双打胜率",
+        default: "0%"
     },
+    [userFieldMap.singleRefereeSession]: {
+        type: "INT",
+        length: 10,
+        comment: "单打裁判次数",
+        default: 0
+    },
+    [userFieldMap.doubleRefereeSession]: {
+        type: "INT",
+        length: 10,
+        comment: "双打裁判次数",
+        default: 0
+    },
+
 };
 

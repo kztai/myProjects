@@ -1,9 +1,4 @@
-export interface GoodFieldType {
-    id: number
-    goodname: string
-    price: number
-    desc?: string
-}
+
 
 export interface ActivityFieldType {
     id: number
@@ -26,11 +21,14 @@ export interface ActivityFieldType {
     organizerAvatarUrl: string
 }
 
-export interface UserFieldType {
+export interface ApplyFieldType {
     id: number
-    username: string
-    password: string
-    desc?: string
+    parentId: number
+    userId: string
+    nickName: string
+    avatarUrl: string
+    gender: number
+    status: number //0已报名，1候补，2未报名（已退坑）
 }
 
 export enum ApplyStatusEnum {

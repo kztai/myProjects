@@ -1,7 +1,8 @@
-import { insertData, queryDataByCond, queryDataById, delDataById } from "@/db/db.crud";
-import { ResultType } from "@/types/index";
+import { insertData, queryDataByCond, queryDataById, delDataById, updateDataById, updateDataByCond } from "@/db/db.crud";
 import { TableNameMap, activityFieldMap, applyFieldMap, ApplyStatusEnum } from "./def";
-import { ActivityFieldType } from "@/types/models/type";
+import { objPick } from "@/util/util";
+import { ResultType } from "@/types/index";
+import { ActivityFieldType, ApplyFieldType } from "@/types/activity";
 import { ConditionType } from "@/types/db/db.type";
 
 
@@ -51,10 +52,25 @@ export function insertActivityData(activityData: ActivityFieldType): Promise<Res
     }
 }
 
+// 修改活动数据：
+export function updateActivityData(activityData: ActivityFieldType): Promise<ResultType> {
+    try {
+        const data = objPick(Object.keys(activityFieldMap), activityData) as ActivityFieldType;
+        const id = data.id;
+        delete data.id;
+        return updateDataById(TableNameMap.activity, data, [id]);
+    } catch (err) {
+        return Promise.reject({
+            code: 10003,
+            message: "修改活动数据失败：" + err
+        });
+    }
+}
+
 // 查询活动详情数据
 export function queryActivityDetail(activityId: number): Promise<ResultType> {
     try {
-        const arrField:any[] = [];
+        const arrField: any[] = [];
 
         return queryDataById(TableNameMap.activity, arrField, [activityId]);
     } catch (err) {
@@ -66,12 +82,15 @@ export function queryActivityDetail(activityId: number): Promise<ResultType> {
 }
 
 // 查询已报名人员数据
-export function queryActivityAppliedInfo(activityId: number): Promise<ResultType> {
+export function queryActivityAppliedInfo(activityId: number, status?: number): Promise<ResultType> {
     try {
-        const arrField: string[] = [applyFieldMap.id, applyFieldMap.parentId, applyFieldMap.avatarUrl];
+        const arrField: string[] = [];
         const conditions: ConditionType = {
-            condition: [`${applyFieldMap.parentId}@=:${activityId}`, `${applyFieldMap.status}@=:${ApplyStatusEnum.Applied}`],
+            condition: [`${applyFieldMap.parentId}@=:${activityId}`],
         };
+        if(status !== undefined) {
+            conditions.condition.push(`${applyFieldMap.status}@=:${status}`);
+        }
 
         return queryDataByCond(TableNameMap.apply, arrField, conditions);
     } catch (err) {
@@ -83,7 +102,7 @@ export function queryActivityAppliedInfo(activityId: number): Promise<ResultType
 }
 
 // 查询候补报名人数：
-export function queryAlternatedAppliedNum(activityId: number, alternateField:string): Promise<ResultType> {
+export function queryAlternatedAppliedNum(activityId: number, alternateField: string): Promise<ResultType> {
     try {
         const arrField: string[] = [alternateField];
         const conditions: ConditionType = {
@@ -100,7 +119,7 @@ export function queryAlternatedAppliedNum(activityId: number, alternateField:str
 }
 
 // 查询自己是否报名：
-export function querySelfApply(activityId: number, userId:string): Promise<ResultType> {
+export function querySelfApply(activityId: number, userId: string): Promise<ResultType> {
     try {
         const arrField: string[] = [applyFieldMap.status];
         const conditions: ConditionType = {
@@ -124,6 +143,34 @@ export function delActivity(activityId: number): Promise<ResultType> {
         return Promise.reject({
             code: 10008,
             message: "删除活动失败：" + err
+        });
+    }
+}
+
+// 新增活动报名数据：
+export function insertApplyData(applyData: ApplyFieldType): Promise<ResultType> {
+    try {
+        const arrField = Object.keys(applyData);
+        const arrData = Object.values(applyData);
+        return insertData(TableNameMap.apply, arrField, [arrData]);
+    } catch (err) {
+        return Promise.reject({
+            code: 10009,
+            message: "新增活动报名失败：" + err
+        });
+    }
+}
+// 修改活动报名状态：
+export function updateApplyData(activityId:number, userId: string, applyData: any): Promise<ResultType> {
+    try {
+        const conditions: ConditionType = {
+            condition: [`${applyFieldMap.parentId}@=:${activityId}`, `${applyFieldMap.userId}@=:${userId}`],
+        };
+        return updateDataByCond(TableNameMap.apply, applyData, conditions);
+    } catch (err) {
+        return Promise.reject({
+            code: 10003,
+            message: "修改活动报名状态失败：" + err
         });
     }
 }

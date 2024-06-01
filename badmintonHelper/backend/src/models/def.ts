@@ -24,9 +24,11 @@ export const applyFieldMap = {
     id: "id",
     parentId: "parentId",
     userId: "userId",
-    name: "name",
+    nickName: "nickName",
     avatarUrl: "avatarUrl",
-    sex: "sex",
+    gender: "gender",
+    applyTime: "applyTime",
+    level: "level",
     status: "status",  //0已报名，1候补，2未报名（已退坑）
 };
 
@@ -40,9 +42,15 @@ export const userFieldMap = {
     country: "country",
     province: "province",
     city: "city",
-    openid: "openid",
-    session_key: "session_key",
-    unionid: "unionid",
+    realName: "realName",
+    phone: "phone",
+    level: "level",
+    singleSession: "singleSession",
+    singleWinRate: "singleWinRate",
+    doubleSession: "doubleSession",
+    doubleWinRate: "doubleWinRate",
+    singleRefereeSession: "singleRefereeSession",
+    doubleRefereeSession: "doubleRefereeSession",
 };
 
 // 表映射

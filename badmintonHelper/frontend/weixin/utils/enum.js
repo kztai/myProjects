@@ -22,9 +22,16 @@ const RefundTicketEnum = {
   No: 4,
 }
 
+const GenderEnum = {
+  Unknow: 0,
+  Male: 1,
+  Female: 2,
+}
+
 module.exports = {
   ActivityStatusEnum,
   ChargingMethoEnum,
   RefundTicketEnum,
-  ApplyStatusEnum
+  ApplyStatusEnum,
+  GenderEnum
 };

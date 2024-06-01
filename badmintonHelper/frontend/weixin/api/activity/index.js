@@ -171,11 +171,11 @@ function delActivityDetail(id) {
 }
 
 // 获取报名者信息：
-function getApplyInfo() {
+function getApplyInfoList(activityId) {
   const token = wx.getStorageSync('token');
   return new Promise((resolve, reject) => {
     wx.request({
-      url: baseUrl + 'activity/applyInfo/',
+      url: baseUrl + 'activity/applyInfo?activityId=' + activityId,
       header: {
         authorization: 'Bearer ' + token
       },
@@ -279,7 +279,7 @@ module.exports = {
   addActivityDetail,
   modifyActivityDetail,
   delActivityDetail,
-  getApplyInfo,
+  getApplyInfoList,
   applyActivity,
   cancelApplyActivity,
 };

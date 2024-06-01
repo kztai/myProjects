@@ -61,7 +61,7 @@
       <icon class="right iconfont icon-xiangyoujiantou"></icon>
     </view>
     <view class="apply-avatar-list">
-      <image wx:for="{{ activityDetail.avatarList }}" wx:key="index" src="{{ item.path }}" class="avatar-img" />
+      <image wx:for="{{ activityDetail.avatarList }}" wx:key="index" src="{{ item.avatarUrl }}" class="avatar-img" />
       <icon hidden="{{ activityDetail.avatarList.length <= 10 }}" class="more-avatar iconfont icon-gengduo-hengxiang"></icon>
     </view>
   </view>
@@ -103,7 +103,7 @@
       <view wx:elif="{{ activityDetail.applyStatus === ApplyStatusEnum.NotApplied }}" class="bottom-btns-right" style="background-color: {{successColor}};" bind:tap="activityApply">{{ activityDetail.curApply === activityDetail.maxApply ? "候补报名" : "立即报名" }}</view>
       <view wx:else class="bottom-btns-right" bind:tap="activityRefundTicket" style="background-color: {{successColor}};">退坑</view>
     </view>
-    <view wx:if="{{ activityDetail.organizerId === myId && activityDetail.status === ActivityStatusEnum.InProgress }}" class="bottom-btns-bottom">
+    <view wx:if="{{ activityDetail.organizerId === myId && activityDetail.status !== ActivityStatusEnum.Cancel }}" class="bottom-btns-bottom">
       <view style="color: #409EFF;" bind:tap="cancelActivityConfirm">取消</view>
       <view style="color: #409EFF;" bind:tap="modifyActivity">修改</view>
     </view>

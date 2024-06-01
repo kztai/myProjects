@@ -74,11 +74,8 @@ Page({
     //     supplement: '根据人数来6-8人转',
     //     applyStatus: 2,  //0已报名，1候补报名，2未报名
     //     avatarList: [
-    //       { path: "../../image/废弃/jd618.png" },
-    //       { path: "../../image/废弃/jd618.png" },
-    //       { path: "../../image/废弃/jd618.png" },
-    //       { path: "../../image/废弃/jd618.png" },
-    //       { path: "../../image/废弃/jd618.png" },
+    //       { avatarUrl: "../../image/废弃/jd618.png" },
+    //       { avatarUrl: "../../image/废弃/jd618.png" },
     //     ],
     //   }
     // })
@@ -109,8 +106,7 @@ Page({
    */
   activityApply() {
     // 调接口进行报名，并tips提示报名成功：
-    const appInstance = getApp();
-    applyActivity({ userInfo: appInstance.globalData.loginInfo, activityId }).then((res) => {
+    applyActivity({ activityId }).then((res) => {
       this.init()
       wx.showToast({
         title: '报名成功！',
@@ -258,7 +254,7 @@ Page({
 
   toApplyList() {
     wx.navigateTo({
-      url: '/pages/applyList/applyList',
+      url: '/pages/applyList/applyList?activityId=' + activityId,
     })
   },
 

@@ -1,6 +1,7 @@
-import { queryActivityList, queryApplyList, insertActivityData, queryActivityDetail, queryActivityAppliedInfo, queryAlternatedAppliedNum, querySelfApply, delActivity } from "@/models/activity";
+import { queryActivityList, queryApplyList, insertActivityData, queryActivityDetail, queryActivityAppliedInfo, queryAlternatedAppliedNum, querySelfApply, delActivity, updateActivityData, insertApplyData, updateApplyData } from "@/models/activity";
 import { TableNameMap, activityFieldMap, applyFieldMap, ApplyStatusEnum, ActivityStatusEnum } from "@/models/def";
-import { decodeUserInfo } from "@/util/util";
+import { decodeUserInfo, objPick } from "@/util/util";
+import { ApplyFieldType } from "@/types/activity";
 import { UserInfoType } from "@/types/user";
 
 // req的用法：
@@ -62,7 +63,7 @@ export async function getActivityDetail(req: any, res: any): Promise<void> {
         // 获取活动详情数据：
         const activityData = await queryActivityDetail(activityId);
         // 获取已报名数据：
-        const applyData = await queryActivityAppliedInfo(activityId);
+        const applyData = await queryActivityAppliedInfo(activityId, ApplyStatusEnum.Applied);
         // 获取候补人数数量：
         const alternateField = "count(*)";
         const alternatedAppliedData = await queryAlternatedAppliedNum(activityId, alternateField);
@@ -107,27 +108,22 @@ export function addActivityDetail(req: any, res: any): void {
 }
 
 export function modifyActivityDetail(req: any, res: any): void {
-    // {
-    //     id: "id",
-    //     name: "name",
-    //     date: "date",
-    //     time: "time",
-    //     addressData: "addressData",
-    //     fieldNum: "fieldNum",
-    //     maxApply: "maxApply",
-    //     chargingMethod: "chargingMethod",
-    //     malePay: "malePay",
-    //     femalePay: "femalePay",
-    //     refundTicket: "refundTicket",
-    //     supplement: "supplement",
-    //     browse: "browse",
-    //     browsePerson: "browsePerson",
-    //     status: "status",
-    //     organizerId: "organizerId",
-    //     organizerName: "organizerName",
-    //     organizerAvatarUrl: "organizerAvatarUrl",
-    // }
-    res.send(1);
+    const data = req.body;
+
+    data[activityFieldMap.addressData] = JSON.stringify(data[activityFieldMap.addressData]);
+
+    // 判断填写的日期时间是否超过当前时间：
+    if (new Date().getTime() > new Date(data[activityFieldMap.date] + " " + data[activityFieldMap.time]).getTime()) {
+        data[activityFieldMap.status] = ActivityStatusEnum.Ended;
+    } else {
+        data[activityFieldMap.status] = ActivityStatusEnum.InProgress;
+    }
+
+    updateActivityData(data).then((result) => {
+        res.send(result);
+    }).catch((err: any) => {
+        res.send(err);
+    });
 }
 
 export function delActivityDetail(req: any, res: any): void {
@@ -140,14 +136,91 @@ export function delActivityDetail(req: any, res: any): void {
 
 }
 
-export function getApplyInfo(req: any, res: any): void {
-    res.send(1);
+export async function getApplyInfoList(req: any, res: any): Promise<void> {
+    try {
+        const activityId = req.query.activityId;
+        // 获取已报名数据：
+        const applyData = await queryActivityAppliedInfo(activityId);
+
+        const result = {
+            applied: [] as Record<string, any>[],
+            alternatedApplied: [] as Record<string, any>[],
+            notApplied: [] as Record<string, any>[],
+        };
+
+        applyData.data.forEach((item: Record<string, any>) => {
+            switch (item[applyFieldMap.status]) {
+                case ApplyStatusEnum.Applied:
+                    result.applied.push(item);
+                    break;
+                case ApplyStatusEnum.AlternatedApplied:
+                    result.alternatedApplied.push(item);
+                    break;
+                case ApplyStatusEnum.NotApplied:
+                    result.notApplied.push(item);
+                    break;
+            }
+        });
+
+        res.send({
+            code: 200,
+            message: "",
+            data: result
+        });
+    } catch (err) {
+        res.send(err);
+    }
 }
 
-export function addActivityApply(req: any, res: any): void {
-    res.send(1);
+export async function addActivityApply(req: any, res: any): Promise<void> {
+    try {
+        const activityId = req.body.activityId;
+        // 类型断言：
+        const userInfo = <UserInfoType>await decodeUserInfo(req);
+
+        userInfo[applyFieldMap.parentId] = activityId;
+        userInfo[applyFieldMap.applyTime] = new Date().toLocaleString();
+        // 查询活动表，获取最大允许报名人数：
+        const activityData = await queryActivityDetail(activityId);
+        // 查询报名表，获取已报名数据：
+        const appliedData = await queryActivityAppliedInfo(activityId, ApplyStatusEnum.Applied);
+        // 判断报名人数是否已达最大人数：
+        if (appliedData.data.length < activityData.data[0][activityFieldMap.maxApply]) {
+            userInfo[applyFieldMap.status] = ApplyStatusEnum.Applied;
+        } else {
+            userInfo[applyFieldMap.status] = ApplyStatusEnum.AlternatedApplied;
+        }
+        const applyData = objPick(Object.keys(applyFieldMap), userInfo) as ApplyFieldType;
+
+        // 需要判断以前是否已报过名：
+        const selfApplydData = await querySelfApply(activityId, userInfo.userId);
+        if (selfApplydData.data.length > 0) {
+            // 已报过名，执行修改状态操作
+            const result = await updateApplyData(activityId, userInfo.userId, { [applyFieldMap.status]: userInfo[applyFieldMap.status] });
+            res.send(result);
+        } else {
+            // 未报过名，执行新增操作
+            const result = await insertApplyData(applyData);
+            res.send(result);
+        }
+    } catch (err) {
+        res.send(err);
+    }
 }
 
-export function cancelActivityApply(req: any, res: any): void {
-    res.send(1);
+export async function cancelActivityApply(req: any, res: any): Promise<void> {
+    try {
+        const activityId = req.body.activityId;
+        // 类型断言：
+        const userInfo = <UserInfoType>await decodeUserInfo(req);
+        const applyData = {
+            [applyFieldMap.status]: ApplyStatusEnum.NotApplied
+        };
+
+        const result = await updateApplyData(activityId, userInfo.userId, applyData);
+        res.send(result);
+
+    } catch (err) {
+        res.send(err);
+    }
 }

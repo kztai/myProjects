@@ -7,7 +7,8 @@ Component({
    */
   properties: {
     userInfo: {
-      activityTotal: {}
+      type: Object,
+      value: {},
     }
   },
 
@@ -15,7 +16,17 @@ Component({
    * 组件的初始数据
    */
   data: {
-    themeColor
+    themeColor,
+    myId: null
+  },
+
+  lifetimes: {
+    ready() {
+      const appInstance = getApp();
+      this.setData({
+        myId: appInstance.globalData.loginInfo.userId,  //设置登录者id
+      });
+    }
   },
 
   /**

@@ -1,5 +1,8 @@
 const { themeColor } = require('../../common/js/color');
-const { getApplyInfo } = require("../../api/activity/index");
+const { getApplyInfoList } = require("../../api/activity/index");
+const { GenderEnum } = require("../../utils/enum");
+
+let allApplyInfo = {};
 
 Page({
 
@@ -7,47 +10,50 @@ Page({
    * 页面的初始数据
    */
   data: {
+    GenderEnum,
     themeColor,
-    applyNum: 4,
-    selected: 0,
+    myId: null,
+    selected: 0,  //0已报名，1候补报名，2退坑
     isRefresh: false,
-    applyTypeList: ['报名', '候补', '退坑'],
-    allApplyInfo: {},
-    applyList: [
-      {
-        userId: 111,
-        name: 'kztttt',
-        avatar: '../../image/废弃/jd618.png',
-        applyTime: '03-09 12:23',
-        sex: '男',
-        level: 0,  // -1~10 ：-1表示未自评
-      },
-    ]
+    applyTypeList: [
+      {tab: '报名', applyNum: 0},
+      {tab: '候补', applyNum: 0},
+      {tab: '退坑', applyNum: 0},
+    ],
+    applyList: []
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
+    const appInstance = getApp();
     // 调用接口，获取报名者信息：
-    getApplyInfo().then((res) => {
+    getApplyInfoList(options.activityId).then((res) => {
+      allApplyInfo = res
       this.setData({
-        allApplyInfo: res
+        myId: appInstance.globalData.loginInfo.userId,  //设置登录者id
+        applyList: allApplyInfo.applied,
+        applyTypeList: [
+          {tab: '报名', applyNum: allApplyInfo.applied.length},
+          {tab: '候补', applyNum: allApplyInfo.alternatedApplied.length},
+          {tab: '退坑', applyNum: allApplyInfo.notApplied.length},
+        ]
       });
       // res = {
-      //   entered: [
+      //   applied: [
       //     {
       //       userId: 111,
       //       name: 'kztttt'
       //     },
       //   ],
-      //   alternate: [
+      //   alternatedApplied: [
       //     {
       //       userId: 111,
       //       name: 'kztttt'
       //     },
       //   ],
-      //   exited: [
+      //   notApplied: [
       //     {
       //       userId: 111,
       //       name: 'kztttt'
@@ -84,7 +90,7 @@ Page({
   showUserInfo(e) {
     const param = e.currentTarget.dataset;
     wx.navigateTo({
-      url: '/pages/userInfo/userInfo?userId=' + param.userId,
+      url: '/pages/userInfo/userInfo?userId=' + param.userid,
       success(res) { },
       fail(err) { },
       complete() { }
@@ -93,10 +99,27 @@ Page({
 
 
   changeApplyType(e) {
-    const data = e.currentTarget.dataset
-    this.setData({
-      selected: data.index
-    });
-    // 同时切换下方列表数据：
+    const data = e.currentTarget.dataset;
+    // 切换tab高亮，同时切换下方列表数据：
+    switch (data.index) {
+      case 0:
+        this.setData({
+          selected: data.index,
+          applyList: allApplyInfo.applied
+        });
+        break;
+      case 1:
+        this.setData({
+          selected: data.index,
+          applyList: allApplyInfo.alternatedApplied
+        });
+        break;
+      case 2:
+        this.setData({
+          selected: data.index,
+          applyList: allApplyInfo.notApplied
+        });
+        break;
+    }
   },
 })

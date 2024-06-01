@@ -24,13 +24,22 @@ export async function wxLogin(req: any, res: any): Promise<void> {
         //  "errmsg":"xxxxx"
         // }
 
-        // 给每个登陆者分一个唯一Id：
+        // 给每个登陆者分一个唯一Id： 
         data.userInfo.userId = uuidv4();
         const userInfo = {
             ...data.userInfo,
             openid: response.data.openid,
             session_key: response.data.session_key,
             unionid: response.data.unionid,
+            realName: "",
+            phone: null,
+            level: 0,
+            singleSession: 0,
+            singleWinRate: "0%",
+            doubleSession: 0,
+            doubleWinRate: "0%",
+            singleRefereeSession: 0,
+            doubleRefereeSession: 0,
         };
 
         await insertUserInfo(userInfo);

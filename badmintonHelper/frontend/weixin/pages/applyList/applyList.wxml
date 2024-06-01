@@ -2,18 +2,18 @@
   <!-- 头部页签 -->
   <view class="apply-list-top-tab-bar">
     <view wx:for="{{applyTypeList}}" wx:key="index" class="top-tab-bar-item top-tab-bar-item-active" data-index="{{index}}" bindtap="changeApplyType">
-      <text style="color: {{selected === index ? themeColor : 'initial'}}">{{ item }}({{ applyNum }})</text>
+      <text style="color: {{selected === index ? themeColor : 'initial'}}">{{ item.tab }}({{ item.applyNum }})</text>
     </view>
   </view>
   <scroll-view wx:if="{{ applyList.length > 0 }}" class="apply-list" scroll-y type="list" refresher-enabled bindrefresherrefresh="refreshActivityList" bindrefresherrestore="stopRefreshActivityList" refresher-triggered="{{ isRefresh }}">
     <view class="apply-item" wx:for="{{ applyList }}" wx:key="userId" wx:for-item="applyInfo" bind:tap="showUserInfo" data-userId="{{ applyInfo.userId }}">
       <view class="item-left">
-        <image class="item-avatar" src="{{ applyInfo.avatar }}" />
+        <image class="item-avatar" src="{{ applyInfo.avatarUrl }}" />
         <view class="item-user-info">
           <view class="item-user-info-top">
-            <text class="user-name">{{ applyInfo.name }}</text>
-            <text class="user-sex iconfont {{ applyInfo.sex === '男' ? 'user-sex-male icon-nan' : 'user-sex-female icon-nv' }}" />
-            <text class="user-edit iconfont icon-bianjishuru-xianxing" />
+            <text class="user-name">{{ applyInfo.nickName }}</text>
+            <text class="user-sex iconfont {{ applyInfo.gender === GenderEnum.Unknow ? '' : applyInfo.gender === GenderEnum.Male ? 'user-sex-male icon-nan' : 'user-sex-female icon-nv' }}" />
+            <!-- <text wx:if="{{ applyInfo.userId === myId }}" class="user-edit iconfont icon-bianjishuru-xianxing" /> -->
           </view>
           <view class="item-user-info-time">{{ applyInfo.applyTime }}</view>
         </view>
@@ -22,7 +22,7 @@
     </view>
   </scroll-view>
   <view wx:else class="apply-empty">
-    <view class="empty-text">暂无报名</view>
+    <view class="empty-text">暂无数据</view>
   </view>
 </view>
 

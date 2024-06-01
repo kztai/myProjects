@@ -1,42 +1,42 @@
 <view class="user-info-wrap">
   <view class="user-info">
-    <image class="item-avatar" src="{{ userInfo.avatar }}" />
+    <image class="item-avatar" src="{{ userInfo.avatarUrl }}" />
     <view class="item-user-info">
       <view class="item-user-info-top">
-        <text class="user-name">{{ userInfo.name }}</text>
-        <text class="user-sex iconfont {{ userInfo.sex === '男' ? 'user-sex-male icon-nan' : 'user-sex-female icon-nv' }}" />
+        <text class="user-name">{{ userInfo.nickName }}</text>
+        <text class="user-sex iconfont {{ userInfo.gender === 0 ? '' : userInfo.gender === 1 ? 'user-sex-male icon-nan' : 'user-sex-female icon-nv' }}" />
         <view class="user-info-level">{{ m1.formatLevel(userInfo.level) }}</view>
       </view>
     </view>
-    <view class="user-edit iconfont icon-bianjishuru-xianxing"></view>
+    <view wx:if="{{ userInfo.userId === myId }}" class="user-edit iconfont icon-bianjishuru-xianxing"></view>
   </view>
   <view class="activity-total-wrap">
     <view class="activity-total-top">
       <view class="activity-total-item">
         <view class="activity-total-item-text">单打</view>
-        <view class="activity-total-item-num" style="color: {{themeColor}};">{{ userInfo.activityTotal.singleSession }}场</view>
+        <view class="activity-total-item-num" style="color: {{themeColor}};">{{ userInfo.singleSession }}场</view>
       </view>
       <view class="activity-total-item">
         <view class="activity-total-item-text">胜率</view>
-        <view class="activity-total-item-num" style="color: {{themeColor}};">{{ userInfo.activityTotal.singleWinRate }}</view>
+        <view class="activity-total-item-num" style="color: {{themeColor}};">{{ userInfo.singleWinRate }}</view>
       </view>
       <view class="activity-total-item">
         <view class="activity-total-item-text">双打</view>
-        <view class="activity-total-item-num" style="color: {{themeColor}};">{{ userInfo.activityTotal.doubleSession }}场</view>
+        <view class="activity-total-item-num" style="color: {{themeColor}};">{{ userInfo.doubleSession }}场</view>
       </view>
       <view class="activity-total-item">
         <view class="activity-total-item-text">胜率</view>
-        <view class="activity-total-item-num" style="color: {{themeColor}};">{{ userInfo.activityTotal.doubleWinRate }}</view>
+        <view class="activity-total-item-num" style="color: {{themeColor}};">{{ userInfo.doubleWinRate }}</view>
       </view>
     </view>
     <view class="activity-total-bottom">
       <view class="activity-total-item-num">
         <text class="activity-total-item-text">单打裁判：</text>
-        <text class="activity-total-item-num" style="color: {{themeColor}};">{{ userInfo.activityTotal.singleRefereeSession }}场</text>
+        <text class="activity-total-item-num" style="color: {{themeColor}};">{{ userInfo.singleRefereeSession }}场</text>
       </view>
       <view class="activity-total-item-num">
         <text class="activity-total-item-text">双打裁判：</text>
-        <text class="activity-total-item-num" style="color: {{themeColor}};">{{ userInfo.activityTotal.doubleRefereeSession }}场</text>
+        <text class="activity-total-item-num" style="color: {{themeColor}};">{{ userInfo.doubleRefereeSession }}场</text>
       </view>
     </view>
   </view>

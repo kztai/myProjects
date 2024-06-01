@@ -1,7 +1,6 @@
 import { insertData, queryDataByCond, queryDataById, delDataByCond } from "@/db/db.crud";
 import { ResultType } from "@/types/index";
 import { TableNameMap, userFieldMap } from "./def";
-import { ActivityFieldType } from "@/types/models/type";
 import { ConditionType } from "@/types/db/db.type";
 
 import { UserInfoType } from "@/types/user";
@@ -36,6 +35,21 @@ export function deleteUserInfo(userId: string): Promise<ResultType> {
         return Promise.reject({
             code: 12001,
             message: "删除用户信息失败：" + err
+        });
+    }
+}
+
+// 获取用户信息：
+export function queryUserInfo(userId: string): Promise<ResultType> {
+    try {
+        const conditions: ConditionType = {
+            condition: [`${userFieldMap.userId}@=:${userId}`],
+        };
+        return queryDataByCond(TableNameMap.user, [], conditions);
+    } catch (err) {
+        return Promise.reject({
+            code: 12002,
+            message: "获取用户信息失败：" + err
         });
     }
 }

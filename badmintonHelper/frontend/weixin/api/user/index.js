@@ -4,12 +4,9 @@ function getUserInfo(userId) {
   const token = wx.getStorageSync('token');
   return new Promise((resolve, reject) => {
     wx.request({
-      url: baseUrl + 'user/userInfo',
+      url: baseUrl + 'user/userInfo?userId=' + userId,
       header: {
         authorization: 'Bearer ' + token
-      },
-      data: {
-        userId
       },
       method: 'get',
       success: (res) => {
