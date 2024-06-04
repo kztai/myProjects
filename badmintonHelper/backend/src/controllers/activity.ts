@@ -1,4 +1,4 @@
-import { queryActivityList, queryApplyList, insertActivityData, queryActivityDetail, queryActivityAppliedInfo, queryAlternatedAppliedNum, querySelfApply, delActivity, updateActivityData, insertApplyData, updateApplyData } from "@/models/activity";
+import { queryActivityList, queryApplyList, insertActivityData, queryActivityDetail, queryActivityAppliedInfo, queryAlternatedAppliedNum, querySelfApply, delActivity, updateActivityData, insertApplyData, updateApplyData, queryActivityByUserId, queryMyJoinActivity } from "@/models/activity";
 import { TableNameMap, activityFieldMap, applyFieldMap, ApplyStatusEnum, ActivityStatusEnum } from "@/models/def";
 import { decodeUserInfo, objPick } from "@/util/util";
 import { ApplyFieldType } from "@/types/activity";
@@ -25,8 +25,40 @@ import { UserInfoType } from "@/types/user";
 
 export async function getActivityList(req: any, res: any): Promise<void> {
     try {
+        const activityType = req.query.type;  // all-所有  myAll-我的所有 myRelease-我发布  myJoin-我参加的
+        // 类型断言：
+        const userInfo = <UserInfoType>await decodeUserInfo(req);
+        let activityData;
+        let myReleaseData;
+        let myReleaseActivityId;
+        let myJoinData;
+        let myJoinActivityId;
+        let arrActivityId;
         // 获取活动列表数据：
-        const activityData = await queryActivityList();
+        switch (activityType) {
+            case "all":
+                activityData = await queryActivityList();
+                break;
+            case "myAll":
+                myReleaseData = await queryActivityByUserId(userInfo.userId);
+                myReleaseActivityId = myReleaseData.data.map((activity:Record<string,any>) => activity.id);
+                myJoinData = await queryMyJoinActivity(userInfo.userId);
+                myJoinActivityId = myJoinData.data.map((apply:Record<string,any>) => apply.parentId);
+                arrActivityId = Array.from(new Set([...myReleaseActivityId, ...myJoinActivityId]));
+                activityData = await queryActivityList(arrActivityId);
+                break;
+            case "myRelease":
+                myReleaseData = await queryActivityByUserId(userInfo.userId);
+                arrActivityId = myReleaseData.data.map((activity:Record<string,any>) => activity.id);
+                activityData = await queryActivityList(arrActivityId);
+                break;
+            case "myJoin":
+                myJoinData = await queryMyJoinActivity(userInfo.userId);
+                arrActivityId = myJoinData.data.map((apply:Record<string,any>) => apply.parentId);
+                activityData = await queryActivityList(arrActivityId);
+                break;
+        }
+
         // 获取报名列表数据：
         const applyData = await queryApplyList();
 

@@ -226,8 +226,8 @@ export const userTable = {
         comment: "实际姓名"
     },
     [userFieldMap.phone]: {
-        type: "INT",
-        length: 20,
+        type: "VARCHAR",
+        length: 11,
         comment: "电话号码"
     },
     [userFieldMap.level]: {

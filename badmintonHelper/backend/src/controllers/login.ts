@@ -4,7 +4,6 @@ import { v4 as uuidv4 } from "uuid";
 import { UserInfoType } from "@/types/user";
 import JWT from "@/util/jwt";
 import {decodeUserInfo} from "@/util/util";
-import { addUserInfo, delUserInfo } from "@/controllers/userInfoList";
 import { insertUserInfo, deleteUserInfo } from "@/models/user";
 
 const appID = "wx69dfd1bcc838f7b8";
@@ -43,7 +42,7 @@ export async function wxLogin(req: any, res: any): Promise<void> {
         };
 
         await insertUserInfo(userInfo);
-        const token = createUserInfo(userInfo);
+        const token = JWT.createToken(userInfo);
 
         res.send({
             code: 200,
@@ -64,7 +63,6 @@ export async function wxLogout(req: any, res: any) {
         const userInfo = <UserInfoType>await decodeUserInfo(req);
 
         await deleteUserInfo(userInfo.userId);
-        delUserInfo(userInfo.userId);
 
         res.send({
             code: 200,
@@ -74,11 +72,4 @@ export async function wxLogout(req: any, res: any) {
     } catch (err) {
         res.send(err);
     }
-}
-
-function createUserInfo(userInfo: UserInfoType): string {
-    // 生成并返回token，维护session，返回sessionId
-    const token = JWT.createToken(userInfo);
-    addUserInfo(userInfo.userId, userInfo);
-    return token;
 }
