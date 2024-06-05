@@ -90,8 +90,8 @@ export const activityTable = {
         comment: "活动状态",
     },
     [activityFieldMap.organizerId]: {
-        type: "INT",
-        length: 20,
+        type: "VARCHAR",
+        length: 100,
         comment: "组织者Id",
     },
     [activityFieldMap.organizerName]: {
@@ -271,6 +271,11 @@ export const userTable = {
         length: 10,
         comment: "双打裁判次数",
         default: 0
+    },
+    [userFieldMap.loginStatus]: {
+        type: "TINYINT",
+        length: 2,
+        comment: "登录状态"
     },
 
 };

@@ -3,8 +3,9 @@ import { v4 as uuidv4 } from "uuid";
 
 import { UserInfoType } from "@/types/user";
 import JWT from "@/util/jwt";
-import {decodeUserInfo} from "@/util/util";
-import { insertUserInfo, deleteUserInfo } from "@/models/user";
+import {decodeWxUserInfo} from "@/util/util";
+import { insertUserInfo, updateUserInfo, deleteUserInfo } from "@/models/user";
+import { userFieldMap, LoginStatusEnum } from "@/models/def";
 
 const appID = "wx69dfd1bcc838f7b8";
 const appSecret = "416b0f612ce2b11ca16891c5f0fb5195";
@@ -24,12 +25,18 @@ export async function wxLogin(req: any, res: any): Promise<void> {
         // }
 
         // 给每个登陆者分一个唯一Id： 
-        data.userInfo.userId = uuidv4();
-        const userInfo = {
-            ...data.userInfo,
+        const userId = uuidv4();
+        // 创建token：
+        const token = JWT.createToken({
+            userId,
             openid: response.data.openid,
             session_key: response.data.session_key,
             unionid: response.data.unionid,
+        });
+
+        data.userInfo.userId = userId;
+        const userInfo = {
+            ...data.userInfo,
             realName: "",
             phone: null,
             level: 0,
@@ -39,10 +46,11 @@ export async function wxLogin(req: any, res: any): Promise<void> {
             doubleWinRate: "0%",
             singleRefereeSession: 0,
             doubleRefereeSession: 0,
+            loginStatus: LoginStatusEnum.In, //1登录，0未登录
         };
 
         await insertUserInfo(userInfo);
-        const token = JWT.createToken(userInfo);
+   
 
         res.send({
             code: 200,
@@ -60,9 +68,13 @@ export async function wxLogin(req: any, res: any): Promise<void> {
 export async function wxLogout(req: any, res: any) {
     try {
         // 类型断言：
-        const userInfo = <UserInfoType>await decodeUserInfo(req);
+        const wxUserInfo = <UserInfoType>await decodeWxUserInfo(req);
+        // const userInfo = {
+        //     [userFieldMap.loginStatus]: LoginStatusEnum.Out
+        // };
+        // await updateUserInfo(wxUserInfo.userId, userInfo);
 
-        await deleteUserInfo(userInfo.userId);
+        await deleteUserInfo(wxUserInfo.userId);
 
         res.send({
             code: 200,

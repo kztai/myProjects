@@ -51,6 +51,7 @@ export const userFieldMap = {
     doubleWinRate: "doubleWinRate",
     singleRefereeSession: "singleRefereeSession",
     doubleRefereeSession: "doubleRefereeSession",
+    loginStatus: "loginStatus"
 };
 
 // 表映射
@@ -84,3 +85,9 @@ export const RefundTicketEnum = {
     Before0: 3,
     No: 4,
 };
+
+export const LoginStatusEnum = {
+    Out: 0,
+    In: 1,
+};
+

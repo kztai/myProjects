@@ -55,7 +55,7 @@ export function queryUserInfo(userId: string): Promise<ResultType> {
 }
 
 // 修改用户信息：
-export function updateUserInfo(userId: string, userInfo: UserInfoType): Promise<ResultType> {
+export function updateUserInfo(userId: string, userInfo: Record<string, any>): Promise<ResultType> {
     try {
         const conditions: ConditionType = {
             condition: [`${userFieldMap.userId}@=:${userId}`],
