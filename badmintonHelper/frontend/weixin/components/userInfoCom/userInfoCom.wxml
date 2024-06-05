@@ -4,11 +4,11 @@
     <view class="item-user-info">
       <view class="item-user-info-top">
         <text class="user-name">{{ userInfo.nickName }}</text>
-        <text class="user-sex iconfont {{ userInfo.gender === 0 ? '' : userInfo.gender === 1 ? 'user-sex-male icon-nan' : 'user-sex-female icon-nv' }}" />
-        <view class="user-info-level">{{ m1.formatLevel(userInfo.level) }}</view>
+        <text class="user-sex iconfont {{ userInfo.gender == 0 ? '' : userInfo.gender == 1 ? 'user-sex-male icon-nan' : 'user-sex-female icon-nv' }}"></text>
+        <view wx:if="{{ userInfo.level !== null }}" class="user-info-level">{{ m1.formatLevel(userInfo.level) }}</view>
       </view>
     </view>
-    <view wx:if="{{ userInfo.userId === myId }}" class="user-edit iconfont icon-bianjishuru-xianxing"></view>
+    <view wx:if="{{ userInfo.userId === myId }}" class="user-edit iconfont icon-bianjishuru-xianxing" bind:tap="modifyMyInfo"></view>
   </view>
   <view class="activity-total-wrap">
     <view class="activity-total-top">
@@ -45,6 +45,8 @@
 <!-- 1、通过内联的wxs标签，可以在.wxml内部定义函数，类似script标签（module属性必备） -->
 <wxs module="m1">
   module.exports.formatLevel = function (level) {
+    if(level === undefined) return '未知';
+    
     switch (level) {
       case -1:
         return '未自评';

@@ -1,0 +1,10 @@
+<view class="my-activity-wrap">
+  <!-- 头部页签 -->
+  <view class="my-activity-top-tab-bar">
+    <view wx:for="{{myActivityList}}" wx:key="index" class="top-tab-bar-item top-tab-bar-item-active" data-index="{{index}}" bindtap="changeMyActivityType">
+      <text style="color: {{selected === index ? selectedColor : 'initial'}}">{{ item }}</text>
+    </view>
+  </view>
+  <!-- 切换组件 -->
+  <activity type="{{ activityType }}"></activity>
+</view>

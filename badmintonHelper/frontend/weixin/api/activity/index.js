@@ -1,10 +1,10 @@
 const { baseUrl } = require('../../common/js/base');
 
-function getActivityList() {
+function getActivityList(type) {
   const token = wx.getStorageSync('token');
   return new Promise((resolve, reject) => {
     wx.request({
-      url: baseUrl + 'activity/list/',
+      url: baseUrl + 'activity/list?type=' + type,
       header: {
         authorization: 'Bearer ' + token
       },

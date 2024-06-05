@@ -3,7 +3,7 @@
 }
 
 .activity-wrap .activity-list {
-  height: calc(100vh - 176rpx);
+  height: calc(100vh - 168rpx);
   box-sizing: border-box;
   padding-top: 30rpx;
 }

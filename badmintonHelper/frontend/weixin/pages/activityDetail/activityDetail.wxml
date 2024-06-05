@@ -86,7 +86,7 @@
           <icon class="iconfont icon-shouye" />
           <view>首页</view>
         </view>
-        <view wx:if="{{ activityDetail.status === ActivityStatusEnum.Ended }}" class="bottom-left-btn" bind:tap="navigateChange" data-index="1">
+        <view class="bottom-left-btn" bind:tap="navigateChange" data-index="1">
           <icon class="iconfont icon-iconfontzhaomingdianzi" />
           <view>等级</view>
         </view>
@@ -94,10 +94,10 @@
           <icon class="iconfont icon-tixing" />
           <view>帮助</view>
         </view>
-        <view class="bottom-left-btn" bind:tap="navigateChange" data-index="3">
+        <!-- <view class="bottom-left-btn" bind:tap="navigateChange" data-index="3">
           <icon class="iconfont icon-lingcunwei" />
           <view>分享</view>
-        </view>
+        </view> -->
       </view>
       <view wx:if="{{ activityDetail.status === ActivityStatusEnum.Ended }}" class="bottom-btns-right" style="background-color: {{infoColor}};">活动已结束</view>
       <view wx:elif="{{ activityDetail.applyStatus === ApplyStatusEnum.NotApplied }}" class="bottom-btns-right" style="background-color: {{successColor}};" bind:tap="activityApply">{{ activityDetail.curApply === activityDetail.maxApply ? "候补报名" : "立即报名" }}</view>

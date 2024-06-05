@@ -12,7 +12,7 @@ Page({
   data: {
     GenderEnum,
     themeColor,
-    myId: null,
+    // myId: null,
     selected: 0,  //0已报名，1候补报名，2退坑
     isRefresh: false,
     applyTypeList: [
@@ -32,7 +32,7 @@ Page({
     getApplyInfoList(options.activityId).then((res) => {
       allApplyInfo = res
       this.setData({
-        myId: appInstance.globalData.loginInfo.userId,  //设置登录者id
+        // myId: appInstance.globalData.loginInfo && appInstance.globalData.loginInfo.userId,  //设置登录者id
         applyList: allApplyInfo.applied,
         applyTypeList: [
           {tab: '报名', applyNum: allApplyInfo.applied.length},

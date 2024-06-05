@@ -13,6 +13,7 @@
   border-radius: 50%;
   overflow: hidden;
   margin-right: 20rpx;
+  background-color: #eee;
 }
 .user-info-wrap .item-user-info {
   line-height: 80rpx;

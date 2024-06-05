@@ -6,7 +6,7 @@
     </view>
   </view>
   <!-- 切换组件 -->
-  <activity wx:if="{{ selected === 0 }}"></activity>
+  <activity wx:if="{{ selected === 0 }}" type="all"></activity>
   <race wx:if="{{ selected === 1 }}"></race>
   <club wx:if="{{ selected === 2 }}"></club>
 </view>

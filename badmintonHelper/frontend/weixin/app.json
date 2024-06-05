@@ -12,7 +12,13 @@
     "pages/applyList/applyList",
     "pages/userInfo/userInfo",
     "pages/create/createActivity/createActivity",
-    "pages/login/login"
+    "pages/login/login",
+    "pages/me/myActivity/myActivity",
+    "pages/me/myRace/myRace",
+    "pages/guide/guide",
+    "pages/me/set/set",
+    "pages/me/modifyMyInfo/modifyMyInfo",
+    "pages/myActivity/myActivity"
   ],
   "requiredPrivateInfos": [
     "chooseLocation"

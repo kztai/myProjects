@@ -7,11 +7,11 @@ App({
     // 判断用户是否登录，或者登录是否过期（微信端）：
     wx.checkSession({
       success: () => { 
-        this.globalData.loginInfo = wx.getStorageSync('loginInfo') || {};
+        this.globalData.loginInfo = wx.getStorageSync('loginInfo') || null;
       },
-      fail: (err) => { 
+      fail: (err) => {
         // session_key 已经失效，需要重新执行登录流程
-        this.globalData.isLogin = false
+        this.globalData.loginInfo = null;
         wx.setStorageSync('token', '');
         wx.setStorageSync('loginInfo', '');
       }
@@ -21,9 +21,9 @@ App({
   // 全局注册的数据与方法：
   // 页面或模块通过 getApp 方法获取到全局唯一的 App 实例，从而获取到globalData1:
   globalData: {
-    loginInfo: {},
-    isLogin: false,
+    loginInfo: null,
     tabBarIndex: 0,
+    navigateBackParam: null,
     changeTabBarIndex(index) {
       this.tabBarIndex = index;
     }

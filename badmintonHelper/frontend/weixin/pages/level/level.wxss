@@ -1,1 +1,16 @@
-/* pages/level/level.wxss */
+.level-wrap {
+  width: 100vw;
+  height: 100vh;
+  background-color: #efefef;
+  box-sizing: border-box;
+  padding: 20rpx;
+}
+
+.level-wrap .level-area {
+  border-radius: 20rpx;
+  background-color: #fff;
+}
+
+.level-wrap .item {
+  padding: 20rpx;
+}

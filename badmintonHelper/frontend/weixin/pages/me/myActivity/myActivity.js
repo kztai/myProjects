@@ -1,11 +1,11 @@
-const { themeColor, successColor, infoColor } = require('../../common/js/color');
+// pages/me/myActivity/myActivity.js
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    themeColor
+
   },
 
   /**

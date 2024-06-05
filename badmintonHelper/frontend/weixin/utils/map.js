@@ -1,4 +1,4 @@
-const { ActivityStatusEnum, ChargingMethoEnum, RefundTicketEnum, ApplyStatusEnum } = require("./enum");
+const { ActivityStatusEnum, ChargingMethoEnum, RefundTicketEnum, ApplyStatusEnum, GenderEnum } = require("./enum");
 
 const activityStatus = {
   [ActivityStatusEnum.Ended]: "已结束",
@@ -22,6 +22,17 @@ const refundTicketMap = {
 const chargingMethodMap = {
   [ChargingMethoEnum.Before]: "报名时收款",
   [ChargingMethoEnum.After]: "活动后AA收款",
+}
+
+const userFieldMap = {
+  id: 'id',
+  userId: 'userId',
+  nickName: 'nickName',
+  avatarUrl: 'avatarUrl',
+  gender: 'gender',
+  level: 'level',
+  realName: 'realName',
+  phone: 'phone',
 }
 
 const activityFieldMap = {
@@ -78,10 +89,25 @@ const applyFieldMap = {
   status: 'status',  //0已报名，1候补，2未报名（已退坑）
 }
 
-// const applyStatus = {
-//   0: '活动已结束',
-//   1: ""
-// }
+const genderMap = {
+  [GenderEnum.Unknow]: '保密',
+  [GenderEnum.Male]: "男",
+  [GenderEnum.Female]: "女",
+}
+
+const levelMap = {
+  0: '萌新',
+  1: "1级",
+  2: "2级",
+  3: "3级",
+  4: "4级",
+  5: "5级",
+  6: "6级",
+  7: "7级",
+  8: "8级",
+  9: "9级",
+  10: "专业级",
+}
 
 module.exports = {
   activityStatus,
@@ -90,5 +116,8 @@ module.exports = {
   activityFieldMap,
   activityDetailMap,
   applyStatusMap,
-  applyFieldMap
+  applyFieldMap,
+  genderMap,
+  levelMap,
+  userFieldMap
 };
