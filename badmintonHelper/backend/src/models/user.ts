@@ -1,4 +1,4 @@
-import { insertData, queryDataByCond, queryDataById, delDataByCond } from "@/db/db.crud";
+import { insertData, queryDataByCond, updateDataByCond, delDataByCond } from "@/db/db.crud";
 import { ResultType } from "@/types/index";
 import { TableNameMap, userFieldMap } from "./def";
 import { ConditionType } from "@/types/db/db.type";
@@ -50,6 +50,21 @@ export function queryUserInfo(userId: string): Promise<ResultType> {
         return Promise.reject({
             code: 12002,
             message: "获取用户信息失败：" + err
+        });
+    }
+}
+
+// 修改用户信息：
+export function updateUserInfo(userId: string, userInfo: Record<string, any>): Promise<ResultType> {
+    try {
+        const conditions: ConditionType = {
+            condition: [`${userFieldMap.userId}@=:${userId}`],
+        };
+        return updateDataByCond(TableNameMap.user, userInfo, conditions);
+    } catch (err) {
+        return Promise.reject({
+            code: 12003,
+            message: "修改用户信息失败：" + err
         });
     }
 }

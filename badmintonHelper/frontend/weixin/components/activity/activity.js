@@ -9,7 +9,10 @@ Component({
    * 组件的属性列表
    */
   properties: {
-
+    type: {
+      type: String,
+      value: 'all',  // all-所有  myAll-我的所有 myRelease-我发布  myJoin-我参加的
+    }
   },
 
   /**
@@ -23,25 +26,26 @@ Component({
     arrActivityDetail: [],
   },
 
-  lifetimes: {
-    ready() {
+  // lifetimes: {
+  //   ready() {
+  //     this.init();
+  //   }
+  // },
+
+  // 监听器，类似vue中的watch
+  // 与vue中不一样的地方是：一个key可以同时监听多个属性，参数也是对应属性的新值。
+  observers: {
+    type() {
       this.init();
     }
   },
-  // 组件所在页面的生命周期：
-  // pageLifetimes: {
-  //   // 页面显示时：
-  //   show() {
-  //     this.init();
-  //   },
-  // },
 
   /**
    * 组件的方法列表
    */
   methods: {
     init(callback) {
-      getActivityList().then((res) => {
+      getActivityList(this.properties.type).then((res) => {
         this.setData({
           arrActivityDetail: res
         });

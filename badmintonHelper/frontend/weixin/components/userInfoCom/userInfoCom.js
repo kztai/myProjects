@@ -17,22 +17,28 @@ Component({
    */
   data: {
     themeColor,
-    myId: null
+    myId: null,
   },
 
-  lifetimes: {
-    ready() {
+  pageLifetimes: {
+    // 页面显示时：
+    show() {
       const appInstance = getApp();
       this.setData({
-        myId: appInstance.globalData.loginInfo.userId,  //设置登录者id
+        myId: appInstance.globalData.loginInfo && appInstance.globalData.loginInfo.userId,  //设置登录者id
       });
-    }
+    },
   },
 
   /**
    * 组件的方法列表
    */
   methods: {
-
+    modifyMyInfo() {
+      // 跳转到修改我的信息界面：
+      wx.navigateTo({
+        url: '/pages/me/modifyMyInfo/modifyMyInfo',
+      })
+    }
   }
 })

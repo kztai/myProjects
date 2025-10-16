@@ -1,1 +1,29 @@
-<button bind:tap="logout">退出登录</button>
+<view class="me-wrap">
+  <view class="my-info area-wrap">
+    <userInfoCom userInfo="{{userInfo}}"></userInfoCom>
+  </view>
+  <view class="area-wrap">
+    <view class="item-wrap" bind:tap="itemClick" data-index="1">
+      <view type="" class="item-icon iconfont icon-wodejuhuasuan"/>
+      <view class="item-name">我的活动</view>
+      <view type="" class="item-more iconfont icon-xiangyoujiantou"/>
+    </view>
+    <view class="item-wrap" bind:tap="itemClick" data-index="2">
+      <view type="" class="item-icon iconfont icon-iconfontzhaomingdianzi"/>
+      <view class="item-name">等级标准</view>
+      <view type="" class="item-more iconfont icon-xiangyoujiantou"/>
+    </view>
+    <view class="item-wrap" bind:tap="itemClick" data-index="3">
+      <view type="" class="item-icon iconfont icon-tixing"/>
+      <view class="item-name">新手指南</view>
+      <view type="" class="item-more iconfont icon-xiangyoujiantou"/>
+    </view>
+    <!-- <view class="item-wrap" bind:tap="itemClick" data-index="4">
+      <view type="" class="item-icon iconfont icon-shezhi"/>
+      <view class="item-name">设置</view>
+      <view type="" class="item-more iconfont icon-xiangyoujiantou"/>
+    </view> -->
+  </view>
+  <button wx:if="{{ isLogin }}" type="warn" bind:tap="logout">退出登录</button>
+  <button wx:else type="primary" bind:tap="login">登录</button>
+</view>

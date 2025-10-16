@@ -1,0 +1,100 @@
+.modify-info-wrap {
+  width: 100vw;
+  min-height: 100vh;
+  background-color: #efefef;
+  padding: 20rpx 20rpx 74rpx 20rpx;
+  box-sizing: border-box;
+}
+
+.modify-info-wrap .form-area {
+  background-color: #fff;
+  border-radius: 12rpx;
+  padding: 0 20rpx;
+  margin-bottom: 20rpx;
+}
+
+.modify-info-wrap .form-area .form-item {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 2rpx solid #d9d9d9;
+  padding: 20rpx 0;
+  height: 80rpx;
+}
+.modify-info-wrap .form-area .form-item:last-child {
+  border-bottom:none;
+}
+
+.modify-info-wrap .form-area .form-item-avatar {
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-left: 20rpx;
+  background-color: #eee;
+}
+
+.modify-info-wrap .form-area .form-item-label {
+  flex: 0 0 138rpx;
+  color: #999;
+  text-align: left;
+  align-self: center;
+}
+.modify-info-wrap .form-area .form-item-content {
+  flex: 1;
+  text-align: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  align-self: center;
+}
+.modify-info-wrap .form-area .form-item-icon {
+  display: flex;
+  align-items: center;
+  flex: 0;
+  color: #999;
+}
+
+.modify-info-wrap .form-area .form-item-content-text {
+  vertical-align: super;
+  margin-left: 20rpx;
+}
+.modify-info-wrap .form-area .input-pay {
+  width: 100rpx;
+  display: inline-block;
+  border: 1px solid #d9d9d9;
+  border-radius: 8rpx;
+}
+
+.modify-info-wrap .form-area .item-content-supplement {
+  border: 1px solid #d9d9d9;
+  width: auto;
+  border-radius: 8rpx;
+  margin-left: 20rpx;
+  text-align: left;
+  height: 160rpx;
+  padding: 12rpx;
+  box-sizing: border-box;
+  font-size: 28rpx;
+}
+
+.modify-info-wrap .avatar-modify-wrap {
+  position: absolute;
+  bottom: 0;
+  left:0;
+  border-radius: 20rpx 20rpx 0 0;
+  box-sizing: border-box;
+  background-color: #fff;
+  width: 100%;
+}
+
+.modify-info-wrap .avatar-modify-item {
+  padding: 32rpx 0;
+  text-align: center;
+  border-bottom: 2rpx solid #eee;
+}
+.modify-info-wrap .avatar-modify-item:last-child {
+  border-bottom: none;
+}
+.modify-info-wrap .cancel-btn {
+  border-top: 12rpx solid #eee;
+}

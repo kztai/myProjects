@@ -1,6 +1,7 @@
-import { queryActivityList, queryApplyList, insertActivityData, queryActivityDetail, queryActivityAppliedInfo, queryAlternatedAppliedNum, querySelfApply, delActivity, updateActivityData, insertApplyData, updateApplyData } from "@/models/activity";
-import { TableNameMap, activityFieldMap, applyFieldMap, ApplyStatusEnum, ActivityStatusEnum } from "@/models/def";
-import { decodeUserInfo, objPick } from "@/util/util";
+import { queryActivityList, queryApplyList, insertActivityData, queryActivityDetail, queryActivityAppliedInfo, queryAlternatedAppliedNum, querySelfApply, delActivity, updateActivityData, insertApplyData, updateApplyData, queryActivityByUserId, queryMyJoinActivity } from "@/models/activity";
+import { queryUserInfo } from "@/models/user";
+import { activityFieldMap, applyFieldMap, ApplyStatusEnum, ActivityStatusEnum } from "@/models/def";
+import { decodeWxUserInfo, objPick } from "@/util/util";
 import { ApplyFieldType } from "@/types/activity";
 import { UserInfoType } from "@/types/user";
 
@@ -25,8 +26,40 @@ import { UserInfoType } from "@/types/user";
 
 export async function getActivityList(req: any, res: any): Promise<void> {
     try {
+        const activityType = req.query.type;  // all-所有  myAll-我的所有 myRelease-我发布  myJoin-我参加的
+        // 类型断言：
+        const userInfo = <UserInfoType>await decodeWxUserInfo(req);
+        let activityData;
+        let myReleaseData;
+        let myReleaseActivityId;
+        let myJoinData;
+        let myJoinActivityId;
+        let arrActivityId;
         // 获取活动列表数据：
-        const activityData = await queryActivityList();
+        switch (activityType) {
+            case "all":
+                activityData = await queryActivityList();
+                break;
+            case "myAll":
+                myReleaseData = await queryActivityByUserId(userInfo.userId);
+                myReleaseActivityId = myReleaseData.data.map((activity:Record<string,any>) => activity.id);
+                myJoinData = await queryMyJoinActivity(userInfo.userId);
+                myJoinActivityId = myJoinData.data.map((apply:Record<string,any>) => apply.parentId);
+                arrActivityId = Array.from(new Set([...myReleaseActivityId, ...myJoinActivityId]));
+                activityData = await queryActivityList(arrActivityId);
+                break;
+            case "myRelease":
+                myReleaseData = await queryActivityByUserId(userInfo.userId);
+                arrActivityId = myReleaseData.data.map((activity:Record<string,any>) => activity.id);
+                activityData = await queryActivityList(arrActivityId);
+                break;
+            case "myJoin":
+                myJoinData = await queryMyJoinActivity(userInfo.userId);
+                arrActivityId = myJoinData.data.map((apply:Record<string,any>) => apply.parentId);
+                activityData = await queryActivityList(arrActivityId);
+                break;
+        }
+
         // 获取报名列表数据：
         const applyData = await queryApplyList();
 
@@ -58,7 +91,7 @@ export async function getActivityList(req: any, res: any): Promise<void> {
 export async function getActivityDetail(req: any, res: any): Promise<void> {
     try {
         // 类型断言：
-        const userInfo = <UserInfoType>await decodeUserInfo(req);
+        const userInfo = <UserInfoType>await decodeWxUserInfo(req);
         const activityId = req.params.id;
         // 获取活动详情数据：
         const activityData = await queryActivityDetail(activityId);
@@ -176,8 +209,13 @@ export async function addActivityApply(req: any, res: any): Promise<void> {
     try {
         const activityId = req.body.activityId;
         // 类型断言：
-        const userInfo = <UserInfoType>await decodeUserInfo(req);
+        const wxUserInfo = <UserInfoType>await decodeWxUserInfo(req);
 
+        // 获取详细用户信息：
+        const userInfoData = await queryUserInfo(wxUserInfo.userId);
+        const userInfo = userInfoData.data[0];
+
+        delete userInfo.id;
         userInfo[applyFieldMap.parentId] = activityId;
         userInfo[applyFieldMap.applyTime] = new Date().toLocaleString();
         // 查询活动表，获取最大允许报名人数：
@@ -212,7 +250,7 @@ export async function cancelActivityApply(req: any, res: any): Promise<void> {
     try {
         const activityId = req.body.activityId;
         // 类型断言：
-        const userInfo = <UserInfoType>await decodeUserInfo(req);
+        const userInfo = <UserInfoType>await decodeWxUserInfo(req);
         const applyData = {
             [applyFieldMap.status]: ApplyStatusEnum.NotApplied
         };

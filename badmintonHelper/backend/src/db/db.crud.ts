@@ -74,12 +74,11 @@ export function updateDataById(tableName: string, fieldData: any, arrId: number[
 
     // 没有修改数据，或者没有修改行对应的id，则默认不修改，直接返回：
     if (arrKey.length === 0 || arrId.length === 0) {
-        Promise.resolve({
+        return Promise.resolve({
             code: 200,
             message: "",
             data: arrId
         });
-        return;
     }
 
     arrKey.forEach((key) => {
@@ -127,11 +126,10 @@ export function updateDataByCond(tableName: string, fieldData: any, conditions?:
     const arrKey = Object.keys(fieldData);
 
     if (arrKey.length === 0) {
-        Promise.resolve({
+        return Promise.resolve({
             code: 200,
             message: ""
         });
-        return;
     }
 
     arrKey.forEach((key) => {
@@ -177,11 +175,10 @@ export function updateDataByCond(tableName: string, fieldData: any, conditions?:
  */
 export function delDataById(tableName: string, arrId: number[]): Promise<ResultType> {
     if (arrId?.length === 0) {
-        Promise.resolve({
+        return Promise.resolve({
             code: 200,
             message: ""
         });
-        return;
     }
 
     const sql = `DELETE FROM ${tableName} WHERE id IN (${arrId.join(",")});`;
@@ -255,12 +252,11 @@ export function delDataByCond(tableName: string, conditions?: ConditionType): Pr
  */
 export function queryDataById(tableName: string, arrField: string[], arrId: number[]): Promise<ResultType> {
     if (arrId?.length === 0) {
-        Promise.resolve({
+        return Promise.resolve({
             code: 200,
             message: "",
             data: []
         });
-        return;
     }
 
     const fieldSql = arrField?.length === 0 ? "*" : arrField.join(",");

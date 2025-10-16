@@ -1,2 +1,49 @@
-<!--pages/level/level.wxml-->
-<text>pages/level/level.wxml</text>
+<view class="level-wrap">
+  <view class="level-area">
+    <view class="item">特别说明，以下为业余球友等级。</view>
+    <view class="item">
+      <text style="color: {{ themeColor }};">萌新：</text>
+      <text>萌新还不会打羽毛球</text>
+    </view>
+    <view class="item">
+      <text style="color: {{ themeColor }};">1级：</text>
+      <text>初学者，能把球打过网</text>
+    </view>
+    <view class="item">
+      <text style="color: {{ themeColor }};">2级：</text>
+      <text>了解基本规则和基本技术，但很不稳定</text>
+    </view>
+    <view class="item">
+      <text style="color: {{ themeColor }};">3级：</text>
+      <text>熟悉基本技术，发力还未掌握好，不会反手，会基础步法但无法用于实战</text>
+    </view>
+    <view class="item">
+      <text style="color: {{ themeColor }};">4级：</text>
+      <text>基本技术熟练运用，实战中能简单应用反手、并正确使用步法</text>
+    </view>
+    <view class="item">
+      <text style="color: {{ themeColor }};">5级：</text>
+      <text>技术比较全面，击球到位，有简单战术应用</text>
+    </view>
+    <view class="item">
+      <text style="color: {{ themeColor }};">6级：</text>
+      <text>技术全面，步法娴熟，战术比较丰富</text>
+    </view>
+    <view class="item">
+      <text style="color: {{ themeColor }};">7级：</text>
+      <text>很强的攻防能力，熟练应用各种高级技战术，能及时调整战术和心态</text>
+    </view>
+    <view class="item">
+      <text style="color: {{ themeColor }};">8级：</text>
+      <text>经常取得大型业余比赛前三名，能和专业退役运动员对抗</text>
+    </view>
+    <view class="item">
+      <text style="color: {{ themeColor }};">9级：</text>
+      <text>专业退役运动员</text>
+    </view>
+    <view class="item">
+      <text style="color: {{ themeColor }};">专业级：</text>
+      <text>现役专业运动员</text>
+    </view>
+  </view>
+</view>

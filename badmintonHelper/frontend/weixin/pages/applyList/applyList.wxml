@@ -12,7 +12,7 @@
         <view class="item-user-info">
           <view class="item-user-info-top">
             <text class="user-name">{{ applyInfo.nickName }}</text>
-            <text class="user-sex iconfont {{ applyInfo.gender === GenderEnum.Unknow ? '' : applyInfo.gender === GenderEnum.Male ? 'user-sex-male icon-nan' : 'user-sex-female icon-nv' }}" />
+            <text class="user-sex iconfont {{ applyInfo.gender == GenderEnum.Unknow ? '' : applyInfo.gender == GenderEnum.Male ? 'user-sex-male icon-nan' : 'user-sex-female icon-nv' }}" />
             <!-- <text wx:if="{{ applyInfo.userId === myId }}" class="user-edit iconfont icon-bianjishuru-xianxing" /> -->
           </view>
           <view class="item-user-info-time">{{ applyInfo.applyTime }}</view>

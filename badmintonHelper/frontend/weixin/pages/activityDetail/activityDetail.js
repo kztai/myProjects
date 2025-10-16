@@ -89,7 +89,7 @@ Page({
     const appInstance = getApp();
     getActivityDetail(activityId).then((res) => {
       this.setData({
-        myId: appInstance.globalData.loginInfo.userId,  //设置登录者id
+        myId: appInstance.globalData.loginInfo && appInstance.globalData.loginInfo.userId,  //设置登录者id
         activityDetail: res
       })
     }).catch((err) => {
@@ -125,8 +125,7 @@ Page({
   // 退坑：
   activityRefundTicket() {
     // 调接口进行退坑，并tips提示退坑成功：
-    const appInstance = getApp();
-    cancelApplyActivity({ userInfo: appInstance.globalData.loginInfo, activityId }).then((res) => {
+    cancelApplyActivity({ activityId }).then(() => {
       this.init()
       wx.showToast({
         title: '退坑成功！',
@@ -156,7 +155,7 @@ Page({
           url = '/pages/level/level'
           break;
         case 2:
-          url = '/pages/level/level'
+          url = '/pages/guide/guide'
           break;
         case 3:
           url = '/pages/level/level'
@@ -164,7 +163,6 @@ Page({
       }
       wx.navigateTo({ url })
     }
-
   },
 
   openActivityAddress() {
@@ -203,7 +201,7 @@ Page({
       console.log(this.data.payType);
       // 判断是否已登录：
       const appInstance = getApp();
-      if (appInstance.globalData.isLogin) {
+      if (appInstance.globalData.loginInfo) {
         // 跳转到支付界面：
         this.vipPay()
       } else {

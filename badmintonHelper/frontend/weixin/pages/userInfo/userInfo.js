@@ -5,23 +5,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    userInfo: {
-      id: '11',
-      name: 'kzt',
-      realName: '',
-      phone: '138xxxxxxxx',
-      sex: '男',
-      level: 2,
-      avatar: '../../image/废弃/jd618.png',
-      activityTotal: {
-        singleSession: 12,
-        singleWinRate: '57%',
-        doubleSession: 12,
-        doubleWinRate: '57%',
-        singleRefereeSession: 123,
-        doubleRefereeSession: 24,
-      }
-    }
+    userInfo: {}
   },
 
   /**

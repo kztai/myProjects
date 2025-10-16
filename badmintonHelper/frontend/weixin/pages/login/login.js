@@ -27,8 +27,15 @@ Page({
 
               // 修改全局的登录状态：
               const appInstance = getApp();
-              appInstance.globalData.isLogin = true
-              appInstance.globalData.loginInfo = res.userInfo
+              appInstance.globalData.loginInfo = res.userInfo;
+
+              // 设置返回上一页的参数：
+              const pages = getCurrentPages()
+              const prevPage = pages[pages.length - 2] // 上一页
+              // 调用上一个页面的setData 方法，将数据存储
+              prevPage.setData({
+                navigateBackParam: 'success'
+              });
               wx.navigateBack({
                 delta: '1',   //选填，默认为1
                 success() {
@@ -40,6 +47,13 @@ Page({
                 }
               });
             }).catch((error) => {
+              // 设置返回上一页的参数：
+              const pages = getCurrentPages()
+              const prevPage = pages[pages.length - 2] // 上一页
+              // 调用上一个页面的setData 方法，将数据存储
+              prevPage.setData({
+                navigateBackParam: 'error'
+              });
               wx.navigateBack({
                 delta: '1',   //选填，默认为1
                 success() {

@@ -1,11 +1,11 @@
-// pages/level/level.js
+const { themeColor, successColor, infoColor } = require('../../common/js/color');
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-
+    themeColor
   },
 
   /**

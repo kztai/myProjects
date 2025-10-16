@@ -53,9 +53,9 @@ Page({
 
       // 拼接上自己的信息：
       const appInstance = getApp();
-      this.data.formData[activityFieldMap.organizerId] = appInstance.globalData.loginInfo.userId
-      this.data.formData[activityFieldMap.organizerName] = appInstance.globalData.loginInfo.nickName
-      this.data.formData[activityFieldMap.organizerAvatarUrl] = appInstance.globalData.loginInfo.avatarUrl
+      this.data.formData[activityFieldMap.organizerId] = appInstance.globalData.loginInfo && appInstance.globalData.loginInfo.userId
+      this.data.formData[activityFieldMap.organizerName] = appInstance.globalData.loginInfo && appInstance.globalData.loginInfo.nickName
+      this.data.formData[activityFieldMap.organizerAvatarUrl] = appInstance.globalData.loginInfo && appInstance.globalData.loginInfo.avatarUrl
       api(this.data.formData).then((arrActivityId) => {
         // 跳转到活动详情界面：
         wx.navigateTo({

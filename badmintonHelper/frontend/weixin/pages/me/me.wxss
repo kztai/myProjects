@@ -1,1 +1,31 @@
-/* pages/me/me.wxss */
+.me-wrap {
+  width: 100vw;
+  height: 100vh;
+  background-color: #efefef;
+  padding: 32rpx;
+  box-sizing: border-box;
+}
+.me-wrap .area-wrap {
+  background-color: #fff;
+  overflow: hidden;
+  border-radius: 32rpx;
+  margin-bottom: 20rpx;
+}
+
+.me-wrap .area-wrap .item-wrap {
+  display: flex;
+  border-bottom: 1px solid #d9d9d9;
+  padding: 20rpx;
+}
+.me-wrap .item-wrap .item-icon {
+  flex: 0;
+  margin-right: 20rpx;
+  align-self: center;
+}
+.me-wrap .item-wrap .item-name {
+  flex: 1;
+}
+.me-wrap .item-wrap .item-more {
+  flex: 0;
+  align-self: center;
+}
